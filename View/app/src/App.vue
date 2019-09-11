@@ -8,11 +8,13 @@
 </template>
 
 <script>
-
+import HelloWorld from './components/core/HelloWorld.vue'
 
 export default {
   name: 'app',
 }
+
+
 </script>
 
 <style>
