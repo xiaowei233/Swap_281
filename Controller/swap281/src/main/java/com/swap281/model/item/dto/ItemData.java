@@ -1,4 +1,4 @@
-package com.swap281.model;
+package com.swap281.model.item.dto;
 
 /**
  * This class hold the object fields and constructors for the corresponding

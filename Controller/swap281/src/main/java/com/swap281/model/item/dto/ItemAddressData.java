@@ -1,9 +1,9 @@
-package com.swap281.repository;
+package com.swap281.model.item.dto;
 
 /**
  * This class hold the object fields and constructors for the corresponding object
  */
-public class AddressData {
+public class ItemAddressData {
     /**
      * The ID of the particular item's address data
      */
@@ -55,7 +55,7 @@ public class AddressData {
      * @param state_
      * @param zipcode_
      */
-    public AddressData(int addressId_, int itemId_, float longitude_, float latitude_, String address_, String city_, String state_, int zipcode_){
+    public ItemAddressData(int addressId_, int itemId_, float longitude_, float latitude_, String address_, String city_, String state_, int zipcode_){
         addressId = addressId_;
         itemId = itemId_;
         longitude = longitude_;
