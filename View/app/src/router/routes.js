@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import HelloWorld from '../components/HelloWorld.vue'
 import HomePage from '../components/HomePage.vue'
-//import ItemList from '../components/ItemList.vue'
+import ItemList from '../components/ItemList.vue'
 
 Vue.use(Router)
 
@@ -19,11 +19,11 @@ export default new Router({
         name: 'testPage',
         component: HomePage
     },
-    // {
-    //   path: '/item',
-    //   name: 'viewAllItems',
-    //   component: ItemList
-    // }
+    {
+      path: '/item',
+      name: 'Items',
+      component: ItemList
+    }
   ],
   mode: 'history'
 })
