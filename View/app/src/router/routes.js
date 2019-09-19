@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld.vue'
 import HomePage from '../components/HomePage.vue'
 import ItemList from '../components/ItemList.vue'
+import Items from '../components/Items.vue'
 
 Vue.use(Router)
 
