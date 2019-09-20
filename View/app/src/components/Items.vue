@@ -13,6 +13,11 @@
 
       <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
+    <div id="components-demo">
+      <buttonCounter></buttonCounter>
+      <buttonCounter></buttonCounter>
+      <buttonCounter></buttonCounter>
+    </div>
   </div>
 
 
@@ -20,6 +25,17 @@
 </template>
 
 <script>
+import buttonCounter from "./test";
+
+export default {
+  name: "ItemListTest",
+  components:{
+    buttonCounter
+  }
+  
+
+}
+
 
 </script>
 
