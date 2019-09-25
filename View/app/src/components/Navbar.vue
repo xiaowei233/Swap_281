@@ -10,7 +10,7 @@
         <b-nav-item to="/">Home</b-nav-item> 
         <b-nav-item to="/test">Some Title</b-nav-item> 
         <b-nav-item to="/item">Items</b-nav-item>  
-        <b-nav-item href="#">Link</b-nav-item>
+        <b-nav-item href="/itemDetail">Item Detail</b-nav-item>
         <b-nav-item href="#" disabled>Disabled</b-nav-item>
       </b-navbar-nav>
 
