@@ -1,7 +1,8 @@
 <template>
   <p class="homeText">
-    WELCOME TO ACCOUNT-OWNER APPLICATION
+    This is Home Page
   </p>
+
 </template>
 <script>
 export default {

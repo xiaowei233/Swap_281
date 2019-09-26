@@ -1,13 +1,13 @@
-package com.swap281.swap281;
+package com.cse281;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Swap281Application {
+public class SpringBootReactCrudFullStackWithMavenApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Swap281Application.class, args);
+		SpringApplication.run(SpringBootReactCrudFullStackWithMavenApplication.class, args);
 	}
 
 }
