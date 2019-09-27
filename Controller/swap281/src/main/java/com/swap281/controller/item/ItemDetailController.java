@@ -1,46 +1,38 @@
 package com.swap281.controller.item;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.swap281.model.StructuredResponse;
-import com.swap281.model.item.manager.IItemDetailManager;
-import com.swap281.model.item.manager.ItemDetailManager;
-import com.swap281.model.item.table.Item;
+import com.swap281.model.item.Item;
+import com.swap281.repository.item.repo.ItemDetailRepository;
+
 
 @RestController
+@RequestMapping("/item/detail")
 public class ItemDetailController {
-	final IItemDetailManager itemDetailManager;
 
-	public ItemDetailController (ItemDetailManager _itemManager) {
-		itemDetailManager = _itemManager;
+	private ItemDetailRepository _itemRepo;
+	
+
+    @Autowired
+    public ItemDetailController(ItemDetailRepository itemRepo) {
+        this._itemRepo = itemRepo;
+    }
+    
+	@GetMapping("/{id}")
+	public Item getItemId(@PathVariable Long id)
+	{
+		return _itemRepo.findById(id).orElseThrow(null);
 	}
 	
-    @RequestMapping(value="item", params = {"id"}, method = RequestMethod.GET)
-    public @ResponseBody Item getItemById(@RequestParam("id") int id){
-        return itemDetailManager.findItem(id);
-    }
-
-    @RequestMapping(value="item", method = RequestMethod.POST)
-    public StructuredResponse postNewItem(@RequestBody Item item) {
-    	if (item == null) return null;
-    	return itemDetailManager.postItem(item);
-    }
-
-    @RequestMapping(value="item", method = RequestMethod.DELETE)
-    public Item deleteItemById(@RequestParam("id") long id) {
-        return itemDetailManager.deleteItem(id);
-    }
-
-    @RequestMapping(value="item/edit/{id}", method = RequestMethod.PUT)
-    public Item editItemById(@PathVariable long id) {
-    	if (id < 0) return null;
-            //TODO
-        return null;
-    }
+	@GetMapping("/post")
+	public Item postItem(@RequestParam String name)
+	{
+		return _itemRepo.save(new Item(name));
+	}
 }

@@ -1,27 +1,19 @@
 package com.swap281;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@SpringBootApplication
+@ServletComponentScan
+@SpringBootApplication(scanBasePackages = "com.swap281")
+@EnableJpaRepositories(basePackages = "com.swap281.repository.item.repo")
+@EntityScan(basePackages = "com.swap281.repository.item.model")
 public class Swap281Application {
-
-    private static final Logger log = LoggerFactory.getLogger(Swap281Application.class);
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(Swap281Application.class, args);
 	}
-
-
-    public void run(String[] args) {
-
-        log.info("StartApplication...");
-        // sample test here
-    }
 }
