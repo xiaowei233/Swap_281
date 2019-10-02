@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <!-- <router-link :to="{ name: 'HelloWorld' }">Home</router-link>
-    <router-link to="/test">Some Title</router-link> -->
-    <Navbar 
-    
-    />
+    <Navbar />
     <router-view></router-view>
 
   </div>
