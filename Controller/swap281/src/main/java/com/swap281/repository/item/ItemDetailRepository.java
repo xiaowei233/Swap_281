@@ -1,4 +1,4 @@
-package com.swap281.repository.item.repo;
+package com.swap281.repository.item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
