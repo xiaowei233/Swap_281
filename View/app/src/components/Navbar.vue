@@ -5,8 +5,7 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item :to="{ name: 'item' }">All Items</b-nav-item>
-        <b-nav-item :to="{ name: 'ItemPost' }">Post an Item</b-nav-item>
+        <b-nav-item :to="{ name: 'ItemList' }">All Items</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

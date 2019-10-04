@@ -31,12 +31,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
-
-import ItemDataService from '../../service';
+import ItemDataService from './ItemDataService';
 
 export default {
-    name: "Items",
+    name: "ItemList",
     data() {
         return {
             items: [],

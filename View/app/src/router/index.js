@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HomePage from '@/components/HomePage';
-import item from '@/components/item/item'
+import ItemList from '@/components/item/ItemList'
 import Profile from '@/components/Profile'
 Vue.use(Router);
  
@@ -15,8 +15,8 @@ export default new Router({
     },
     {
       path: '/item/list/all',
-      name: 'item',
-      component: item
+      name: 'ItemList',
+      component: ItemList
     },
     {
       path: '/Profile',
