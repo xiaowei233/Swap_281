@@ -7,5 +7,4 @@ import com.swap281.model.item.Item;
 
 @RepositoryRestResource
 public interface ItemDetailRepository extends JpaRepository<Item, Long>  {
-
 }
