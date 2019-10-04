@@ -14,7 +14,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in items" v-bind:key="item.id">
+                            <tr v-for="item in items" v-bind:key="item.id" v-on:click="getItemById(item.id)">
                                 <td>{{item.id}}</td>
                                 <td>{{item.title}}</td>
                                 <td>{{item.description}}</td>
@@ -48,6 +48,10 @@ export default {
                 this.items = res.data;
             });
         },
+        getItemById(id){
+            this.$router.push(`/item/${id}`)
+        }
+
     },
     created() {
         this.refresh();

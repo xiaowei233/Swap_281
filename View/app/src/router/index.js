@@ -19,6 +19,11 @@ export default new Router({
       component: ItemList
     },
     {
+      path: '/item/:id',
+      name: 'itemDetail',
+      component: itemDetail
+    },
+    {
       path: '/Profile',
       name: 'Profile',
       component: Profile
