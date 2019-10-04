@@ -7,8 +7,4 @@ import com.swap281.model.item.Item;
 
 @RepositoryRestResource
 public interface ItemDetailRepository extends JpaRepository<Item, Long>  {
-//    
-//    @Async
-//    @Query("SELECT i FROM Item i where i.id = :id") 
-//    Future<String> findItemById(@Param("id") Long id);
 }
