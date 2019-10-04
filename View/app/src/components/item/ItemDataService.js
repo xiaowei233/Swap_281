@@ -9,6 +9,10 @@ class ItemDataService {
         return axios.get(`${URL}/item/list/all`);
     }
 
+    // eslint-disable-next-line
+    getItemById(id) {
+        return axios.get(`${URL}/items/${id}`);
+    }
 
     postNewItem(newItem) {
         return axios.post(`${URL}/item/detail/post`, newItem);

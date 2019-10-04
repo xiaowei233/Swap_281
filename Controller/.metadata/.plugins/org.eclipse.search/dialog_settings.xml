@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="">
+		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+	</section>
+	<section name="org.eclipse.search.text.FileSearchResultPage">
+		<item key="org.eclipse.search.resultpage.limit" value="1000"/>
+	</section>
+	<section name="DialogBounds_SearchHistorySelectionDialog">
+		<item key="DIALOG_WIDTH" value="466"/>
+		<item key="DIALOG_HEIGHT" value="346"/>
+		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+	</section>
+	<section name="MatchFilterSelectionDialog_true.false">
+		<item key="DIALOG_X_ORIGIN" value="496"/>
+		<item key="DIALOG_Y_ORIGIN" value="263"/>
+		<item key="DIALOG_WIDTH" value="288"/>
+		<item key="DIALOG_HEIGHT" value="136"/>
+		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+	</section>
+</section>
