@@ -2,12 +2,9 @@
 <div>
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand :to="{ name: 'HomePage' }">Home</b-navbar-brand>
-
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <!-- <router-link to="/itemList">ItemList</router-link>  -->
         <b-nav-item :to="{ name: 'item' }">TEST</b-nav-item>
         <b-nav-item :to="{ name: 'ItemPost' }">Post an Item</b-nav-item>
       </b-navbar-nav>

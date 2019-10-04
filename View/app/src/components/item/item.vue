@@ -50,18 +50,6 @@ export default {
                 this.items = res.data;
             });
         },
-        postItem() {
-            this.$router.push(`/ItemPost`);
-        },
-        // updateCourse(id) {
-        //     this.$router.push(`/items/${id}`);
-        // },
-        // deleteCourse(id) {
-        //     CourseDataService.deleteCourse(this.INSTRUCTOR, id)
-        //     .then(() => {
-        //         this.refreshCourses();
-        //     });
-        // },
     },
     created() {
         this.refresh();

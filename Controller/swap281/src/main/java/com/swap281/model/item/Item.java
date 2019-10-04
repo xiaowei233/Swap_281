@@ -49,13 +49,4 @@ public class Item {
     public Item() {
     	
     }
-//    
-//    public Long getId() {
-//    	return this.id;
-//    }
-//    public String getTitle() {
-//    	return this.title;
-//    }
-//    
-//    public Date getCreateDate = () -> return this.createDate;
 }

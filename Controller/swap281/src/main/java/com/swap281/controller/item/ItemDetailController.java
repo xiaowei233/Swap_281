@@ -29,10 +29,5 @@ public class ItemDetailController {
 	{
 		return _itemRepo.findById(id).orElseThrow(null);
 	}
-	
-//	@GetMapping("/post")
-//	public Item postItem(@RequestParam String name)
-//	{
-//		return _itemRepo.save(new Item(name));
-//	}
+
 }
