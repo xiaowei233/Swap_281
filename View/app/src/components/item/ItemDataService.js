@@ -11,7 +11,7 @@ class ItemDataService {
 
     // eslint-disable-next-line
     getItemById(id) {
-        return axios.get(`${URL}/items/${id}`);
+        return axios.get(`${URL}/item/detail/${id}`);
     }
 
     postNewItem(newItem) {

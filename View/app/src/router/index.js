@@ -10,6 +10,7 @@ import UserEmailVerification from '@/components/user/UserEmailVerification'
 import UserSignIn from '@/components/user/UserSignIn'
 import ItemPostConfirmation from '@/components/item/ItemPostConfirmation'
 import Profile from '@/components/Profile'
+import ItemDetail from '@/components/item/ItemDetail'
 Vue.use(Router);
   
 export default new Router({
