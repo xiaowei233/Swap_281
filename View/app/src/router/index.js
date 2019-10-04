@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import HomePage from '@/components/HomePage';
 import ItemList from '@/components/item/ItemList'
 import Profile from '@/components/Profile'
+import ItemDetail from '@/components/item/ItemDetail'
 Vue.use(Router);
  
 export default new Router({
@@ -19,9 +20,9 @@ export default new Router({
       component: ItemList
     },
     {
-      path: '/item/:id',
-      name: 'itemDetail',
-      component: itemDetail
+      path: '/item/detail/:id',
+      name: 'ItemDetail',
+      component: ItemDetail
     },
     {
       path: '/Profile',
