@@ -21,6 +21,16 @@
 
 
 	<dependencies>
+	<dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-search-orm</artifactId>
+    	<version>5.8.2.Final</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-entitymanager</artifactId>
+    	<version>5.3.7.Final</version>
+	</dependency>
     <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>

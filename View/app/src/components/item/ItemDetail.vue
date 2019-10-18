@@ -28,8 +28,6 @@
             </div>
 </template>
 <script>
-import Vue from 'vue';
-
 import ItemDataService from './ItemDataService';
 
 export default {
