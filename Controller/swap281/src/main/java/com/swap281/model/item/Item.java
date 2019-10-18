@@ -1,52 +1,52 @@
 package com.swap281.model.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import org.springframework.stereotype.Indexed;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Indexed
 @Table(name = "item")
 public class Item {
-	@Id
-	@Column(name = "id")
+    @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     @Column(name = "title", length = 256)
     public String title;
-    
+
     @Column(name = "create_date")
     public Date createDate = new Date();
-    
+
     @Column(name = "category_id")
-    public int  categoryId;
-       
+    public int categoryId;
+
     @Column(name = "description")
     public String description;
 
     @Column(name = "price")
     public BigDecimal price;
-    
+
     @Column(name = "user_id")
     public long user_id;
-    
+
     @Column(name = "availability")
     public boolean availability = true;
-    
+
     @Column(name = "trade_method_id")
     public long trade_method_id = 1;
-    
+
     @Column(name = "thumbnail")
     public byte[] thumbnail;
     
@@ -64,8 +64,8 @@ public class Item {
     	this.thumbnail = thumbnail;
     			
     }
-    
+
     public Item() {
-    	
+
     }
 }

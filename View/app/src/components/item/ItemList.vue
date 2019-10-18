@@ -40,6 +40,27 @@ export default {
     },
     toItemDetail(id) {
       window.location.href = "/itemDetail?id=" + id;
+    getItemById(item) {
+      this.$router.push(`/item/detail/${item.itemDetailId}`);
+    },
+    lowToHigh(){
+        ItemDataService.lowToHigh().then(res => {
+        this.items = res.data;
+      });
+    //   this.$router.push(`/item/list/lowToHigh`);
+    },
+    highToLow(){
+        ItemDataService.highToLow().then(res => {
+        this.items = res.data;});
+        // this.$router.push(`/item/istl/highToLow`);
+    },
+    earlyToLate(){
+        ItemDataService.earlyToLate().then(res => {
+        this.items = res.data;});
+    },
+    lateToEarly(){
+        ItemDataService.lateToEarly().then(res => {
+        this.items = res.data;});
     }
   },
   created() {
