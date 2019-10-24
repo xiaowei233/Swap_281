@@ -4,14 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.model.item.Item;
-import com.swap281.model.item.ItemSpecification;
 import com.swap281.repository.item.ItemListRepository;
 
 
@@ -62,14 +61,14 @@ public class ItemListController {
 		
 		return articles;
 	}
-	@GetMapping("/search")
-	public List<Item> search()
-	{
-		Item itemFilter = new Item();
-		Specification<Item> spec = new ItemSpecification(itemFilter);
-		List<Item> articles = _itemRepo.findAll(spec);
-		
-		return articles;
-	}
+//	@GetMapping("/search")
+//	public List<Item> search()
+//	{
+//		Item itemFilter = new Item();
+//		Specification<Item> spec = new ItemSpecification(itemFilter);
+//		List<Item> articles = _itemRepo.findAll(spec);
+//		
+//		return articles;
+//	}
 	
 }

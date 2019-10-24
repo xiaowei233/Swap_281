@@ -7,6 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.swap281.model.item.Item;
 
 @RepositoryRestResource
-public interface ItemListRepository extends JpaRepository<Item, Long>, JpaSpecificationExecutor<Item>  {
+public interface ItemListRepository extends JpaRepository<Item, Long>{
 
 }
