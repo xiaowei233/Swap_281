@@ -3,7 +3,7 @@
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     <h2>Item Posted</h2>
-    <vs-textarea label="Your item is uploaded. You will be redirectly to the homepage shortly" height="200px" />
+    <p>Your item is uploaded. You will be redirectly to the homepage shortly..</p>
 
 </div>
 </template>

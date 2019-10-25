@@ -35,11 +35,17 @@ public class UserAccount {
 	private EmailBuilder mailContentBuilder;
     
 	@PostMapping("register")
-	private User RegisterNewUser(@RequestBody User newUser) throws Exception
+	private User RegisterNewUser(@RequestBody User newUser)
 	{
 		User user = _userRepo.save(newUser);
-		sendEmail(user.username, user.token, user.email);
-        System.out.println("\nEmail sent!\n");
+		new Thread(() -> {
+			try {
+				sendEmail(user.username, user.token, user.email);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}).start();
 		return user;
 	}
 	
@@ -71,18 +77,19 @@ public class UserAccount {
 	}
 	
 	private void sendEmail(String username, UUID token, String email) throws Exception{
+        String link = "http://localhost:8080/user/email-verify/" + token.toString();
+        String message = "Click the link to complete account acitivation.";
 	    MimeMessagePreparator messagePreparator = mimeMessage -> {
 	        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 	        messageHelper.setTo(email);
 	        messageHelper.setSubject("Swap Account Activation || Swap - Trading Platform for Lehigh");
-	        
-	        String link = "http://localhost:8080/user/email-verify/" + token.toString();
-	        String message = "Click the link to complete account acitivation.";
+
 	        String content = mailContentBuilder.build(username, link, message);
 	        messageHelper.setText(content, true);
 	    };
 	    try {
 	        mailSender.send(messagePreparator);
+	        System.out.println("Verification email sent to " + email + " with link " + link + "\n");
 	    } catch (MailException e) {
 	        // runtime exception; compiler will not force you to handle it
 	    }

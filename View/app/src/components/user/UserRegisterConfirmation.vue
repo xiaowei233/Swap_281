@@ -3,7 +3,7 @@
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     <h2>Register Completed</h2>
-    <vs-textarea label="Check your email to finish your account registration" height="200px" />
+    <p>Check your email to finish your account registration</p>
 
 </div>
 </template>

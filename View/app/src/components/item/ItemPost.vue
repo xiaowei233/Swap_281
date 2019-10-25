@@ -3,7 +3,7 @@
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     <h2>Post an item</h2>
-    <form v-if="!submitted">
+    <form>
         <label>Item Title:</label>
         <input class="form-control" type="text" v-model.lazy="itemPost.title" required />
 

@@ -4,12 +4,12 @@
 
     <div v-if="emailVerified">
         <h2>Account Email Verified</h2>
-        <vs-textarea label="You completed the account registratoin process, you will be redirected to homepage shortly." height="200px" />
+        <p>You completed the account registratoin process, you will be redirected to homepage shortly.</p>
     </div>
 
     <div v-if="error">
         <h2>Account Email Verification Failed</h2>
-        <vs-textarea label="Something went wrong. Check later." height="200px" />
+        <p>Something went wrong. Check later.</p>
     </div>
 </div>
 </template>

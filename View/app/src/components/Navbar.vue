@@ -62,6 +62,7 @@ export default {
         },
         SignOut(){
           UserAccount.SignOut();
+          window.location.reload();
           this.refresh();
         }
     },
