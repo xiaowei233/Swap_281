@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.model.item.Item;
-import com.swap281.repository.item.ItemListRepository;
+import com.swap281.repository.item.ItemRepository;
 
 
 @RestController
@@ -17,10 +17,10 @@ import com.swap281.repository.item.ItemListRepository;
 @CrossOrigin(origins = { "http://localhost:8081", "http://localhost:23333", "http://localhost:8080" })
 public class ItemListController {
 
-	private ItemListRepository _itemRepo;
+	private ItemRepository _itemRepo;
 	
     @Autowired
-    public ItemListController(ItemListRepository itemRepo) {
+    public ItemListController(ItemRepository itemRepo) {
         this._itemRepo = itemRepo;
     }
 
