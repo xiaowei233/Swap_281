@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.swap281.model.item.Item;
 import com.swap281.model.item.ItemCategory;
 import com.swap281.repository.item.ItemCategoryRepository;
-import com.swap281.repository.item.ItemDetailRepository;
-import com.swap281.repository.item.ItemListRepository;
+import com.swap281.repository.item.ItemRepository;
 
 
 @RestController
@@ -24,12 +23,12 @@ import com.swap281.repository.item.ItemListRepository;
 
 public class ItemDetailController {
 
-	private ItemDetailRepository _itemRepo;
+	private ItemRepository _itemRepo;
 	private ItemCategoryRepository _itemCategoryRepo;
 
 
     @Autowired
-    public ItemDetailController(ItemDetailRepository itemRepo, ItemListRepository itemListRepo, ItemCategoryRepository itemCategoryRepo) {
+    public ItemDetailController(ItemRepository itemRepo, ItemCategoryRepository itemCategoryRepo) {
         this._itemRepo = itemRepo;
         this._itemCategoryRepo = itemCategoryRepo;
     }

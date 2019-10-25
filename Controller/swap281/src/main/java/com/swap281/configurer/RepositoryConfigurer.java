@@ -9,8 +9,7 @@ import com.swap281.model.item.ItemCategory;
 import com.swap281.model.user.User;
 import com.swap281.repository.UserAccountRepository;
 import com.swap281.repository.item.ItemCategoryRepository;
-import com.swap281.repository.item.ItemDetailRepository;
-import com.swap281.repository.item.ItemListRepository;
+import com.swap281.repository.item.ItemRepository;
 
 /**
  * IDs are not returned by RestRepository by default. I like them exposed so that the client can easily find
@@ -21,8 +20,7 @@ public class RepositoryConfigurer implements RepositoryRestConfigurer {
 
   @Override
   public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-    config.exposeIdsFor(ItemDetailRepository.class);
-    config.exposeIdsFor(ItemListRepository.class);
+    config.exposeIdsFor(ItemRepository.class);
     config.exposeIdsFor(Item.class);
     config.exposeIdsFor(ItemCategory.class);    
     config.exposeIdsFor(ItemCategoryRepository.class);
