@@ -1,0 +1,37 @@
+<template>
+<div id="add-blog">
+    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
+
+    <h2>Register Completed</h2>
+    <vs-textarea label="Check your email to finish your account registration" height="200px" />
+
+</div>
+</template>
+
+<script>
+export default {
+    name: "UserRegisterConfirmation",
+    data() {
+        return {
+            emailConfirmed: false,
+        }
+    },
+    methods: {
+
+    },
+    created: function () {
+
+    }
+}
+</script>
+
+<style scoped>
+#add-blog * {
+    box-sizing: border-box;
+}
+
+#add-blog {
+    margin: 20px auto;
+    max-width: 500px;
+}
+</style>

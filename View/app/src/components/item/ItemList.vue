@@ -23,9 +23,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="row">
-                        <button class="btn btn-success" v-on:click="postItem()">Post New Item</button>
-                    </div>
                 </div>
             </div>
 </template>
