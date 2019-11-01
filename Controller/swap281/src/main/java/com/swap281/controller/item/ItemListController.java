@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,15 +56,6 @@ public class ItemListController {
 	@GetMapping("/lateToEarly")
 	public List<Item> lateToEarly() {
 		List<Item> articles = _itemRepo.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
-
-		return articles;
-	}
-
-	@GetMapping("/search")
-	public List<Item> search() {
-		Item itemFilter = new Item();
-		Specification<Item> spec = new ItemSpecification(itemFilter);
-		List<Item> articles = _itemRepo.findAll(spec);
 
 		return articles;
 	}
