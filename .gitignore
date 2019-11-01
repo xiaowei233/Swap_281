@@ -4,3 +4,4 @@ app/node_modules
 .vscode
 */.vscode
 Controller/swap281/.metadata/
+.project

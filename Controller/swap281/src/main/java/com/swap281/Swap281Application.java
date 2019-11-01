@@ -23,7 +23,7 @@ public class Swap281Application {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/user/account/username-check").allowedOrigins("http://localhost:8080");
+                registry.addMapping("/**").allowedOrigins("http://localhost:8080");
             }
         };
     }

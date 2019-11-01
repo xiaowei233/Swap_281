@@ -17,6 +17,10 @@ class ItemDataService {
     getItemCategoryFilter(){
         return axios.get(`${URL}/item/detail/category-drop-down`);
     }
+    // eslint-disable-next-line
+    getItemById(itemId) {
+        return axios.get(`${URL}/item/detail/${itemId}`);
+    }
 }
 
 export default new ItemDataService()

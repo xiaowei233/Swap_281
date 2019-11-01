@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Indexed;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Indexed
 @Table(name = "item")
@@ -21,7 +23,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column(name = "title", length = 50)
+    @Column(name = "title", length = 256)
     public String title;
     
     @Column(name = "create_date")
@@ -32,7 +34,7 @@ public class Item {
        
     @Column(name = "description")
     public String description;
-    
+
     @Column(name = "price")
     public BigDecimal price;
     
@@ -49,12 +51,12 @@ public class Item {
     public byte[] thumbnail;
     
     
-    public Item(String title, Date createDate, int categoryId, String descritption, BigDecimal price, long user_id,boolean availability, long trade_method_id, byte[] thumbnail)
+    public Item(String title, Date createDate, int categoryId, String description, BigDecimal price, long user_id,boolean availability, long trade_method_id, byte[] thumbnail)
     {
     	this.title = title;
     	this.createDate = createDate;
     	this.categoryId = categoryId;
-    	this.description = descritption;
+    	this.description = description;
     	this.price = price;
     	this.user_id = user_id;
     	this.availability = availability;

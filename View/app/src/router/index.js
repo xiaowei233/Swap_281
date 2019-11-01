@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomePage from '@/components/HomePage';
+import HelloWorld from '@/components/HelloWorld'
 import ItemList from '@/components/item/ItemList'
+import ItemDetail from '@/components/item/ItemDetail.vue';
 import ItemPost from '@/components/item/ItemPost'
 import UserRegister from '@/components/user/UserRegister'
 import UserRegisterConfirmation from '@/components/user/UserRegisterConfirmation'
@@ -16,8 +17,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HomePage',
-      component: HomePage
+      name: 'HelloWorld',
+      component: HelloWorld
     },
     {
       path: '/item/list/all',
@@ -25,7 +26,12 @@ export default new Router({
       component: ItemList
     },
     {
-      path: '/Profile',
+      path: '/itemDetail',
+      name: 'itemDetail',
+      component: ItemDetail
+    },
+    {
+      path: '/profile',
       name: 'Profile',
       component: Profile
     },
