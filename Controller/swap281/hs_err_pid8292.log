@@ -1,0 +1,134 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x0000000110bf948a, pid=8292, tid=28047
+#
+# JRE version: Java(TM) SE Runtime Environment (10.0.2+13) (build 10.0.2+13)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (10.0.2+13, mixed mode, tiered, compressed oops, g1 gc, bsd-amd64)
+# Problematic frame:
+# C  [libjimage.dylib+0x248a]  _ZNK15ImageFileReader19find_location_indexEPKcPy+0x2c
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:54153 -javaagent:/Users/kurumi/eclipse/jee-2019-09/Eclipse.app/Contents/Eclipse/configuration/org.eclipse.osgi/404/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 com.swap281.Swap281Application
+
+Host: MacBook9,1 x86_64 1300 MHz, 4 cores, 8G, Darwin 18.7.0
+Time: Fri Nov  1 14:13:43 2019 EDT elapsed time: 11821 seconds (0d 3h 17m 1s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fd1928b1000):  JavaThread "Thread-3" [_thread_in_vm, id=28047, stack(0x0000700010ffe000,0x00007000110fe000)]
+
+Stack: [0x0000700010ffe000,0x00007000110fe000],  sp=0x00007000110fb450,  free space=1013k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libjimage.dylib+0x248a]  _ZNK15ImageFileReader19find_location_indexEPKcPy+0x2c
+C  [libjimage.dylib+0x2831]  JIMAGE_FindResource+0xd7
+V  [libjvm.dylib+0x2162b9]  _ZN19ClassPathImageEntry11open_streamEPKcP6Thread+0x45
+V  [libjvm.dylib+0x2187ca]  _ZN11ClassLoader10load_classEP6SymbolbP6Thread+0x16a
+V  [libjvm.dylib+0x7164c6]  _ZN16SystemDictionary19load_instance_classEP6Symbol6HandleP6Thread+0x36e
+V  [libjvm.dylib+0x715445]  _ZN16SystemDictionary30resolve_instance_class_or_nullEP6Symbol6HandleS2_P6Thread+0x4fd
+V  [libjvm.dylib+0x714b63]  _ZN16SystemDictionary15resolve_or_failEP6Symbol6HandleS2_bP6Thread+0x1b
+V  [libjvm.dylib+0x283f64]  _ZN12ConstantPool13klass_at_implERK18constantPoolHandleibP6Thread+0x10c
+V  [libjvm.dylib+0x69bffa]  _ZN12ConstantPool8klass_atEiP6Thread+0x4e
+V  [libjvm.dylib+0x3ce5a5]  _ZN18InterpreterRuntime4_newEP10JavaThreadP12ConstantPooli+0x2d
+j  java.util.AbstractMap.values()Ljava/util/Collection;+9 java.base@10.0.2
+j  org.springframework.orm.hibernate5.SpringBeanContainer.stop()V+4
+j  org.hibernate.resource.beans.internal.ManagedBeanRegistryImpl.stop()V+11
+j  org.hibernate.service.internal.AbstractServiceRegistryImpl.stopService(Lorg/hibernate/service/spi/ServiceBinding;)V+19
+j  org.hibernate.service.internal.AbstractServiceRegistryImpl.destroy()V+71
+j  org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$ServiceRegistryCloser.sessionFactoryClosed(Lorg/hibernate/SessionFactory;)V+11
+j  org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryClosed(Lorg/hibernate/SessionFactory;)V+40
+j  org.hibernate.internal.SessionFactoryImpl.close()V+213
+v  ~StubRoutines::call_stub
+V  [libjvm.dylib+0x3d8c0e]  _ZN9JavaCalls11call_helperEP9JavaValueRK12methodHandleP17JavaCallArgumentsP6Thread+0x216
+V  [libjvm.dylib+0x69b6ba]  _ZL6invokeP13InstanceKlassRK12methodHandle6Handleb14objArrayHandle9BasicTypeS5_bP6Thread+0x71d
+V  [libjvm.dylib+0x69af53]  _ZN10Reflection13invoke_methodEP7oopDesc6Handle14objArrayHandleP6Thread+0xf7
+V  [libjvm.dylib+0x4561bb]  JVM_InvokeMethod+0x1b2
+J 3042  jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (0 bytes) @ 0x0000000126d2e130 [0x0000000126d2e040+0x00000000000000f0]
+J 3041 c1 jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (104 bytes) @ 0x000000011fd776e4 [0x000000011fd772c0+0x0000000000000424]
+J 2398 c1 jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (10 bytes) @ 0x0000000126cc5024 [0x0000000126cc4fc0+0x0000000000000064]
+J 2295 c1 java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (65 bytes) @ 0x000000011fb62b3c [0x000000011fb62a00+0x000000000000013c]
+j  org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.invokeProxyMethod(Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+158
+j  org.springframework.orm.jpa.AbstractEntityManagerFactoryBean$ManagedEntityManagerFactoryInvocationHandler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+98
+j  com.sun.proxy.$Proxy98.close()V+9
+j  org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.destroy()V+61
+j  org.springframework.beans.factory.support.DisposableBeanAdapter.destroy()V+139
+j  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(Ljava/lang/String;Lorg/springframework/beans/factory/DisposableBean;)V+135
+j  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(Ljava/lang/String;)V+41
+j  org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(Ljava/lang/String;)V+2
+j  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons()V+106
+j  org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons()V+1
+j  org.springframework.context.support.AbstractApplicationContext.destroyBeans()V+4
+j  org.springframework.context.support.AbstractApplicationContext.doClose()V+130
+j  org.springframework.context.support.AbstractApplicationContext$1.run()V+14
+v  ~StubRoutines::call_stub
+V  [libjvm.dylib+0x3d8c0e]  _ZN9JavaCalls11call_helperEP9JavaValueRK12methodHandleP17JavaCallArgumentsP6Thread+0x216
+V  [libjvm.dylib+0x3d8222]  _ZN9JavaCalls12call_virtualEP9JavaValueP5KlassP6SymbolS5_P17JavaCallArgumentsP6Thread+0x12a
+V  [libjvm.dylib+0x3d82e2]  _ZN9JavaCalls12call_virtualEP9JavaValue6HandleP5KlassP6SymbolS6_P6Thread+0x6a
+V  [libjvm.dylib+0x454078]  _ZL12thread_entryP10JavaThreadP6Thread+0x77
+V  [libjvm.dylib+0x74679c]  _ZN10JavaThread17thread_main_innerEv+0x86
+V  [libjvm.dylib+0x633a5f]  _ZL19thread_native_entryP6Thread+0x12b
+C  [libsystem_pthread.dylib+0x32eb]  _pthread_body+0x7e
+C  [libsystem_pthread.dylib+0x6249]  _pthread_start+0x42
+C  [libsystem_pthread.dylib+0x240d]  thread_start+0xd
+C  0x0000000000000000
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  java.util.AbstractMap.values()Ljava/util/Collection;+9 java.base@10.0.2
+j  org.springframework.orm.hibernate5.SpringBeanContainer.stop()V+4
+j  org.hibernate.resource.beans.internal.ManagedBeanRegistryImpl.stop()V+11
+j  org.hibernate.service.internal.AbstractServiceRegistryImpl.stopService(Lorg/hibernate/service/spi/ServiceBinding;)V+19
+j  org.hibernate.service.internal.AbstractServiceRegistryImpl.destroy()V+71
+j  org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$ServiceRegistryCloser.sessionFactoryClosed(Lorg/hibernate/SessionFactory;)V+11
+j  org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryClosed(Lorg/hibernate/SessionFactory;)V+40
+j  org.hibernate.internal.SessionFactoryImpl.close()V+213
+v  ~StubRoutines::call_stub
+J 3042  jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (0 bytes) @ 0x0000000126d2e0b7 [0x0000000126d2e040+0x0000000000000077]
+J 3041 c1 jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (104 bytes) @ 0x000000011fd776e4 [0x000000011fd772c0+0x0000000000000424]
+J 2398 c1 jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (10 bytes) @ 0x0000000126cc5024 [0x0000000126cc4fc0+0x0000000000000064]
+J 2295 c1 java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@10.0.2 (65 bytes) @ 0x000000011fb62b3c [0x000000011fb62a00+0x000000000000013c]
+j  org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.invokeProxyMethod(Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+158
+j  org.springframework.orm.jpa.AbstractEntityManagerFactoryBean$ManagedEntityManagerFactoryInvocationHandler.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;+98
+j  com.sun.proxy.$Proxy98.close()V+9
+j  org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.destroy()V+61
+j  org.springframework.beans.factory.support.DisposableBeanAdapter.destroy()V+139
+j  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(Ljava/lang/String;Lorg/springframework/beans/factory/DisposableBean;)V+135
+j  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(Ljava/lang/String;)V+41
+j  org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(Ljava/lang/String;)V+2
+j  org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons()V+106
+j  org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons()V+1
+j  org.springframework.context.support.AbstractApplicationContext.destroyBeans()V+4
+j  org.springframework.context.support.AbstractApplicationContext.doClose()V+130
+j  org.springframework.context.support.AbstractApplicationContext$1.run()V+14
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x0000000000000088
+
+Register to memory mapping:
+
+RAX=0x0000000000000080 is an unknown value
+RBX=0x00000007c0947800 is pointing into metadata
+RCX=0x0000000000000020 is an unknown value
+RDX=0x00007000110fc580 is pointing into the stack for thread: 0x00007fd1928b1000
+RSP=0x00007000110fb450 is pointing into the stack for thread: 0x00007fd1928b1000
+RBP=0x00007000110fb4c0 is pointing into the stack for thread: 0x00007fd1928b1000
+RSI=0x00000000c0947800 is an unknown value
+RDI=0x00000007c0947800 is pointing into metadata
+R8 =0x00007000110fc580 is pointing into the stack for thread: 0x00007fd1928b1000
+R9 =0x00007000110fc490 is pointing into the stack for thread: 0x00007fd1928b1000
+R10=0x00000001106f2250: AssumeMP+0 in /Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/server/libjvm.dylib at 0x000000010fd95000
+R11=0xfffff02e7f51bc92 is an unknown value
+R12=0x0000000000000000 is an unknown value
+R13=0x00007fd18af06de0 is an unknown value
+R14=0x00007000110fc580 is pointing into the stack for thread: 0x00007fd1928b1000
+R15=0x00007000110fb4f0 is pointing into the stack for thread: 0x00007fd1928b1000
+
+
+Registers:
+RAX=0x0000000000000080, RBX=0x00000007c0947800

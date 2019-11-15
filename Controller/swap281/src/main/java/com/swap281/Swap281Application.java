@@ -23,6 +23,7 @@ public class Swap281Application {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("http://localhost:8080");
+                registry.addMapping("/user/profile/edit").allowedOrigins("http://localhost:8080");
             }
         };
     }

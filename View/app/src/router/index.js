@@ -9,10 +9,15 @@ import UserRegisterConfirmation from '@/components/user/UserRegisterConfirmation
 import UserEmailVerification from '@/components/user/UserEmailVerification'
 import UserSignIn from '@/components/user/UserSignIn'
 import ItemPostConfirmation from '@/components/item/ItemPostConfirmation'
-import Profile from '@/components/Profile'
 import ItemDetail from '@/components/item/ItemDetail'
+import UserProfile from '@/components/user/UserProfile'
+import UserProfileEdit from '@/components/user/UserProfileEdit'
+import UserProfileEditConfirmation from '@/components/user/UserProfileEditConfirmation'
 Vue.use(Router);
-  
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
 export default new Router({
   mode: 'history',
   routes: [
@@ -65,6 +70,23 @@ export default new Router({
       path: '/item/post-confirm',
       name: 'ItemPostConfirmation',
       component: ItemPostConfirmation
-    }
+    },
+    {
+      path: '/user/profile/:id',
+      name: 'UserProfile',
+      component: UserProfile
+    },
+    {
+      path: '/user/profile-edit/:userId',
+      name: 'UserProfileEdit',
+      component: UserProfileEdit
+    },
+    {
+      path: '/user/profile-edit-confirm/:userId',
+      name: 'UserProfileEditConfirmation',
+      component: UserProfileEditConfirmation
+    },
+
+
   ]
 });
