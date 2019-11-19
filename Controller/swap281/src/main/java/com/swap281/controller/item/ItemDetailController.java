@@ -1,6 +1,5 @@
 package com.swap281.controller.item;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,34 +16,30 @@ import com.swap281.model.item.ItemCategory;
 import com.swap281.repository.item.ItemCategoryRepository;
 import com.swap281.repository.item.ItemRepository;
 
-
 @RestController
 @RequestMapping("/item/detail")
 @CrossOrigin(origins = { "http://localhost:8081", "http://localhost:23333", "http://localhost:8080" })
 public class ItemDetailController {
 
-	private ItemRepository _itemRepo;
-	private ItemCategoryRepository _itemCategoryRepo;
-
+    private ItemRepository _itemRepo;
+    private ItemCategoryRepository _itemCategoryRepo;
 
     @Autowired
     public ItemDetailController(ItemRepository itemRepo, ItemCategoryRepository itemCategoryRepo) {
         this._itemRepo = itemRepo;
         this._itemCategoryRepo = itemCategoryRepo;
     }
-    
-    
+
     @GetMapping(value = "/category-drop-down")
-    public List<ItemCategory> getCategoryFilter(){
-    	return _itemCategoryRepo.findAll();
+    public List<ItemCategory> getCategoryFilter() {
+        return _itemCategoryRepo.findAll();
     }
-    
+
     @PostMapping(value = "/post")
-    public Item postNewItem(@RequestBody Item newItem)
-    {
-    	return _itemRepo.save(newItem);
+    public Item postNewItem(@RequestBody Item newItem) {
+        return _itemRepo.save(newItem);
     }
-    
+
     @GetMapping(value = "/{id}")
     public Item getItemDetail(@PathVariable Long id)
     {

@@ -20,6 +20,18 @@ class UserDataService {
     auth(username, password) {
         return axios.put(`${URL}/user/account/auth/${username}/${password}`);
     }
+    getUserInfo(userId) {
+        return axios.get(`${URL}/user/profile/user-profile-info/${userId}`);
+    }
+    getUserPostedItems(userId) {
+        return axios.get(`${URL}/user/profile/user-posted-items/${userId}`);
+    }
+    edit(updatedProfile) {
+        console.log(updatedProfile)
+        return axios.post(`${URL}/user/profile/edit/`, updatedProfile);
+    }
+    
+    
 }
 
 export default new UserDataService()

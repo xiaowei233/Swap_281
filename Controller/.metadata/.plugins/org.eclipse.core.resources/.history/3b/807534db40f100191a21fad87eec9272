@@ -1,0 +1,5 @@
+package com.swap281.configurer;
+
+public class HibernateSearchConfig {
+
+}

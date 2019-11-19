@@ -21,18 +21,25 @@
             <b-nav-item :to="{ name: 'UserRegister' }">Sign Up</b-nav-item>
           </b-nav-form>
 
-          <b-nav-form v-if="isLoggedIn">
-            <b-nav-item-dropdown right>
-              <!-- Using 'button-content' slot -->
-              <template v-slot:button-content>
-                <em>{{username}}</em>
-              </template>
-              <!--<b-dropdown-item :to="{ name: 'Profile' }">Profile</b-dropdown-item> -->
-              <b-dropdown-item @click="SignOut">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
-          </b-nav-form>
-        </b-navbar-nav>
-      </b-collapse>
+                <b-nav-form v-if="!isLoggedIn">
+                    <b-nav-item :to="{ name: 'UserSignIn' }">Sign In</b-nav-item>
+                    <b-nav-item :to="{ name: 'UserRegister' }">Sign Up</b-nav-item>
+                </b-nav-form>
+
+                <b-nav-form v-if="isLoggedIn">
+                    <b-nav-item-dropdown right>
+                        <!-- Using 'button-content' slot -->
+                        <template v-slot:button-content>
+                            <em > {{username}}</em>
+                        </template>
+                        <!--<b-dropdown-item :to="{ name: 'Profile' }">Profile</b-dropdown-item> -->
+                        <b-dropdown-item @click="SignOut">Sign Out</b-dropdown-item>
+                        <b-dropdown-item @click="Profile">Profile</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                </b-nav-form>
+
+            </b-navbar-nav>
+        </b-collapse>
     </b-navbar>
   </div>
 </template>
@@ -57,6 +64,10 @@ export default {
       this.username = UserAccount.username;
       this.userId = UserAccount.userId;
       this.userSession = UserAccount.userSession;
+    },
+    Profile(){
+            this.$router.push({ path: `/user/profile/${this.userId}` });
+        }
     },
     SignOut() {
       UserAccount.SignOut();

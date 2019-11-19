@@ -9,6 +9,10 @@ class ItemDataService {
         return axios.get(`${URL}/item/list/all`);
     }
 
+    // eslint-disable-next-line
+    getItemById(id) {
+        return axios.get(`${URL}/item/detail/${id}`);
+    }
 
     postNewItem(newItem) {
         return axios.post(`${URL}/item/detail/post`, newItem);
@@ -17,9 +21,22 @@ class ItemDataService {
     getItemCategoryFilter(){
         return axios.get(`${URL}/item/detail/category-drop-down`);
     }
-    // eslint-disable-next-line
+
+    lowToHigh(){
+        return axios.get(`${URL}/item/list/lowToHigh`);
+    }
+    highToLow(){
+        return axios.get(`${URL}/item/list/highToLow`);
+    }
+    earlyToLate(){
+        return axios.get(`${URL}/item/list/earlyToLate`);
+    }
+    lateToEarly(){
+        return axios.get(`${URL}/item/list/lateToEarly`);
+
     getItemById(itemId) {
         return axios.get(`${URL}/item/detail/${itemId}`);
+
     }
 }
 

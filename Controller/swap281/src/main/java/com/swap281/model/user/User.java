@@ -33,25 +33,25 @@ public class User {
     public Long id;
 
     @Column(name = "username")
-    public String username;
+    public String username = "";
     
     @Column(name = "password")
-    public String password;
+    public String password = "";
     
     @Column(name = "email")
-    public String  email;
+    public String  email = "";
     
     @Column(name = "contact") 
-    public String contact;
+    public String contact = "";
     
     @Column(columnDefinition = "integer default 1", nullable=false)
     public Long privileged_group_id = (long) 1;
     
     @Column(name = "first_name")
-    public String first_name;
+    public String first_name ="";
     
     @Column(name = "last_name")
-    public String last_name;
+    public String last_name = "";
     
     @Column(name = "token")
     public UUID token = UUID.randomUUID();
@@ -61,10 +61,13 @@ public class User {
 
     @Column(name = "is_verified")
     public Boolean is_verified = false;
+    
+    @Column(name = "avatar")
+    public byte[] avatar = null;
 
     public User(Long id, String username, String password, String email, String contact,
             Long privileged_group_id, String first_name, String last_name, UUID token,
-            Date create_date, Boolean is_verified)
+            Date create_date, Boolean is_verified, byte[] avatar)
     {
     	this.id = id;
     	this.username = username;
@@ -76,6 +79,7 @@ public class User {
         this.token = token;
         this.create_date = create_date;
         this.is_verified = is_verified;
+        this.avatar = avatar;
     }
     
     public User() {
