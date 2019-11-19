@@ -21,11 +21,6 @@
             <b-nav-item :to="{ name: 'UserRegister' }">Sign Up</b-nav-item>
           </b-nav-form>
 
-                <b-nav-form v-if="!isLoggedIn">
-                    <b-nav-item :to="{ name: 'UserSignIn' }">Sign In</b-nav-item>
-                    <b-nav-item :to="{ name: 'UserRegister' }">Sign Up</b-nav-item>
-                </b-nav-form>
-
                 <b-nav-form v-if="isLoggedIn">
                     <b-nav-item-dropdown right>
                         <!-- Using 'button-content' slot -->
@@ -58,14 +53,6 @@ export default {
     };
   },
   methods: {
-    refresh() {
-      UserAccount.UserAccount();
-      this.isLoggedIn = UserAccount.isLoggedIn;
-      this.username = UserAccount.username;
-      this.userId = UserAccount.userId;
-      this.userSession = UserAccount.userSession;
-    },
-    methods: {
         refresh() {
           UserAccount.UserAccount();
           this.isLoggedIn = UserAccount.isLoggedIn;
@@ -80,11 +67,7 @@ export default {
         },
         Profile(){
             this.$router.push({ path: `/user/profile/${this.userId}` });
-        }
-    },
-    created() {
-        this.refresh();
-    }
+        },
   },
   created() {
     this.refresh();

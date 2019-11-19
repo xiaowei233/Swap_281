@@ -1,6 +1,7 @@
 <template>
 
 <div id="add-blog">
+    
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     <h2>Update Your Information Below</h2>

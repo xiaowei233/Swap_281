@@ -9,7 +9,7 @@ import UserRegisterConfirmation from '@/components/user/UserRegisterConfirmation
 import UserEmailVerification from '@/components/user/UserEmailVerification'
 import UserSignIn from '@/components/user/UserSignIn'
 import ItemPostConfirmation from '@/components/item/ItemPostConfirmation'
-import ItemDetail from '@/components/item/ItemDetail'
+
 import UserProfile from '@/components/user/UserProfile'
 import UserProfileEdit from '@/components/user/UserProfileEdit'
 import UserProfileEditConfirmation from '@/components/user/UserProfileEditConfirmation'
@@ -36,11 +36,7 @@ export default new Router({
       name: 'itemDetail',
       component: ItemDetail
     },
-    {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
-    },
+    
     {
       path: '/item/post',
       name: 'ItemPost',

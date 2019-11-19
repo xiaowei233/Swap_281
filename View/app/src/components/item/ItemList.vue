@@ -1,5 +1,10 @@
 <template>
+  
   <div class="container">
+    <div>
+    <div @click="highToLow()">high to low</div>
+    <div @click="lowToHigh()">low to high</div>
+  </div>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
         <div class="card h-100 customclass" @click="toItemDetail(item.id)">
@@ -40,6 +45,7 @@ export default {
     },
     toItemDetail(id) {
       window.location.href = "/itemDetail?id=" + id;
+    },
     getItemById(item) {
       this.$router.push(`/item/detail/${item.itemDetailId}`);
     },
