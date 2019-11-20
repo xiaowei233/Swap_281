@@ -10,30 +10,30 @@ class ItemDataService {
     }
 
     // eslint-disable-next-line
-    getItemById(id) {
-        return axios.get(`${URL}/item/detail/${id}`);
-    }
+    // getItemById(id) {
+    //     return axios.get(`${URL}/item/detail/${id}`);
+    // }
 
     postNewItem(newItem) {
         return axios.post(`${URL}/item/detail/post`, newItem);
     }
 
-    getItemCategoryFilter(){
+    getItemCategoryFilter() {
         return axios.get(`${URL}/item/detail/category-drop-down`);
     }
 
-    lowToHigh(){
+    lowToHigh() {
         return axios.get(`${URL}/item/list/lowToHigh`);
     }
-    highToLow(){
+    highToLow() {
         return axios.get(`${URL}/item/list/highToLow`);
     }
-    earlyToLate(){
+    earlyToLate() {
         return axios.get(`${URL}/item/list/earlyToLate`);
     }
-    lateToEarly(){
+    lateToEarly() {
         return axios.get(`${URL}/item/list/lateToEarly`);
-
+    }
     getItemById(itemId) {
         return axios.get(`${URL}/item/detail/${itemId}`);
 

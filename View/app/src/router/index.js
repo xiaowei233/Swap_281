@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld'
 import ItemList from '@/components/item/ItemList'
-import ItemDetail from '@/components/item/ItemDetail.vue';
+
 import ItemPost from '@/components/item/ItemPost'
 import UserRegister from '@/components/user/UserRegister'
 import UserRegisterConfirmation from '@/components/user/UserRegisterConfirmation'

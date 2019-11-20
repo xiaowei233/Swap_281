@@ -5,6 +5,9 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import Croppa from 'vue-croppa'
+
+Vue.use(Croppa) 
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false
 

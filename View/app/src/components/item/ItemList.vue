@@ -41,24 +41,27 @@ export default {
     getItemById(item) {
       this.$router.push(`/item/detail/${item.itemDetailId}`);
     },
-    lowToHigh(){
-        ItemDataService.lowToHigh().then(res => {
+    lowToHigh() {
+      ItemDataService.lowToHigh().then(res => {
         this.items = res.data;
       });
-    //   this.$router.push(`/item/list/lowToHigh`);
+      //   this.$router.push(`/item/list/lowToHigh`);
     },
-    highToLow(){
-        ItemDataService.highToLow().then(res => {
-        this.items = res.data;});
-        // this.$router.push(`/item/istl/highToLow`);
+    highToLow() {
+      ItemDataService.highToLow().then(res => {
+        this.items = res.data;
+      });
+      // this.$router.push(`/item/istl/highToLow`);
     },
-    earlyToLate(){
-        ItemDataService.earlyToLate().then(res => {
-        this.items = res.data;});
+    earlyToLate() {
+      ItemDataService.earlyToLate().then(res => {
+        this.items = res.data;
+      });
     },
-    lateToEarly(){
-        ItemDataService.lateToEarly().then(res => {
-        this.items = res.data;});
+    lateToEarly() {
+      ItemDataService.lateToEarly().then(res => {
+        this.items = res.data;
+      });
     },
     toItemDetail(id) {
       window.location.href = "/itemDetail?id=" + id;
@@ -76,13 +79,12 @@ export default {
   cursor: pointer;
 }
 img {
-    position: relative;
-    margin-top: 10px;
-    width:  300px;
-    height: 300px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
+  position: relative;
+  margin-top: 10px;
+  width: 300px;
+  height: 300px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 </style>
