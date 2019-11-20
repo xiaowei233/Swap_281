@@ -9,6 +9,7 @@
 <script>
 import Navbar from './components/Navbar.vue';
 
+
 export default {
   name: 'app',
   components:{
@@ -18,7 +19,7 @@ export default {
 </script>
 
 <style>
-@import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css);
+/* @import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css); */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

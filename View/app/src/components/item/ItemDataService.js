@@ -22,6 +22,11 @@ class ItemDataService {
         return axios.get(`${URL}/item/detail/category-drop-down`);
     }
 
+    // eslint-disable-next-line
+    getCategoryList() {
+        return axios.get(`${URL}/item/list/dropdown`);
+    }
+
     lowToHigh() {
         return axios.get(`${URL}/item/list/lowToHigh`);
     }
@@ -37,6 +42,21 @@ class ItemDataService {
     getItemById(itemId) {
         return axios.get(`${URL}/item/detail/${itemId}`);
 
+    }
+    // eslint-disable-next-line
+    getCategoryList() {
+        return axios.get(`${URL}/item/list/dropdown`);
+    }
+
+    getItemByCategory(id) {
+        return axios.get(`${URL}/item/list/category/${id}`);
+    }
+
+    // item/list/filter?category=1,2,3,4,5
+    getItemByCategoryIdList(idList) {
+        if (idList.length !== 0)
+            return axios.get(`${URL}/item/list/filter?category=${idList}`)
+        return axios.get(`${URL}/item/list/all`);
     }
 }
 
