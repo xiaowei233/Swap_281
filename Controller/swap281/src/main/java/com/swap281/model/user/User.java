@@ -20,25 +20,25 @@ public class User {
     public Long id;
 
     @Column(name = "username")
-    public String username = "";
+    public String username;
     
     @Column(name = "password")
-    public String password = "";
+    public String password;
     
     @Column(name = "email")
-    public String  email = "";
+    public String  email;
     
     @Column(name = "contact") 
-    public String contact = "";
+    public String contact;
     
     @Column(columnDefinition = "integer default 1", nullable=false)
     public Long privileged_group_id = (long) 1;
     
     @Column(name = "first_name")
-    public String first_name ="";
+    public String first_name;
     
     @Column(name = "last_name")
-    public String last_name = "";
+    public String last_name;
     
     @Column(name = "full_name")
     public String full_name = first_name + ' ' + last_name;

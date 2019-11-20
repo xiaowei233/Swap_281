@@ -28,7 +28,7 @@ class UserDataService {
     return axios.post(`${URL}/user/profile/edit/`, updatedProfile);
   }
   getItemsByUser(userId) {
-    return axios.get(`${URL}/user/items/${userId}`);
+    return axios.get(`${URL}/user/item/${userId}`);
   }
 
   getFavoritedItem(userId) {

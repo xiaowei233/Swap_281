@@ -4,8 +4,7 @@
   <div class="container">
     <div v-if="carousel" class="carousel slide my-4">
       <div class="carousel-inner">
-        <div class="carousel-item active" v-bind="carousel"             @click="toItemDetail(carousel.item.id)"
->
+        <div class="carousel-item active" v-bind="carousel" @click="toItemDetail(carousel.item.id)">
           <img
             class="d-block img-fluid carouselImage"
             v-bind:src="'data:image/png;base64,'+ carousel.item.thumbnail"
@@ -48,7 +47,10 @@
                 </h4>
                 <h5>${{item.item.price}}</h5>
                 <p class="card-text">{{item.item.description}}</p>
-                <p class="card-text">by <span class="user_name">{{item.full_name}}</span></p>
+                <p class="card-text">
+                  by
+                  <span class="user_name">{{item.full_name}}</span>
+                </p>
               </div>
               <div class="card-footer post-date">
                 <small class="text-muted">{{item.item.createDate.slice(0, 10)}}</small>
@@ -93,7 +95,7 @@ export default {
           ];
           this.carousel = lastThree[0];
           this.carousalpics = lastThree;
-        } 
+        }
       });
     },
     toItemDetail(id) {
@@ -128,7 +130,7 @@ export default {
 }
 .carousel-item {
   width: 80vw;
-  height: 50vh;  
+  height: 50vh;
 }
 .carouselImage {
   position: relative;
@@ -156,7 +158,7 @@ export default {
   height: 100%;
   background: linear-gradient(-90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
-.user_name{
+.user_name {
   -webkit-text-fill-color: blue;
   text-decoration: underline;
 }

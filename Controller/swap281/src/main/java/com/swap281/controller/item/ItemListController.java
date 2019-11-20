@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.model.item.Item;
 import com.swap281.model.item.ItemCategory;
+import com.swap281.model.item.dto.ItemFull;
 import com.swap281.repository.item.ItemCategoryRepository;
 import com.swap281.repository.item.ItemRepository;
 
@@ -33,7 +34,9 @@ public class ItemListController {
 
 	private ItemRepository _itemRepo;
 	private ItemCategoryRepository _itemCategoryRepo;
-
+	
+    @Autowired
+    Client _client;
     @Autowired
     public ItemListController(ItemRepository itemRepo, ItemCategoryRepository itemCategoryRepo) {
         this._itemRepo = itemRepo;
@@ -41,8 +44,8 @@ public class ItemListController {
     }
 
 	@GetMapping("/all")
-	public List<Item> getItemId() {
-		List<Item> articles = _itemRepo.findAll();
+	public List<ItemFull> getItemId() {
+		List<ItemFull> articles = _itemRepo.getItemFull();
 
 		return articles;
 	}
@@ -93,17 +96,15 @@ public class ItemListController {
 	public List<Item> filterByCategoryIdList(@RequestParam List<Integer> category) {
 		return this._itemRepo.findItemByCategoryList(category);
 	}
-	
-    @Autowired
-    Client _client;
+
 	@GetMapping("/search/{keyword}")
-	public List<Long> searchByKeyword(@PathVariable String keyword)
+	public List<Item> searchByKeyword(@PathVariable String keyword)
 	{
 		QueryBuilder matchSpecificFieldQuery= QueryBuilders
 				.multiMatchQuery(
 					    keyword, 
 					    "title", "description"       
-					).fuzziness(Fuzziness.AUTO);
+					);
 		SearchResponse Sresponse = _client.prepareSearch()
 				  .setTypes()
 				  .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
@@ -116,10 +117,40 @@ public class ItemListController {
         for (SearchHit hit : searchHits) {
             System.out.println("entered title search hits");
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-            long pKey = (long) sourceAsMap.get("id");
+            Long pKey = Long.valueOf((int)(sourceAsMap.get("id")));
 
             result.add(pKey);
         }
-		return result;	
+   
+		return _itemRepo.findAllById(result);	
+		}
+	
+	@GetMapping("/test/{keyword}")
+	public String test(@PathVariable String keyword)
+	{
+		QueryBuilder matchSpecificFieldQuery= QueryBuilders
+				.multiMatchQuery(
+					    keyword, 
+					    "title", "description"       
+					);
+		SearchResponse Sresponse = _client.prepareSearch()
+				  .setTypes()
+				  .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+				  .setPostFilter(matchSpecificFieldQuery)
+				  .execute()
+				  .actionGet();
+        SearchHits hits = Sresponse.getHits();
+        SearchHit[] searchHits = hits.getHits();
+        ArrayList<Long> result = new ArrayList();
+//        for (SearchHit hit : searchHits) {
+//            System.out.println("entered title search hits");
+//            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+//            long pKey = (long) sourceAsMap.get("id");
+//
+//            result.add(pKey);
+//        }
+        for (int i = 0; i < searchHits.length; i ++)
+        	System.out.println(searchHits[i].toString());
+		return searchHits[0].toString();	
 		}
 }

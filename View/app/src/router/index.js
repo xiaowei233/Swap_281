@@ -104,7 +104,7 @@ export default new Router({
       component: UserRecentlyViewedItem
     },
     {
-      path: "user/favorited",
+      path: "/user/favorited",
       name: "UserFavoritedItem",
       component: UserFavoritedItem
     }

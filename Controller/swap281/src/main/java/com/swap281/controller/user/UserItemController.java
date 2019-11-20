@@ -16,8 +16,8 @@ import com.swap281.repository.user.UserItemRepository;
 import com.swap281.repository.user.UserRecentViewItemRepository;
 
 @RestController
-@RequestMapping("/user/items")
-@CrossOrigin(origins = { "http://localhost:8081", "http://localhost:23333", "http://localhost:8080" })
+@RequestMapping("/user/item")
+@CrossOrigin(origins = { "http://localhost:8080", "http://localhost:8081", "http://localhost:23333" })
 public class UserItemController {
 
 	private ItemRepository _itemRepo;

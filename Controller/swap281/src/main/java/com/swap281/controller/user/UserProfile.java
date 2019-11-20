@@ -46,6 +46,7 @@ public class UserProfile {
 		usr.username = updatedUser.username;
 		usr.first_name = updatedUser.first_name;
 		usr.last_name = updatedUser.last_name;
+		usr.full_name = updatedUser.first_name + " " + updatedUser.last_name;
 		return _userRepo.save(usr);
 			}
 	

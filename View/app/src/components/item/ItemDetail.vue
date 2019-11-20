@@ -31,9 +31,11 @@
             <h3 class="card-title">{{ itemDetail.title }}</h3>
             <h4>${{ itemDetail.price }}</h4>
             <p class="card-text">{{ itemDetail.description }}</p>
-            <small class="text-muted">{{
+            <small class="text-muted">
+              {{
               itemDetail.createDate.slice(0, 10)
-            }}</small>
+              }}
+            </small>
           </div>
         </div>
       </div>
@@ -83,7 +85,7 @@ export default {
     });
     ItemDataService.addToRecentlyViewed(UserAccount.userId, this.itemId).then(
       res => {
-        if (!res.data) console.log("Failed");
+        console.log("Added");
       }
     );
   }

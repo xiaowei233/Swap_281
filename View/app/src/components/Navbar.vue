@@ -5,13 +5,12 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="navbar-item mr-auto">
           <b-nav-item to="/">Home</b-nav-item>
+          <b-nav-item :to="{ name: 'ItemList' }">All Items</b-nav-item>
         </b-navbar-nav>
 
         <b-nav-form class="mx-auto search-bar">
-          <b-form-input size="sm" class="mr-sm-2 length"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit"
-            >Search</b-button
-          >
+          <b-form-input size="sm" class="mr-sm-2 length" v-model="keyword"></b-form-input>
+          <a size="sm" class="my-2 my-sm-0" @click="search()">Search</a>
         </b-nav-form>
 
         <!-- Right aligned nav items -->
@@ -28,21 +27,13 @@
                 <em>{{ username }}</em>
               </template>
               <b-dropdown-item @click="Profile">Profile</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'ItemPost' }">
-                Post Item
-              </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'UserItem' }">
-                My Items
-              </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'UserList' }">
+              <b-dropdown-item :to="{ name: 'ItemPost' }">Post Item</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'UserItem' }">My Items</b-dropdown-item>
+              <!-- <b-dropdown-item :to="{ name: 'UserList' }">
                 My Lists
-              </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'UserFavoritedItem' }">
-                Favorited
-              </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'UserRecentlyViewedItem' }">
-                Recently Viewed
-              </b-dropdown-item>
+              </b-dropdown-item>-->
+              <b-dropdown-item :to="{ name: 'UserFavoritedItem' }">Favorited</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'UserRecentlyViewedItem' }">Recently Viewed</b-dropdown-item>
               <b-dropdown-item @click="SignOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-nav-form>
@@ -54,6 +45,7 @@
 
 <script>
 import UserAccount from "./user/account/UserAccount";
+import ItemDataService from "./item/ItemDataService";
 
 export default {
   name: "NavBar",
@@ -62,7 +54,8 @@ export default {
       isLoggedIn: UserAccount.isLoggedIn,
       username: UserAccount.username,
       userId: UserAccount.userId,
-      userSession: UserAccount.userSession
+      userSession: UserAccount.userSession,
+      keyword: ""
     };
   },
   methods: {
@@ -86,6 +79,12 @@ export default {
     saveLastUrl() {
       window.localStorage.setItem("previousRoute", window.location.href);
       this.$router.push("/user/sign-in");
+    },
+    search() {
+      console.log(this.keyword);
+      ItemDataService.search(this.keyword).then(res => {
+        console.log(res.data);
+      });
     }
   },
   created() {
