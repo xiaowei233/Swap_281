@@ -3,13 +3,13 @@
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     <div v-if="emailVerified">
-        <h2>Account Email Verified</h2>
-        <p>You completed the account registratoin process, you will be redirected to homepage shortly.</p>
+        <h2>Sucessfully Verified User Account</h2>
+        <p>You completed the account registration process. You will be redirected to the homepage shortly.</p>
     </div>
 
     <div v-if="error">
-        <h2>Account Email Verification Failed</h2>
-        <p>Something went wrong. Check later.</p>
+        <h2>Failed to Verify User Account</h2>
+        <p>Something went wrong. Please try again.</p>
     </div>
 </div>
 </template>

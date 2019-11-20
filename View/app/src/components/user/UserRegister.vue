@@ -25,11 +25,11 @@
         </ul>
     </vs-alert>
 
-    <vs-popup class="holamundo" title="Notification" :active.sync="popup">
+    <!-- <vs-popup class="holamundo" title="Notification" :active.sync="popup">
         <p>
-            This site currently only allows Lehigh users to register, please enter a valid Lehigh email address to register.
+            Note: This site currently only allows Lehigh users to register.
         </p>
-    </vs-popup>
+    </vs-popup> -->
 </div>
 </template>
 
@@ -82,7 +82,7 @@ export default {
             if (!this.userRegister.first_name) this.errors.push("First name is requried");
             if (!this.userRegister.last_name) this.errors.push("Last name is requried");
             if (!this.userRegister.email) this.errors.push("Email is requried");
-            if (this.checkEmailEnding()) this.errors.push("Entere a valie Lehigh email");
+            if (this.checkEmailEnding()) this.errors.push("Enter a valid Lehigh email");
             if (this.errors.length != 0) return;
 
             UserDataService.registerNewUser(this.userRegister).then(() => {

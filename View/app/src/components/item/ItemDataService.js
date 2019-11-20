@@ -9,10 +9,9 @@ class ItemDataService {
         return axios.get(`${URL}/item/list/all`);
     }
 
-    // eslint-disable-next-line
-    // getItemById(id) {
-    //     return axios.get(`${URL}/item/detail/${id}`);
-    // }
+    getItemById(id) {
+        return axios.get(`${URL}/item/detail/${id}`);
+    }
 
     postNewItem(newItem) {
         return axios.post(`${URL}/item/detail/post`, newItem);
@@ -39,8 +38,6 @@ class ItemDataService {
     lateToEarly() {
         return axios.get(`${URL}/item/list/lateToEarly`);
     }
-    getItemById(itemId) {
-        return axios.get(`${URL}/item/detail/${itemId}`);
 
     }
     // eslint-disable-next-line

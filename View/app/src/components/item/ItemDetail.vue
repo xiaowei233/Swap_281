@@ -8,7 +8,7 @@
             <h3 class="card-title">{{itemDetail.title}}</h3>
             <h4>${{itemDetail.price}}</h4>
             <p class="card-text">{{itemDetail.description}}</p>
-            <small class="text-muted">{{itemDetail.createDate}}</small>
+            <small class="text-muted">{{itemDetail.createDate.slice(0, 10)}}</small>
 
           </div>
         </div>
@@ -48,5 +48,9 @@ export default {
 .card-img-top {
     width: 50% !important;
     min-width: 500px;
+}
+img {
+  width: 500px;
+  height: 500px;
 }
 </style>

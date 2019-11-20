@@ -12,8 +12,6 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Indexed;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Indexed
 @Table(name = "item")

@@ -10,21 +10,7 @@
       >
       <vs-select-item :value="item.id" :text="item.category" v-for="item in dropdown" v-bind:key="item.id"/>
     </vs-select>
-      <!-- <multiselect
-        v-model="dropdown.category"
-        :value="dropdown.id"
-        :options="dropdown"
-        :multiple="true"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :preserve-search="true"
-        placeholder="Select Categories"
-        label="category"
-        track-by="category"
-        :preselect-first="true"
-        @input="executeLoader($event)"
-      >
-      </multiselect> -->
+
     </div>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
@@ -50,13 +36,9 @@
 
 <script>
 import ItemDataService from "./ItemDataService";
-// import Multiselect from "vue-multiselect";
-// import Vue from 'vue'
+
 import 'vuesax/dist/vuesax.css';
 export default {
-  // components: {
-  //   Multiselect
-  // },
   name: "ItemList",
   data() {
     return {
@@ -72,9 +54,6 @@ export default {
       });   
       ItemDataService.getCategoryList().then(res => {
         this.dropdown = res.data;
-        // let result = [];
-        // for(let i=0; i<res.data.length-2; i++)
-        //   result[i] = res.data[i]
         console.log(this.dropdown)
       });
     },
@@ -85,13 +64,11 @@ export default {
       ItemDataService.lowToHigh().then(res => {
         this.items = res.data;
       });
-      //   this.$router.push(`/item/list/lowToHigh`);
     },
     highToLow() {
       ItemDataService.highToLow().then(res => {
         this.items = res.data;
       });
-      // this.$router.push(`/item/istl/highToLow`);
     },
     earlyToLate() {
       ItemDataService.earlyToLate().then(res => {
@@ -104,9 +81,6 @@ export default {
       });
       ItemDataService.getCategoryList().then(res => {
         this.dropdown = res.data;
-        // let result = [];
-        // for(let i=0; i<res.data.length-2; i++)
-        //   result[i] = res.data[i]
         console.log(this.dropdown)
       });
     },

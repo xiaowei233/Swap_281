@@ -2,8 +2,8 @@
 <div id="add-blog">
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
-    <h2>Register Completed</h2>
-    <p>Check your email to finish your account registration</p>
+    <h2>Registration Completed</h2>
+    <p>Please check your email to confirm your account registration</p>
 
 </div>
 </template>
