@@ -30,8 +30,10 @@ class UserDataService {
         console.log(updatedProfile)
         return axios.post(`${URL}/user/profile/edit/`, updatedProfile);
     }
-    
-    
+    getItemsByUser(userId)
+    {
+        return axios.get(`${URL}/user/items/${userId}`)
+    }
 }
 
 export default new UserDataService()

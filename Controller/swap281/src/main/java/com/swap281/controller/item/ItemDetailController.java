@@ -32,7 +32,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.model.item.Item;
 import com.swap281.model.item.ItemCategory;
+import com.swap281.model.item.ItemCondition;
 import com.swap281.repository.item.ItemCategoryRepository;
+import com.swap281.repository.item.ItemConditionRepository;
 import com.swap281.repository.item.ItemRepository;
 
 @RestController
@@ -40,13 +42,15 @@ import com.swap281.repository.item.ItemRepository;
 @CrossOrigin(origins = { "http://localhost:8081", "http://localhost:23333", "http://localhost:8080" })
 public class ItemDetailController {
 
-	private ItemRepository _itemRepo;
-	private ItemCategoryRepository _itemCategoryRepo;
+    private ItemRepository _itemRepo;
+    private ItemCategoryRepository _itemCategoryRepo;
+    private ItemConditionRepository _itemConditionRepo;
 
     @Autowired
-    public ItemDetailController(ItemRepository itemRepo, ItemCategoryRepository itemCategoryRepo) {
+    public ItemDetailController(ItemRepository itemRepo, ItemCategoryRepository itemCategoryRepo, ItemConditionRepository itemConditionRepo) {
         this._itemRepo = itemRepo;
         this._itemCategoryRepo = itemCategoryRepo;
+        this._itemConditionRepo = itemConditionRepo;
     }
 
     @GetMapping(value = "/category-drop-down")
@@ -56,6 +60,13 @@ public class ItemDetailController {
     
 	@Autowired
 	Client _client;
+
+    @GetMapping(value = "/condition-drop-down")
+    public List<ItemCondition> getConditionFilter() {
+        return _itemConditionRepo.findAll();
+    }
+
+    
     @PostMapping(value = "/post")
     public Item postNewItem(@RequestBody Item newItem) {
     	try {

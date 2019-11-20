@@ -1,15 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld'
+import HomePage from '@/components/HomePage'
 import ItemList from '@/components/item/ItemList'
-
+import ItemDetail from '@/components/item/ItemDetail';
 import ItemPost from '@/components/item/ItemPost'
 import UserRegister from '@/components/user/UserRegister'
 import UserRegisterConfirmation from '@/components/user/UserRegisterConfirmation'
 import UserEmailVerification from '@/components/user/UserEmailVerification'
 import UserSignIn from '@/components/user/UserSignIn'
+import UserList from '@/components/user/UserList'
+import UserItem from '@/components/user/UserItem'
 import ItemPostConfirmation from '@/components/item/ItemPostConfirmation'
-import ItemDetail from '@/components/item/ItemDetail'
 import UserProfile from '@/components/user/UserProfile'
 import UserProfileEdit from '@/components/user/UserProfileEdit'
 import UserProfileEditConfirmation from '@/components/user/UserProfileEditConfirmation'
@@ -23,8 +24,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'HomePage',
+      component: HomePage
     },
     {
       path: '/item/list/all',
@@ -32,7 +33,7 @@ export default new Router({
       component: ItemList
     },
     {
-      path: '/item/detail/:id',
+      path: '/itemDetail',
       name: 'ItemDetail',
       component: ItemDetail
     },
@@ -60,6 +61,16 @@ export default new Router({
       path: '/user/sign-in',
       name: 'UserSignIn',
       component: UserSignIn
+    },
+    {
+      path: '/user/list',
+      name: 'UserList',
+      component: UserList
+    },
+    {
+      path: '/user/items',
+      name: 'UserItem',
+      component: UserItem
     },
     {
       path: '/item/post-confirm',

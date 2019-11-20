@@ -22,9 +22,11 @@ export default {
 
     },
     created: function () {
+        
+      var itemId = this.$route.query.id;
         setTimeout(() => {
-            this.$router.push("/");
-        }, 5000);
+          this.$router.push("/itemDetail?id=" + itemId);
+        }, 2000);
     }
 }
 </script>

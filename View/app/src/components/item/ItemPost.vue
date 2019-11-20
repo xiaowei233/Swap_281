@@ -21,7 +21,10 @@
       ></vue-numeric>
 
       <label>Item Category</label>
-      <b-form-select v-model="itemPost.categoryId" :options="categories"></b-form-select>
+      <b-form-select v-model="itemPost.categoryId" :options="categories" required></b-form-select>
+
+      <label>Item Condition</label>		
+      <b-form-select v-model="itemPost.condition_id" :options="conditions" required></b-form-select>		
 
       <label>Item Photo</label>
 
@@ -39,7 +42,13 @@
       <hr />
       <button class="btn btn-outline-secondary" v-on:click.prevent="post">Confirm</button>
     </form>
-  </div>
+
+<vs-popup class="holamundo" title="Notification" :active.sync="popup">
+        <p>
+Yolo
+        </p>
+    </vs-popup>
+      </div>
 </template>
 
 <script>
@@ -59,31 +68,35 @@ export default {
   data() {
     return {
       categories: [],
+      conditions: [],
       itemPost: {
         title: "",
         description: "",
         price: 0,
         categoryId: 0,
         thumbnail: null,
-        user_id: 0
+        user_id: 0,
+        condition_id: 0,
       },
       router: new VueRouter(),
       myCroppa: {},
       resizing: false,
       resizableW: 200,
-      resizableH: 200
+      resizableH: 200,
+      popup: false,
+      item_id: 0,
     };
   },
   methods: {
-    post: function() {
+    post: function() { 
       this.itemPost.user_id = UserAccount.userId;
-
       this.itemPost.thumbnail = this.myCroppa.generateDataUrl("image/*", 1);
+      this.itemPost.thumbnail = this.itemPost.thumbnail.slice(22, this.itemPost.thumbnail.length);
 
       console.log(this.itemPost);
       ItemDataService.postNewItem(this.itemPost).then(res => {
-        this.$router.push("/item/post-confirm");
-        console.log(res.data);
+        this.$router.push("/item/post-confirm?id=" + res.data.id);
+        this.popup = true;
       });
     },
     onFileSelect(e, f) {
@@ -136,6 +149,14 @@ export default {
         e.value = e.id;
       });
     });
+
+    ItemDataService.getItemConditionFilter().then(res => {		
+      this.conditions = res.data;		
+      this.conditions.forEach(e => {		
+        e.text = e.condition;		
+        e.value = e.id;		
+      });		
+    });
   }
 };
 </script>
@@ -174,5 +195,14 @@ h3 {
 #checkboxes label {
   display: inline-block;
   margin-top: 0;
+}
+#popup-croppa {
+  border: 2px dashed grey;
+  border-radius: 5px;
+  width: 300px;
+  margin-left: calc(50% - 150px);
+}
+#popup-croppa:hover {
+  cursor: pointer;
 }
 </style>

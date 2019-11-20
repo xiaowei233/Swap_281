@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.swap281.model.item.Item;
 import com.swap281.model.item.ItemCategory;
+import com.swap281.model.item.dto.ItemFull;
 import com.swap281.model.user.User;
 import com.swap281.repository.UserAccountRepository;
 import com.swap281.repository.item.ItemCategoryRepository;
@@ -26,5 +27,6 @@ public class RepositoryConfigurer implements RepositoryRestConfigurer {
     config.exposeIdsFor(ItemCategoryRepository.class);
     config.exposeIdsFor(UserAccountRepository.class);
     config.exposeIdsFor(User.class);
+    config.exposeIdsFor(ItemFull.class);
   }
 }

@@ -72,7 +72,7 @@ export default {
 
 .auth-title{
     position: relative;
-    left: calc(50% - 2em);
+    text-align: center;
 }
 
 #add-blog {
