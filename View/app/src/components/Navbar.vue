@@ -80,13 +80,9 @@ export default {
 button {
   border: none;
 }
-#navbarDiv {
-  margin-bottom: 20px;
-}
+
 .length {
   width: 50vw !important;
 }
-/* .navbar-item {
-  width: 100px;
-} */
+
 </style>

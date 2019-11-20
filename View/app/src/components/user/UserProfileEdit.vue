@@ -4,15 +4,23 @@
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     <h2>Update Your Information Below</h2>
-    <vs-input class="vsinput username-input" label-placeholder="Username" v-model.lazy="userProfileEdit.username" :danger="usernameCheck" danger-text="Username is already taken"
-         :success="usernameSafe" success-text="The username is valid" required />
-    <vs-input class="vsinput2" label-placeholder="First Name" v-model.lazy="userProfileEdit.first_name" required />
-    <vs-input class="vsinput2" label-placeholder="Last Name" v-model.lazy="userProfileEdit.last_name" required />
+
+    <div id = "editProfileForm">
+        <!-- <vs-input class="vsinput2 username-input" label-placeholder="Username" v-model.lazy="userProfileEdit.username" :danger="usernameCheck" danger-text="Username is already taken"
+            :success="usernameSafe" success-text="The username is valid" v-on:click.prevent="checkUsername" required /> -->
+        <vs-input class="vsinput2" label-placeholder="First Name" v-model.lazy="userProfileEdit.first_name" required />
+        <vs-input class="vsinput2" label-placeholder="Last Name" v-model.lazy="userProfileEdit.last_name" required />
+    </div>
+
+    <br />
     <button class="btn btn-outline-secondary confirm-btn" v-on:click.prevent="post">Confirm</button>
-    <button class="btn btn-outline-secondary confirm-btn" @click="cancel">Cancel</button>
-     <button class="btn btn-outline-secondary confirm-btn" @click="test">Test</button>
+    <button class="btn btn-outline-secondary back-btn" @click="cancel">Back</button>
+
+    
+     
 </div>
 </template>
+
 <script>
 import VueRouter from "vue"
 import UserDataService from "./UserDataService"
@@ -51,6 +59,7 @@ export default {
             
             this.errors = [];
             if (!this.userProfileEdit.username) this.errors.push("Username is requried");
+            if (this.checkUsername()) this.errors.push("Username is already taken");
             if (!this.userProfileEdit.first_name) this.errors.push("First name is requried");
             if (!this.userProfileEdit.last_name) this.errors.push("Last name is requried");
             if (this.errors.length != 0) return;
@@ -70,3 +79,16 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+#editProfileForm {
+    width: 500px !important;
+    margin-left: calc(50% - 250px) !important;
+}
+.vsinput2 {
+    width: 100%;
+}
+.back-btn {
+    margin-left: 10px;
+}
+</style>

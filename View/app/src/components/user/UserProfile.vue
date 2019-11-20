@@ -8,8 +8,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet" />
 
-    <div class="container emp-profile">
-      <form>
+    <div class="container">
+      <div class=" emp-profile">
+      <form id="formId">
         <div class="row">
           <div class="col-md-4">
             <div class="profile-img">
@@ -125,6 +126,7 @@
           </div>
         </div>
       </form>
+      </div>
     </div>
   </div>
 </template>
@@ -218,6 +220,9 @@ export default {
 </script>
 
 <style>
+/* #formId {
+  margin-top: 10px;
+} */
 #popup-croppa {
   margin-left: calc(50% - 140px);
 }
@@ -225,8 +230,11 @@ export default {
   font-size: 70%;
   border: 1px solid;
   width: 100px;
-  margin-left: 50px;
+  margin-left: calc(50% - 50px);
   border-radius: 5px;
+}
+#fakeBtnChange:hover {
+  cursor: pointer;
 }
 #fakeBtnConfirm {
   text-align: center;
@@ -257,6 +265,10 @@ export default {
   padding: 3%;
   border-radius: 0.5rem;
   background: #fff;
+  position: absolute;
+  width: 70vw;
+  top: 70px;
+  left: 15vw;
 }
 .profile-img {
   text-align: center;
@@ -345,4 +357,5 @@ export default {
   font-weight: 600;
   color: #0062cc;
 }
+
 </style>

@@ -3,7 +3,7 @@
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     
-    <p>Your profile is updated. You will be redirectly to the homepage shortly..</p>
+    <p>Your profile is now updated. You will be redirected to your profile shortly.</p>
 
 </div>
 </template>

@@ -25,6 +25,10 @@ class ItemDataService {
     getCategoryList() {
         return axios.get(`${URL}/item/list/dropdown`);
     }
+    
+    getItemConditionFilter() {
+        return axios.get(`${URL}/item/detail/condition-drop-down`);
+    }
 
     lowToHigh() {
         return axios.get(`${URL}/item/list/lowToHigh`);
@@ -37,12 +41,6 @@ class ItemDataService {
     }
     lateToEarly() {
         return axios.get(`${URL}/item/list/lateToEarly`);
-    }
-
-    }
-    // eslint-disable-next-line
-    getCategoryList() {
-        return axios.get(`${URL}/item/list/dropdown`);
     }
 
     getItemByCategory(id) {

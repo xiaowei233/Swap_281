@@ -13,23 +13,11 @@ public class ItemFull {
     
     public String full_name;
     
+    public String condition;
     
-//    public ItemFull(String title, Date createDate, int categoryId, String description, BigDecimal price, long user_id,boolean availability, long trade_method_id, byte[] thumbnail, String full_name)
-//    {
-//    	this.title = title;
-//    	this.createDate = createDate;
-//    	this.categoryId = categoryId;
-//    	this.description = description;
-//    	this.price = price;
-//    	this.user_id = user_id;
-//    	this.availability = availability;
-//    	this.trade_method_id = trade_method_id;
-//    	this.thumbnail = thumbnail;
-//    	this.full_name = full_name;
-//    }
-    
-    public ItemFull(Item item, String fullName) {
+    public ItemFull(Item item, String fullName, String condition) {
     	this.item = item;
     	this.full_name = fullName;
+    	this.condition = condition;
     }
 }
