@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.core.EmailBuilder;
 import com.swap281.model.user.User;
-import com.swap281.repository.UserAccountRepository;
+import com.swap281.repository.user.UserAccountRepository;
 
 @RestController
 @RequestMapping("/user/account")
 @CrossOrigin(origins = { "http://localhost:8081", "http://localhost:23333", "http://localhost:8080" })
-public class UserAccount {
+public class UserAccountController {
 
 	@Autowired
 	private UserAccountRepository _userRepo;

@@ -6,126 +6,147 @@
       type="text/css"
     />
 
-    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
+      rel="stylesheet"
+    />
 
     <div class="container">
       <div class=" emp-profile">
-      <form id="formId">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="profile-img">
-              <img v-if="HasImage" :height="280" :width="280" v-bind:src="dataUrl" alt="No Image" />
-              <img v-else :height="280" :width="280" src="../../assets/no_img.jpeg" alt="No Image" />
-              <vs-popup
-                class="holamundo popup"
-                title="Update Your Avatar"
-                :active.sync="popupActivo2"
-              >
-                <croppa
-                  id="popup-croppa"
-                  v-model="myCroppa"
+        <form id="formId">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="profile-img">
+                <img
+                  v-if="HasImage"
                   :height="280"
                   :width="280"
-                  :quality="1"
-                  accept="image/*"
-                  class="resizable-croppa"
-                  :prevent-white-space="true"
-                ></croppa>
-                <div id="fakeBtnConfirm" @click="confirmAvatar">Confirm</div>
-              </vs-popup>
-              <div id="fakeBtnChange" @click="changeAvatar">Change Avatar</div>
+                  v-bind:src="dataUrl"
+                  alt="No Image"
+                />
+                <img
+                  v-else
+                  :height="280"
+                  :width="280"
+                  src="../../../assets/no_img.jpeg"
+                  alt="No Image"
+                />
+                <vs-popup
+                  class="holamundo popup"
+                  title="Update Your Avatar"
+                  :active.sync="popupActivo2"
+                >
+                  <croppa
+                    id="popup-croppa"
+                    v-model="myCroppa"
+                    :height="280"
+                    :width="280"
+                    :quality="1"
+                    accept="image/*"
+                    class="resizable-croppa"
+                    :prevent-white-space="true"
+                  ></croppa>
+                  <div id="fakeBtnConfirm" @click="confirmAvatar">Confirm</div>
+                </vs-popup>
+                <div id="fakeBtnChange" @click="changeAvatar">
+                  Change Avatar
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="profile-head">
+                <h3>Profile</h3>
+                <br />
+                <br />
+                <br />
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      id="home-tab"
+                      data-toggle="tab"
+                      href="#home"
+                      role="tab"
+                      aria-controls="home"
+                      aria-selected="true"
+                      >Personal Information</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="profile-tab"
+                      data-toggle="tab"
+                      href="#profile"
+                      role="tab"
+                      aria-controls="profile"
+                      aria-selected="false"
+                      >Visited Items</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <input
+                type="submit"
+                class="profile-edit-btn"
+                name="btnAddMore"
+                value="Edit Profile"
+                @click="edit"
+              />
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="profile-head">
-              <h3>Profile</h3>
-              <br />
-              <br />
-              <br />
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                  <a
-                    class="nav-link active"
-                    id="home-tab"
-                    data-toggle="tab"
-                    href="#home"
-                    role="tab"
-                    aria-controls="home"
-                    aria-selected="true"
-                  >Personal Information</a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    id="profile-tab"
-                    data-toggle="tab"
-                    href="#profile"
-                    role="tab"
-                    aria-controls="profile"
-                    aria-selected="false"
-                  >Visited Items</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <input
-              type="submit"
-              class="profile-edit-btn"
-              name="btnAddMore"
-              value="Edit Profile"
-              @click="edit"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="profile-work">
-              <p>Posted Items</p>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="profile-work">
+                <p>Posted Items</p>
 
-              <a href>item1</a>
-              <br />
-              <a href>item2</a>
-              <br />
+                <a href>item1</a>
+                <br />
+                <a href>item2</a>
+                <br />
+              </div>
             </div>
-          </div>
-          <div class="col-md-8">
-            <div class="tab-content profile-tab" id="myTabContent">
-              <div
-                class="tab-pane fade show active"
-                id="home"
-                role="tabpanel"
-                aria-labelledby="home-tab"
-              >
-                <div class="row">
-                  <div class="col-md-3">
-                    <label>User Name</label>
+            <div class="col-md-8">
+              <div class="tab-content profile-tab" id="myTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="home"
+                  role="tabpanel"
+                  aria-labelledby="home-tab"
+                >
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label>User Name</label>
+                    </div>
+                    <div class="col-md-3">
+                      <p>{{ userProfile.username }}</p>
+                    </div>
                   </div>
-                  <div class="col-md-3">
-                    <p>{{userProfile.username}}</p>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label>Email</label>
+                    </div>
+                    <div class="col-md-3">
+                      <p>{{ userProfile.email }}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <label>Email</label>
-                  </div>
-                  <div class="col-md-3">
-                    <p>{{userProfile.email}}</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <label>Name</label>
-                  </div>
-                  <div class="col-md-3">
-                    <p>{{userProfile.first_name}} {{userProfile.last_name}}</p>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label>Name</label>
+                    </div>
+                    <div class="col-md-3">
+                      <p>
+                        {{ userProfile.first_name }} {{ userProfile.last_name }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
       </div>
     </div>
   </div>
@@ -134,7 +155,7 @@
 <script>
 // Imports
 // eslint-disable-next-line
-import UserDataService from "./UserDataService";
+import UserDataService from "../UserDataService";
 import VueRouter from "vue";
 import Vue from "vue";
 import vsPopup from "vuesax";
@@ -174,10 +195,6 @@ export default {
       this.popupActivo2 = true;
     },
     confirmAvatar() {
-      console.log("Confirm");
-
-      //this.isHidden = !this.isHidden;
-
       this.HasImage = true;
       this.dataUrl = this.myCroppa.generateDataUrl("image/*", 1);
       this.popupActivo2 = false;
@@ -201,28 +218,19 @@ export default {
       document.documentElement.style.cursor = "default";
     },
     edit: function() {
-      //this.$route.params.id
-      console.log(this.$route.params.id);
       this.$router.push({ path: `/user/profile-edit/${this.userId}` });
     }
   },
   created: function() {
     this.userId = this.$route.params.id;
     UserDataService.getUserInfo(this.userId).then(res => {
-      console.log("load user profile");
       this.userProfile = res.data;
     });
-    // UserDataService.getUserPostedItems(this.userId).then(res => {
-    //   this.userPostedItems = res.data;
-    // });
   }
 };
 </script>
 
 <style>
-/* #formId {
-  margin-top: 10px;
-} */
 #popup-croppa {
   margin-left: calc(50% - 140px);
 }
@@ -357,5 +365,4 @@ export default {
   font-weight: 600;
   color: #0062cc;
 }
-
 </style>

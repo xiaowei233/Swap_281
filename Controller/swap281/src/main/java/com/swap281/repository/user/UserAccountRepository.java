@@ -1,4 +1,4 @@
-package com.swap281.repository;
+package com.swap281.repository.user;
 
 import java.util.UUID;
 

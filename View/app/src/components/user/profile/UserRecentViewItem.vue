@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h1> My Posted Items </h1>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
         <div class="card h-100 customclass" @click="toItemDetail(item.id)">
@@ -15,7 +14,7 @@
             <p class="card-text">{{item.description}}</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">{{item.createDate.slice(0, 10)}}</small>
+            <small class="text-muted">{{item.createDate}}</small>
           </div>
         </div>
       </div>
@@ -24,24 +23,22 @@
 </template>
 
 <script>
-import UserDataService from "./UserDataService";
-import UserAccount from "./UserAccount";
+import UserDataService from "../UserDataService";
+import UserAccount from "../account/UserAccount";
 
 export default {
-  name: "UserItem",
+  name: "UserRecentlyViewedItem",
   data() {
     return {
       items: []
     };
   },
-  methods: 
-  {
+  methods: {
     refresh() {
-            UserDataService.getItemsByUser(UserAccount.userId).then(res => {
-                this.items = res.data;
+      UserDataService.getRecentlyViewedItem(UserAccount.userId).then(res => {
+        this.items = res.data;
       });
     },
-
     toItemDetail(id) {
       window.location.href = "/itemDetail?id=" + id;
     }
@@ -58,13 +55,13 @@ export default {
   cursor: pointer;
 }
 img {
-    position: relative;
-    margin-top: 10px;
-    width:  300px;
-    height: 300px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
+  position: relative;
+  margin-top: 10px;
+  width: 300px;
+  height: 300px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
 }
-
 </style>

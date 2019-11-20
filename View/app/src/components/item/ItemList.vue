@@ -1,32 +1,44 @@
 <template>
   <div class="container">
-      <div>
-        <vs-select
+    <div>
+      <vs-select
         placeholder="Choose categories"
         multiple
         v-model="selectedItems"
         @input="executeLoader($event)"
         class="select"
       >
-      <vs-select-item :value="item.id" :text="item.category" v-for="item in dropdown" v-bind:key="item.id"/>
-    </vs-select>
-
+        <vs-select-item
+          :value="item.id"
+          :text="item.category"
+          v-for="item in dropdown"
+          v-bind:key="item.id"
+        />
+      </vs-select>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
+      <div
+        class="col-lg-4 col-md-6 mb-4"
+        v-for="item in items"
+        v-bind:key="item.id"
+      >
         <div class="card h-100 customclass" @click="toItemDetail(item.id)">
           <a href="#">
-            <img class="card-img-top" v-bind:src="'data:image/png;base64,'+ item.thumbnail" alt />
+            <img
+              class="card-img-top"
+              v-bind:src="'data:image/png;base64,' + item.thumbnail"
+              alt
+            />
           </a>
           <div class="card-body">
             <h4 class="card-title">
-              <a>{{item.title}}</a>
+              <a>{{ item.title }}</a>
             </h4>
-            <h5>${{item.price}}</h5>
-            <p class="card-text">{{item.description}}</p>
+            <h5>${{ item.price }}</h5>
+            <p class="card-text">{{ item.description }}</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">{{item.createDate}}</small>
+            <small class="text-muted">{{ item.createDate }}</small>
           </div>
         </div>
       </div>
@@ -37,28 +49,24 @@
 <script>
 import ItemDataService from "./ItemDataService";
 
-import 'vuesax/dist/vuesax.css';
+import "vuesax/dist/vuesax.css";
 export default {
   name: "ItemList",
   data() {
     return {
       dropdown: [],
       items: [],
-      selectedItems: [],
+      selectedItems: []
     };
   },
   methods: {
     refresh() {
       ItemDataService.getAllItems().then(res => {
         this.items = res.data;
-      });   
+      });
       ItemDataService.getCategoryList().then(res => {
         this.dropdown = res.data;
-        console.log(this.dropdown)
       });
-    },
-    getItemById(item) {
-      this.$router.push(`/item/detail/${item.itemDetailId}`);
     },
     lowToHigh() {
       ItemDataService.lowToHigh().then(res => {
@@ -81,7 +89,6 @@ export default {
       });
       ItemDataService.getCategoryList().then(res => {
         this.dropdown = res.data;
-        console.log(this.dropdown)
       });
     },
     toItemDetail(id) {
@@ -90,11 +97,10 @@ export default {
     executeLoader(selectedItems) {
       let idList = [];
       for (let i = 0; i < selectedItems.length; i++)
-              idList.push(selectedItems[i]);
+        idList.push(selectedItems[i]);
       ItemDataService.getItemByCategoryIdList(idList).then(res => {
         this.items = res.data;
       });
-
     }
   },
   created() {
@@ -109,13 +115,13 @@ export default {
   cursor: pointer;
 }
 img {
-    position: relative;
-    margin-top: 10px;
-    width:  300px;
-    height: 300px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
+  position: relative;
+  margin-top: 10px;
+  width: 300px;
+  height: 300px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .select {
   width: 50%;
@@ -124,12 +130,11 @@ img {
 .vs-select--item {
   padding-left: 2em;
 }
-button > span{
+button > span {
   padding-left: 2em;
 }
 
-.vs-select--item.con-icon.activex
-{
+.vs-select--item.con-icon.activex {
   padding-left: 2em !important;
 }
 </style>

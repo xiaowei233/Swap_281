@@ -44,7 +44,7 @@ public class Item {
 
     @Column(name = "trade_method_id")
     public long trade_method_id = 4;
-    
+
     @Column(name = "condition_id")
     public long condition_id;
 

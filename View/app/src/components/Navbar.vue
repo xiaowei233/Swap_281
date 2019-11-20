@@ -9,13 +9,15 @@
 
         <b-nav-form class="mx-auto search-bar">
           <b-form-input size="sm" class="mr-sm-2 length"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+          <b-button size="sm" class="my-2 my-sm-0" type="submit"
+            >Search</b-button
+          >
         </b-nav-form>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto navbar-item">
           <b-nav-form v-if="!isLoggedIn">
-            <b-nav-item :to="{ name: 'UserSignIn' }">Sign In</b-nav-item>
+            <b-nav-item @click="saveLastUrl">Sign In</b-nav-item>
             <b-nav-item :to="{ name: 'UserRegister' }">Sign Up</b-nav-item>
           </b-nav-form>
 
@@ -23,12 +25,24 @@
             <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
               <template v-slot:button-content>
-                <em>{{username}}</em>
+                <em>{{ username }}</em>
               </template>
               <b-dropdown-item @click="Profile">Profile</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'ItemPost' }">Post Item</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'UserItem' }">My Items</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'UserList' }">My Lists</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'ItemPost' }">
+                Post Item
+              </b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'UserItem' }">
+                My Items
+              </b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'UserList' }">
+                My Lists
+              </b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'UserFavoritedItem' }">
+                Favorited
+              </b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'UserRecentlyViewedItem' }">
+                Recently Viewed
+              </b-dropdown-item>
               <b-dropdown-item @click="SignOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-nav-form>
@@ -39,7 +53,7 @@
 </template>
 
 <script>
-import UserAccount from "./user/UserAccount";
+import UserAccount from "./user/account/UserAccount";
 
 export default {
   name: "NavBar",
@@ -69,10 +83,14 @@ export default {
       window.location.reload();
       this.refresh();
     },
+    saveLastUrl() {
+      window.localStorage.setItem("previousRoute", window.location.href);
+      this.$router.push("/user/sign-in");
+    }
   },
   created() {
-      this.refresh();
-  },
+    this.refresh();
+  }
 };
 </script>
 
@@ -84,5 +102,4 @@ button {
 .length {
   width: 50vw !important;
 }
-
 </style>

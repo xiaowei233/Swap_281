@@ -1,6 +1,5 @@
 package com.swap281.controller.user;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.model.user.User;
 import com.swap281.model.user.UserPostedItem;
-import com.swap281.repository.UserAccountRepository;
-import com.swap281.repository.UserPostedItemsRepository;
+import com.swap281.repository.user.UserAccountRepository;
+import com.swap281.repository.user.UserPostedItemsRepository;
 
 @RestController
 @RequestMapping("/user/profile")
@@ -32,12 +31,14 @@ public class UserProfile {
 	private Optional<User> getUserProfileInfo(@PathVariable("userId") Long userId) {
 		return _userRepo.findById(userId);
 	}
+	
 	@GetMapping("user-posted-items/{userId}")
 	private Optional<UserPostedItem> getUserPostedItems(@PathVariable("userId") Long userId) {
 		return _postedItemRepo.findById(userId);
 //		List<Long> idList = _postedItemRepo.findById(userId);
 //		findAllById(idList)
 	}
+	
 	@PostMapping("edit")
 	private User editUserProfile(@RequestBody  User updatedUser) {
 		Optional<User> u = _userRepo.findById(updatedUser.id);
@@ -46,8 +47,6 @@ public class UserProfile {
 		usr.first_name = updatedUser.first_name;
 		usr.last_name = updatedUser.last_name;
 		return _userRepo.save(usr);
-		
-		//return usr;
-	}
+			}
 	
 }

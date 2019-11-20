@@ -9,23 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedStoredProcedureQueries;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-@NamedStoredProcedureQueries({
-	@NamedStoredProcedureQuery(name = "verifyEmail", 
-                           procedureName = "verifyEmail",
-                           parameters = {
-                              @StoredProcedureParameter(mode = ParameterMode.IN, name = "token", type = UUID.class),
-                              @StoredProcedureParameter(mode = ParameterMode.OUT, name = "username", type = String.class),
-                              @StoredProcedureParameter(mode = ParameterMode.OUT, name = "id", type = Long.class),
-                           })
-})
 public class User {
 	@Id
 	@Column(name = "id")
