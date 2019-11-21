@@ -17,18 +17,10 @@
       </vs-select>
     </div>
     <div class="row">
-      <div
-        class="col-lg-4 col-md-6 mb-4"
-        v-for="item in items"
-        v-bind:key="item.id"
-      >
+      <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
         <div class="card h-100 customclass" @click="toItemDetail(item.id)">
           <a href="#">
-            <img
-              class="card-img-top"
-              v-bind:src="'data:image/png;base64,' + item.thumbnail"
-              alt
-            />
+            <img class="card-img-top" v-bind:src="'data:image/png;base64,' + item.thumbnail" alt />
           </a>
           <div class="card-body">
             <h4 class="card-title">

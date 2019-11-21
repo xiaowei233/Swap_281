@@ -2,6 +2,7 @@
 <body>
   <!-- Page Content -->
   <div class="container">
+    <!-- <h3 id="recentlyPostedId">Recently Posted</h3> -->
     <div v-if="carousel" class="carousel slide my-4">
       <div class="carousel-inner">
         <div class="carousel-item active" v-bind="carousel" @click="toItemDetail(carousel.item.id)">
@@ -9,6 +10,7 @@
             class="d-block img-fluid carouselImage"
             v-bind:src="'data:image/png;base64,'+ carousel.item.thumbnail"
           />
+          <h1>{{carousel.item.title}}</h1>
         </div>
       </div>
       <a class="carousel-control-prev controller" @click="onPrev()">
@@ -21,11 +23,14 @@
 
     <div class="row">
       <div class="col-lg-3">
-        <h1 class="my-4">Swap</h1>
+        <h1 class="my-4" id="SwapHeader">Swap</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+          <a href="#" class="list-group-item">Appliances & Furniture</a>
+          <a href="#" class="list-group-item">Clothing</a>
+          <a href="#" class="list-group-item">Electronics</a>
+          <a href="#" class="list-group-item">Books</a>
+          <a href="#" class="list-group-item">Automobiles</a>
+          <a href="#" class="list-group-item">Miscellaneous</a>
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -47,6 +52,7 @@
                 </h4>
                 <h5>${{item.item.price}}</h5>
                 <p class="card-text">{{item.item.description}}</p>
+                <p class="card-text">Condition: {{item.condition}}</p>
                 <p class="card-text">
                   by
                   <span class="user_name">{{item.full_name}}</span>
@@ -166,6 +172,9 @@ export default {
   cursor: pointer;
 }
 .post-date {
+  text-align: center;
+}
+#SwapHeader {
   text-align: center;
 }
 </style>

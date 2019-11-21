@@ -13,7 +13,7 @@
               <h3 class="card-title">{{ itemDetail.title }}</h3>
               <h4>${{ itemDetail.price }}</h4>
               <p class="card-text">{{ itemDetail.description }}</p>
-              <small class="text-muted">{{ itemDetail.createDate }}</small>
+              <small class="text-muted">{{ itemDetail.createDate.slice(0, 10) }}</small>
               <div id="fav-btn" v-if="user.isLoggedIn" @click="favItem">
                 <i class="material-icons" v-if="favorited">favorite</i>
                 <i class="material-icons" v-if="!favorited">favorite_border</i>

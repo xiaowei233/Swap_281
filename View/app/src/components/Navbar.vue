@@ -10,7 +10,9 @@
 
         <b-nav-form class="mx-auto search-bar">
           <b-form-input size="sm" class="mr-sm-2 length" v-model="keyword"></b-form-input>
-          <a size="sm" class="my-2 my-sm-0" @click="search()">Search</a>
+          <a size="sm" class="my-2 my-sm-0 searchButton" @click="search()">
+            <p id="searchTextId">Search</p>
+          </a>
         </b-nav-form>
 
         <!-- Right aligned nav items -->
@@ -32,7 +34,7 @@
               <!-- <b-dropdown-item :to="{ name: 'UserList' }">
                 My Lists
               </b-dropdown-item>-->
-              <b-dropdown-item :to="{ name: 'UserFavoritedItem' }">Favorited</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'UserFavoritedItem' }">Favorited Items</b-dropdown-item>
               <b-dropdown-item :to="{ name: 'UserRecentlyViewedItem' }">Recently Viewed</b-dropdown-item>
               <b-dropdown-item @click="SignOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
@@ -100,5 +102,25 @@ button {
 
 .length {
   width: 50vw !important;
+}
+
+.searchButton {
+  background-color: grey;
+  border: 1px;
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.searchButton:hover {
+  cursor: pointer;
+}
+
+#searchTextId {
+  margin-top: 2px;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 0px;
 }
 </style>

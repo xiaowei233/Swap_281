@@ -6,24 +6,15 @@
       type="text/css"
     />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet" />
 
     <div class="container">
-      <div class=" emp-profile">
+      <div class="emp-profile">
         <form id="formId">
           <div class="row">
             <div class="col-md-4">
               <div class="profile-img">
-                <img
-                  v-if="HasImage"
-                  :height="280"
-                  :width="280"
-                  v-bind:src="dataUrl"
-                  alt="No Image"
-                />
+                <img v-if="HasImage" :height="280" :width="280" v-bind:src="dataUrl" alt="No Image" />
                 <img
                   v-else
                   :height="280"
@@ -48,14 +39,12 @@
                   ></croppa>
                   <div id="fakeBtnConfirm" @click="confirmAvatar">Confirm</div>
                 </vs-popup>
-                <div id="fakeBtnChange" @click="changeAvatar">
-                  Change Avatar
-                </div>
+                <div id="fakeBtnChange" @click="changeAvatar">Change Avatar</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="profile-head">
-                <h3>Profile</h3>
+                <h3>User Profile</h3>
                 <br />
                 <br />
                 <br />
@@ -69,8 +58,7 @@
                       role="tab"
                       aria-controls="home"
                       aria-selected="true"
-                      >Personal Information</a
-                    >
+                    >Personal Information</a>
                   </li>
                   <li class="nav-item">
                     <a
@@ -81,8 +69,7 @@
                       role="tab"
                       aria-controls="profile"
                       aria-selected="false"
-                      >Visited Items</a
-                    >
+                    >Visited Items</a>
                   </li>
                 </ul>
               </div>
@@ -102,9 +89,9 @@
               <div class="profile-work">
                 <p>Posted Items</p>
 
-                <a href>item1</a>
+                <a href>MATH 021 Textbook</a>
                 <br />
-                <a href>item2</a>
+                <a href>ECO 001 Textbook</a>
                 <br />
               </div>
             </div>
@@ -137,9 +124,7 @@
                       <label>Name</label>
                     </div>
                     <div class="col-md-3">
-                      <p>
-                        {{ userProfile.first_name }} {{ userProfile.last_name }}
-                      </p>
+                      <p>{{ userProfile.first_name }} {{ userProfile.last_name }}</p>
                     </div>
                   </div>
                 </div>

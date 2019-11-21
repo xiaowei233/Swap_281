@@ -1,14 +1,9 @@
 <template>
   <div id="add-blog">
-    <link
-      href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet" />
 
     <h2>Item Posted</h2>
-    <p>
-      Your item is uploaded. You will be redirectly to the homepage shortly..
-    </p>
+    <p>Your item has now been posted. You will be redirected to your posting shortly.</p>
   </div>
 </template>
 
