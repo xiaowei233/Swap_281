@@ -96,7 +96,17 @@ export default {
     }
   },
   created() {
-    this.refresh();
+    console.log(this.$route);
+    console.log(this.$route.query.search);
+    if (this.$route.query.search)
+      ItemDataService.search(this.$route.query.search).then(res => {
+        console.log(res.data);
+        this.items = res.data;
+      });
+    else this.refresh();
+  },
+  destroyed() {
+    window.localStorage.setItem("search", " ");
   }
 };
 </script>

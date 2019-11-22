@@ -18,15 +18,14 @@ class UserDataService {
   auth(username, password) {
     return axios.put(`${URL}/user/account/auth/${username}/${password}`);
   }
-  getUserInfo(userId) {
-    return axios.get(`${URL}/user/profile/user-profile-info/${userId}`);
+  getUserInfo(username) {
+    return axios.get(`${URL}/user/profile/user-profile-info/${username}`);
   }
-  getUserPostedItems(userId) {
-    return axios.get(`${URL}/user/profile/user-posted-items/${userId}`);
-  }
+
   edit(updatedProfile) {
     return axios.post(`${URL}/user/profile/edit/`, updatedProfile);
   }
+
   getItemsByUser(userId) {
     return axios.get(`${URL}/user/item/${userId}`);
   }
@@ -37,6 +36,10 @@ class UserDataService {
 
   getRecentlyViewedItem(userId) {
     return axios.get(`${URL}/user/item/recently_viewed/${userId}`);
+  }
+
+  getUserPostedItemTitle(userId) {
+    return axios.get(`${URL}/user/item/posted_title/${userId}`);
   }
 }
 

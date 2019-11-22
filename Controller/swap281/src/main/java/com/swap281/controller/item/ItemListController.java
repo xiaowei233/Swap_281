@@ -72,7 +72,7 @@ public class ItemListController {
 
 	// filter?category=1,2,3,4,5
 	@GetMapping("/filter")
-	public List<Item> filterByCategoryIdList(@RequestParam List<Integer> category) {
+	public List<ItemFull> filterByCategoryIdList(@RequestParam List<Integer> category) {
 		return this._itemRepo.findItemByCategoryList(category);
 	}
 

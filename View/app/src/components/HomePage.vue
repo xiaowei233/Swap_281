@@ -2,6 +2,7 @@
 <body>
   <!-- Page Content -->
   <div class="container">
+    <!-- <p>Most Recently Posted Items</p> -->
     <!-- <h3 id="recentlyPostedId">Recently Posted</h3> -->
     <div v-if="carousel" class="carousel slide my-4">
       <div class="carousel-inner">
@@ -20,24 +21,42 @@
         <i class="material-icons">arrow_right</i>
       </a>
     </div>
-
+    <div class="d-flex flex-row-reverse">
+      <p class="itemListLink" @click="goToItemList()">All Items</p>
+    </div>
     <div class="row">
-      <div class="col-lg-3">
-        <h1 class="my-4" id="SwapHeader">Swap</h1>
-        <div class="list-group">
+      <!-- <div class="col-lg-3"> -->
+      <!-- <h1 class="my-4" id="SwapHeader">Swap</h1> -->
+
+      <!-- <div class="list-group">
           <a href="#" class="list-group-item">Appliances & Furniture</a>
           <a href="#" class="list-group-item">Clothing</a>
           <a href="#" class="list-group-item">Electronics</a>
           <a href="#" class="list-group-item">Books</a>
           <a href="#" class="list-group-item">Automobiles</a>
           <a href="#" class="list-group-item">Miscellaneous</a>
-        </div>
-      </div>
+      </div>-->
+
+      <vs-select
+        placeholder="Choose categories"
+        multiple
+        v-model="selectedItems"
+        @input="executeLoader($event)"
+        class="select"
+      >
+        <vs-select-item
+          :value="item.id"
+          :text="item.category"
+          v-for="item in dropdown"
+          v-bind:key="item.id"
+        />
+      </vs-select>
+      <!-- </div> -->
       <!-- /.col-lg-3 -->
 
-      <div class="col-lg-9">
+      <div class="col-lg-12">
         <div class="row">
-          <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.item.id">
+          <div class="col-lg-3 col-md-6 mb-4" v-for="item in items" v-bind:key="item.item.id">
             <div class="card h-100">
               <a href="#" @click="toItemDetail(item.item.id)">
                 <img
@@ -47,15 +66,19 @@
                 />
               </a>
               <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#" @click="toItemDetail(item.item.id)">{{item.item.title}}</a>
-                </h4>
+                <h5 class="card-title itemTitle">
+                  <h5 @click="toItemDetail(item.item.id)">{{item.item.title}}</h5>
+                </h5>
                 <h5>${{item.item.price}}</h5>
-                <p class="card-text">{{item.item.description}}</p>
+                <!-- <p class="card-text">{{item.item.description}}</p> -->
                 <p class="card-text">Condition: {{item.condition}}</p>
                 <p class="card-text">
                   by
-                  <span class="user_name">{{item.full_name}}</span>
+                  <span
+                    class="user_name"
+                    v-bind:id="item.user_id"
+                    @click="toUserProfile(item.username)"
+                  >{{item.username}}</span>
                 </p>
               </div>
               <div class="card-footer post-date">
@@ -77,6 +100,7 @@
 
 <script>
 import ItemDataService from "./item/ItemDataService";
+import "vuesax/dist/vuesax.css";
 
 export default {
   name: "HomePage",
@@ -85,7 +109,9 @@ export default {
       items: [],
       carousalpics: [],
       carousel: undefined,
-      carouselId: 0
+      carouselId: 0,
+      dropdown: [],
+      selectedItems: []
     };
   },
   methods: {
@@ -103,6 +129,17 @@ export default {
           this.carousalpics = lastThree;
         }
       });
+
+      ItemDataService.getCategoryList().then(res => {
+        this.dropdown = res.data;
+      });
+    },
+    goToItemList() {
+      this.$router.push("item/list");
+    },
+    toUserProfile(event) {
+      // console.log(event);
+      this.$router.push("/user/profile/" + event);
     },
     toItemDetail(id) {
       window.location.href = "/itemDetail?id=" + id;
@@ -114,6 +151,15 @@ export default {
     onNext() {
       this.carouselId = this.carouselId + 1 >= 3 ? 0 : this.carouselId + 1;
       this.carousel = this.carousalpics[this.carouselId];
+    },
+    executeLoader(selectedItems) {
+      let idList = [];
+      for (let i = 0; i < selectedItems.length; i++)
+        idList.push(selectedItems[i]);
+      ItemDataService.getItemByCategoryIdList(idList).then(res => {
+        this.items = res.data;
+        console.log(this.items[0].item.user_id);
+      });
     }
   },
   created() {
@@ -158,17 +204,19 @@ export default {
 }
 .controller {
   height: 100%;
+  width: 8%;
   background: linear-gradient(90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 .right-controller {
   height: 100%;
+  width: 8%;
   background: linear-gradient(-90deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 .user_name {
   -webkit-text-fill-color: blue;
-  text-decoration: underline;
 }
 .user_name:hover {
+  text-decoration: underline;
   cursor: pointer;
 }
 .post-date {
@@ -176,6 +224,31 @@ export default {
 }
 #SwapHeader {
   text-align: center;
+}
+.select {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.vs-select--item {
+  padding-left: 2em;
+}
+button > span {
+  padding-left: 2em;
+}
+
+.vs-select--item.con-icon.activex {
+  padding-left: 2em !important;
+}
+.itemListLink:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.itemTitle:hover {
+  -webkit-text-fill-color: blue;
+  cursor: pointer;
+}
+.itemListLink {
+  -webkit-text-fill-color: blue;
 }
 </style>
 

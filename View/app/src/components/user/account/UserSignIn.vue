@@ -76,7 +76,7 @@ export default {
           UserAccount.UpdateUserInfo(res.data.username, res.data.id);
           setTimeout(() => {
             // this.$router.go(-1);
-            window.location.reload();
+            window.location.href = this.previous;
           }, 2000);
         } else {
           this.authError = true;
