@@ -38,6 +38,15 @@ public class UserItemController {
 		return articles;
 
 	}
+	
+	@GetMapping("/posted_title/{id}")
+	public List<Item> getPostedItemTitle(@PathVariable Long id) {
+		List<Item> articles = _itemRepo.GetUserItems(id);
+		for (Item i : articles)
+			i.thumbnail = null;
+		return articles;
+
+	}
 
 	@GetMapping("fav/{id}")
 	public List<Item> getFavoritedItemList(@PathVariable Long id) {

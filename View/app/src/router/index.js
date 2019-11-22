@@ -34,7 +34,7 @@ export default new Router({
       component: HomePage
     },
     {
-      path: "/item/list/all",
+      path: "/item/list",
       name: "ItemList",
       component: ItemList
     },
@@ -84,7 +84,7 @@ export default new Router({
       component: ItemPostConfirmation
     },
     {
-      path: "/user/profile/:id",
+      path: "/user/profile/:username",
       name: "UserProfile",
       component: UserProfile
     },

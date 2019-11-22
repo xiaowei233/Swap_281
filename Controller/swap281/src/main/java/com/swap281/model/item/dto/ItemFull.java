@@ -11,13 +11,13 @@ public class ItemFull {
 
     public Item item;
     
-    public String full_name;
-    
+    public String username;
+        
     public String condition;
     
-    public ItemFull(Item item, String fullName, String condition) {
+    public ItemFull(Item item, String userName, String condition) {
     	this.item = item;
-    	this.full_name = fullName;
+    	this.username = userName;
     	this.condition = condition;
     }
 }

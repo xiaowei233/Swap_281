@@ -26,4 +26,6 @@ public interface UserAccountRepository  extends JpaRepository<User, Long>{
 	  @Query("UPDATE User u SET u.is_verified = true where u.token = ?1")
 	  public void VerifyEmail(@Param("token") UUID token);
 	  
+	  @Query("SELECT u FROM User u WHERE u.username = ?1")
+	  public User findByName(String username);
 }

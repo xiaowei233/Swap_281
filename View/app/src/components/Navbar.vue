@@ -4,15 +4,13 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="navbar-item mr-auto">
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item :to="{ name: 'ItemList' }">All Items</b-nav-item>
+          <b-nav-item @click="toHome()">Swap</b-nav-item>
+          <!-- <b-nav-item :to="{ name: 'ItemList' }">All Items</b-nav-item> -->
         </b-navbar-nav>
 
-        <b-nav-form class="mx-auto search-bar">
+        <b-nav-form class="mx-auto search-bar" @submit.prevent="search()">
           <b-form-input size="sm" class="mr-sm-2 length" v-model="keyword"></b-form-input>
-          <a size="sm" class="my-2 my-sm-0 searchButton" @click="search()">
-            <p id="searchTextId">Search</p>
-          </a>
+          <b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>
         </b-nav-form>
 
         <!-- Right aligned nav items -->
@@ -47,7 +45,6 @@
 
 <script>
 import UserAccount from "./user/account/UserAccount";
-import ItemDataService from "./item/ItemDataService";
 
 export default {
   name: "NavBar",
@@ -61,6 +58,10 @@ export default {
     };
   },
   methods: {
+    toHome() {
+      this.$router.push("/");
+      this.$router.go();
+    },
     refresh() {
       UserAccount.UserAccount();
       this.isLoggedIn = UserAccount.isLoggedIn;
@@ -69,7 +70,8 @@ export default {
       this.userSession = UserAccount.userSession;
     },
     Profile() {
-      this.$router.push({ path: `/user/profile/${this.userId}` });
+      this.$router.go();
+      this.$router.push({ path: `/user/profile/${this.username}` });
     },
 
     SignOut() {
@@ -84,12 +86,17 @@ export default {
     },
     search() {
       console.log(this.keyword);
-      ItemDataService.search(this.keyword).then(res => {
-        console.log(res.data);
+      window.localStorage.setItem("search", this.keyword);
+
+      this.$router.push({
+        path: "/item/list",
+        query: { search: this.keyword }
       });
+      this.$router.go();
     }
   },
   created() {
+    this.keyword = window.localStorage.getItem("search");
     this.refresh();
   }
 };

@@ -27,9 +27,9 @@ public class UserProfile {
 	@Autowired
 	private UserPostedItemsRepository _postedItemRepo;
 	
-	@GetMapping("user-profile-info/{userId}")
-	private Optional<User> getUserProfileInfo(@PathVariable("userId") Long userId) {
-		return _userRepo.findById(userId);
+	@GetMapping("user-profile-info/{username}")
+	private User getUserProfileInfo(@PathVariable("username") String username) {
+		return _userRepo.findByName(username);
 	}
 	
 	@GetMapping("user-posted-items/{userId}")
@@ -38,6 +38,7 @@ public class UserProfile {
 //		List<Long> idList = _postedItemRepo.findById(userId);
 //		findAllById(idList)
 	}
+	
 	
 	@PostMapping("edit")
 	private User editUserProfile(@RequestBody  User updatedUser) {

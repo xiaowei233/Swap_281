@@ -60,21 +60,10 @@
                       aria-selected="true"
                     >Personal Information</a>
                   </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      id="profile-tab"
-                      data-toggle="tab"
-                      href="#profile"
-                      role="tab"
-                      aria-controls="profile"
-                      aria-selected="false"
-                    >Visited Items</a>
-                  </li>
                 </ul>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" v-if="userId == UserAccount.userId">
               <input
                 type="submit"
                 class="profile-edit-btn"
@@ -88,11 +77,11 @@
             <div class="col-md-4">
               <div class="profile-work">
                 <p>Posted Items</p>
-
-                <a href>MATH 021 Textbook</a>
-                <br />
-                <a href>ECO 001 Textbook</a>
-                <br />
+                <p
+                  v-for="item in userPostedItems"
+                  v-bind:key="item.id"
+                  @click="goToItemDetail(item.id)"
+                >{{item.title}}</p>
               </div>
             </div>
             <div class="col-md-8">
@@ -141,6 +130,7 @@
 // Imports
 // eslint-disable-next-line
 import UserDataService from "../UserDataService";
+import UserAccount from "../account/UserAccount";
 import VueRouter from "vue";
 import Vue from "vue";
 import vsPopup from "vuesax";
@@ -149,6 +139,7 @@ export default {
   name: "UserProfile",
   data() {
     return {
+      UserAccount: UserAccount,
       popupActivo2: false,
       HasImage: true,
       isHidden: true,
@@ -161,6 +152,7 @@ export default {
       userPostedItems: [],
       userId: "",
       router: new VueRouter(),
+      username: null,
       dataUrl:
         "https://i1.wp.com/metro.co.uk/wp-content/uploads/2019/02/sei_54328243-2cab.jpg?quality=90&strip=all&zoom=1&resize=644%2C378&ssl=1"
     };
@@ -176,6 +168,9 @@ export default {
     });
   },
   methods: {
+    goToItemDetail(id) {
+      this.$router.push("/itemDetail?id=" + id);
+    },
     changeAvatar() {
       this.popupActivo2 = true;
     },
@@ -207,9 +202,15 @@ export default {
     }
   },
   created: function() {
-    this.userId = this.$route.params.id;
-    UserDataService.getUserInfo(this.userId).then(res => {
+    this.username = this.$route.params.username;
+    UserDataService.getUserInfo(this.username).then(res => {
       this.userProfile = res.data;
+      this.userId = res.data.id;
+      UserDataService.getUserPostedItemTitle(this.userId).then(res => {
+        this.userPostedItems = res.data;
+        if (this.userPostedItems.length > 5)
+          this.userPostedItems = this.userPostedItems.slice(0, 5);
+      });
     });
   }
 };
@@ -328,11 +329,21 @@ export default {
   padding: 14%;
   /* margin-top: -15%; */
 }
-.profile-work p {
+.profile-work p:first-child {
   font-size: 12px;
   color: #818182;
   font-weight: 600;
   margin-top: 10%;
+}
+.profile-work p {
+  font-size: 12px;
+  color: #0062cc;
+  font-weight: 600;
+  margin-top: 10%;
+}
+.profile-work p:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 .profile-work a {
   text-decoration: none;

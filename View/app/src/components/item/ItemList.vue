@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div>
+    <div class="row">
       <vs-select
+        class="select"
         placeholder="Choose categories"
         multiple
         v-model="selectedItems"
         @input="executeLoader($event)"
-        class="select"
       >
         <vs-select-item
           :value="item.id"
@@ -15,27 +15,48 @@
           v-bind:key="item.id"
         />
       </vs-select>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
-        <div class="card h-100 customclass" @click="toItemDetail(item.id)">
-          <a href="#">
-            <img class="card-img-top" v-bind:src="'data:image/png;base64,' + item.thumbnail" alt />
-          </a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a>{{ item.title }}</a>
-            </h4>
-            <h5>${{ item.price }}</h5>
-            <p class="card-text">{{ item.description }}</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">{{ item.createDate }}</small>
+
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-4" v-for="item in items" v-bind:key="item.item.id">
+            <div class="card h-100">
+              <a href="#" @click="toItemDetail(item.item.id)">
+                <img
+                  class="card-img-top cardImages"
+                  v-bind:src="'data:image/png;base64,'+ item.item.thumbnail"
+                  alt
+                />
+              </a>
+              <div class="card-body">
+                <h5 class="card-title itemTitle">
+                  <h5 @click="toItemDetail(item.item.id)">{{item.item.title}}</h5>
+                </h5>
+                <h5>${{item.item.price}}</h5>
+                <!-- <p class="card-text">{{item.item.description}}</p> -->
+                <p class="card-text">Condition: {{item.condition}}</p>
+                <p class="card-text">
+                  by
+                  <span
+                    class="user_name"
+                    v-bind:id="item.user_id"
+                    @click="toUserProfile(item.username)"
+                  >{{item.username}}</span>
+                </p>
+              </div>
+              <div class="card-footer post-date">
+                <small class="text-muted">{{item.item.createDate.slice(0, 10)}}</small>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- /.row -->
       </div>
+      <!-- /.col-lg-9 -->
     </div>
+    <!-- /.row -->
   </div>
+  <!-- /.container -->
 </template>
 
 <script>
@@ -48,7 +69,8 @@ export default {
     return {
       dropdown: [],
       items: [],
-      selectedItems: []
+      selectedItems: [],
+      keyword: ""
     };
   },
   methods: {
@@ -56,9 +78,10 @@ export default {
       ItemDataService.getAllItems().then(res => {
         this.items = res.data;
       });
-      ItemDataService.getCategoryList().then(res => {
-        this.dropdown = res.data;
-      });
+    },
+    toUserProfile(event) {
+      // console.log(event);
+      this.$router.push("/user/profile/" + event);
     },
     lowToHigh() {
       ItemDataService.lowToHigh().then(res => {
@@ -87,16 +110,25 @@ export default {
       window.location.href = "/itemDetail?id=" + id;
     },
     executeLoader(selectedItems) {
-      let idList = [];
-      for (let i = 0; i < selectedItems.length; i++)
-        idList.push(selectedItems[i]);
-      ItemDataService.getItemByCategoryIdList(idList).then(res => {
+      this.selectedItems = selectedItems;
+      ItemDataService.search(this.keyword, selectedItems).then(res => {
         this.items = res.data;
       });
     }
   },
   created() {
-    this.refresh();
+    this.keyword =
+      this.$route.query.search == undefined ? "" : this.$route.query.search;
+    ItemDataService.getCategoryList().then(res => {
+      this.dropdown = res.data;
+    });
+    ItemDataService.search(this.keyword, this.selectedItems).then(res => {
+      console.log(res.data);
+      this.items = res.data;
+    });
+  },
+  destroyed() {
+    window.localStorage.setItem("search", " ");
   }
 };
 </script>
@@ -106,14 +138,19 @@ export default {
 .customclass:hover {
   cursor: pointer;
 }
-img {
+.cardImages {
   position: relative;
   margin-top: 10px;
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.itemTitle:hover {
+  -webkit-text-fill-color: blue;
+  cursor: pointer;
 }
 .select {
   width: 50%;
@@ -128,5 +165,17 @@ button > span {
 
 .vs-select--item.con-icon.activex {
   padding-left: 2em !important;
+}
+
+.user_name {
+  -webkit-text-fill-color: blue;
+}
+.user_name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.selectL {
+  margin-top: 30px !important;
+  position: absolute;
 }
 </style>

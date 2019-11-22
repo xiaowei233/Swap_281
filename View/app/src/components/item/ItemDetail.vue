@@ -13,6 +13,7 @@
               <h3 class="card-title">{{ itemDetail.title }}</h3>
               <h4>${{ itemDetail.price }}</h4>
               <p class="card-text">{{ itemDetail.description }}</p>
+              <p class="card-text">{{ itemDetail.condition }}</p>
               <small class="text-muted">{{ itemDetail.createDate.slice(0, 10) }}</small>
               <div id="fav-btn" v-if="user.isLoggedIn" @click="favItem">
                 <i class="material-icons" v-if="favorited">favorite</i>
@@ -63,6 +64,7 @@ export default {
       this.itemId = this.$route.query.id;
       ItemDataService.getItemById(this.itemId).then(res => {
         this.itemDetail = res.data;
+        console.log("This is the itemDetail:" + this.itemDetail);
       });
     },
     favItem() {
@@ -83,11 +85,12 @@ export default {
     ItemDataService.getSimilarItems().then(res => {
       this.similarItem = res.data;
     });
-    ItemDataService.addToRecentlyViewed(UserAccount.userId, this.itemId).then(
-      res => {
-        console.log("Added");
-      }
-    );
+    ItemDataService.addToRecentlyViewed(UserAccount.userId, this.itemId)
+      .then
+      // res => {
+      //   console.log("Added");
+      // }
+      ();
   }
 };
 </script>
