@@ -21,22 +21,13 @@
         <i class="material-icons">arrow_right</i>
       </a>
     </div>
+
+    <hr class="hrBelowC" />
     <div class="d-flex flex-row-reverse">
       <p class="itemListLink" @click="goToItemList()">All Items</p>
     </div>
+
     <div class="row">
-      <!-- <div class="col-lg-3"> -->
-      <!-- <h1 class="my-4" id="SwapHeader">Swap</h1> -->
-
-      <!-- <div class="list-group">
-          <a href="#" class="list-group-item">Appliances & Furniture</a>
-          <a href="#" class="list-group-item">Clothing</a>
-          <a href="#" class="list-group-item">Electronics</a>
-          <a href="#" class="list-group-item">Books</a>
-          <a href="#" class="list-group-item">Automobiles</a>
-          <a href="#" class="list-group-item">Miscellaneous</a>
-      </div>-->
-
       <vs-select
         placeholder="Choose categories"
         multiple
@@ -51,12 +42,14 @@
           v-bind:key="item.id"
         />
       </vs-select>
-      <!-- </div> -->
-      <!-- /.col-lg-3 -->
 
       <div class="col-lg-12">
         <div class="row">
-          <div class="col-lg-3 col-md-6 mb-4" v-for="item in items" v-bind:key="item.item.id">
+          <div
+            class="col-lg-3 col-md-6 mb-4"
+            v-for="item in items.slice(0, 12)"
+            v-bind:key="item.item.id"
+          >
             <div class="card h-100">
               <a href="#" @click="toItemDetail(item.item.id)">
                 <img
@@ -118,13 +111,8 @@ export default {
     async refresh() {
       ItemDataService.getAllItems().then(res => {
         this.items = res.data;
-        var length = this.items.length;
-        if (this.items[length - 3] != null) {
-          let lastThree = [
-            this.items[length - 1],
-            this.items[length - 2],
-            this.items[length - 3]
-          ];
+        if (this.items[2] != null) {
+          let lastThree = [this.items[0], this.items[1], this.items[2]];
           this.carousel = lastThree[0];
           this.carousalpics = lastThree;
         }
@@ -249,6 +237,9 @@ button > span {
 }
 .itemListLink {
   -webkit-text-fill-color: blue;
+}
+.hrBelowC {
+  border: 5px solid rgb(184, 177, 177);
 }
 </style>
 
