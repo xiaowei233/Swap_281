@@ -28,21 +28,6 @@
     </div>
 
     <div class="row">
-      <vs-select
-        placeholder="Choose categories"
-        multiple
-        v-model="selectedItems"
-        @input="executeLoader($event)"
-        class="select"
-      >
-        <vs-select-item
-          :value="item.id"
-          :text="item.category"
-          v-for="item in dropdown"
-          v-bind:key="item.id"
-        />
-      </vs-select>
-
       <div class="col-lg-12">
         <div class="row">
           <div

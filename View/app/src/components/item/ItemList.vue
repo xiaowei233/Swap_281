@@ -2,11 +2,11 @@
   <div class="container">
     <div class="row">
       <vs-select
+        class="select"
         placeholder="Choose categories"
         multiple
         v-model="selectedItems"
         @input="executeLoader($event)"
-        class="select"
       >
         <vs-select-item
           :value="item.id"
@@ -69,16 +69,14 @@ export default {
     return {
       dropdown: [],
       items: [],
-      selectedItems: []
+      selectedItems: [],
+      keyword: ""
     };
   },
   methods: {
     refresh() {
       ItemDataService.getAllItems().then(res => {
         this.items = res.data;
-      });
-      ItemDataService.getCategoryList().then(res => {
-        this.dropdown = res.data;
       });
     },
     toUserProfile(event) {
@@ -112,23 +110,22 @@ export default {
       window.location.href = "/itemDetail?id=" + id;
     },
     executeLoader(selectedItems) {
-      let idList = [];
-      for (let i = 0; i < selectedItems.length; i++)
-        idList.push(selectedItems[i]);
-      ItemDataService.getItemByCategoryIdList(idList).then(res => {
+      this.selectedItems = selectedItems;
+      ItemDataService.search(this.keyword, selectedItems).then(res => {
         this.items = res.data;
       });
     }
   },
   created() {
-    console.log(this.$route);
-    console.log(this.$route.query.search);
-    if (this.$route.query.search)
-      ItemDataService.search(this.$route.query.search).then(res => {
-        console.log(res.data);
-        // this.items = res.data;
-      });
-    else this.refresh();
+    this.keyword =
+      this.$route.query.search == undefined ? "" : this.$route.query.search;
+    ItemDataService.getCategoryList().then(res => {
+      this.dropdown = res.data;
+    });
+    ItemDataService.search(this.keyword, this.selectedItems).then(res => {
+      console.log(res.data);
+      this.items = res.data;
+    });
   },
   destroyed() {
     window.localStorage.setItem("search", " ");
@@ -176,5 +173,9 @@ button > span {
 .user_name:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+.selectL {
+  margin-top: 30px !important;
+  position: absolute;
 }
 </style>
