@@ -1,13 +1,20 @@
 package com.swap281.controller.item;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -34,14 +41,15 @@ public class ItemListController {
 
 	private ItemRepository _itemRepo;
 	private ItemCategoryRepository _itemCategoryRepo;
-	
-    @Autowired
-    Client _client;
-    @Autowired
-    public ItemListController(ItemRepository itemRepo, ItemCategoryRepository itemCategoryRepo) {
-        this._itemRepo = itemRepo;
-        this._itemCategoryRepo = itemCategoryRepo;
-    }
+
+	@Autowired
+	Client _client;
+
+	@Autowired
+	public ItemListController(ItemRepository itemRepo, ItemCategoryRepository itemCategoryRepo) {
+		this._itemRepo = itemRepo;
+		this._itemCategoryRepo = itemCategoryRepo;
+	}
 
 	@GetMapping("/all")
 	public List<ItemFull> getItemId() {
@@ -50,38 +58,9 @@ public class ItemListController {
 		return articles;
 	}
 
-	@GetMapping("/lowToHigh")
-	public List<Item> lowToHigh() {
-		List<Item> articles = _itemRepo.findAll(Sort.by(Sort.Direction.ASC, "price"));
-
-		return articles;
-	}
-
-	@GetMapping("/highToLow")
-	public List<Item> highToLow() {
-		List<Item> articles = _itemRepo.findAll(Sort.by(Sort.Direction.DESC, "price"));
-
-		return articles;
-	}
-
-	@GetMapping("/earlyToLate")
-	public List<Item> earlyToLate() {
-		List<Item> articles = _itemRepo.findAll(Sort.by(Sort.Direction.ASC, "createDate"));
-
-		return articles;
-	}
-
-	@GetMapping("/lateToEarly")
-	public List<Item> lateToEarly() {
-		List<Item> articles = _itemRepo.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
-
-		return articles;
-	}
-
 	// return all categories
 	@GetMapping("/dropdown")
-	public List<ItemCategory> getCategories()
-	{
+	public List<ItemCategory> getCategories() {
 		return this._itemCategoryRepo.findAll();
 	}
 
@@ -97,60 +76,62 @@ public class ItemListController {
 		return this._itemRepo.findItemByCategoryList(category);
 	}
 
-	@GetMapping("/search/{keyword}")
-	public List<Item> searchByKeyword(@PathVariable String keyword)
-	{
-		QueryBuilder matchSpecificFieldQuery= QueryBuilders
-				.multiMatchQuery(
-					    keyword, 
-					    "title", "description"       
-					);
-		SearchResponse Sresponse = _client.prepareSearch()
-				  .setTypes()
-				  .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-				  .setPostFilter(matchSpecificFieldQuery)
-				  .execute()
-				  .actionGet();
-        SearchHits hits = Sresponse.getHits();
-        SearchHit[] searchHits = hits.getHits();
-        ArrayList<Long> result = new ArrayList();
-        for (SearchHit hit : searchHits) {
-            System.out.println("entered title search hits");
-            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-            Long pKey = Long.valueOf((int)(sourceAsMap.get("id")));
+	// slect ..... from.... where ... order by ?1 ?2
+	// order by price asc
+	// search?keyword=ddd&category=7,7,7&
+	@GetMapping("/search")
+	public List<Item> searchByKeyword(@RequestParam String keyword, @RequestParam List<Integer> category,
+			@RequestParam String sort) {
+		System.out.println("keyword:\t" + keyword);
+		System.out.println("sort:\t" + sort);
+		System.out.println("category:\t" + category.toString());
 
-            result.add(pKey);
-        }
-   
-		return _itemRepo.findAllById(result);	
+		List<Item> articles;
+		ArrayList<Long> result = new ArrayList<Long>();
+		if (keyword != "") {
+			QueryBuilder matchSpecificFieldQuery = QueryBuilders.multiMatchQuery(keyword, "title", "description");
+			SearchResponse Sresponse = _client.prepareSearch().setTypes().setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+					.setPostFilter(matchSpecificFieldQuery).execute().actionGet();
+			SearchHits hits = Sresponse.getHits();
+			SearchHit[] searchHits = hits.getHits();
+			if (searchHits.length == 0)
+				return null;
+			for (SearchHit hit : searchHits) {
+				Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+				System.out.println(hit.toString());
+				System.out.println(sourceAsMap.get("id"));
+				Long pKey = Long.valueOf((int) (sourceAsMap.get("id")));
+				result.add(pKey);
+			}
+			articles = _itemRepo.findAllById(result);
+		} else {
+			articles = _itemRepo.findAll();
 		}
-	
-	@GetMapping("/test/{keyword}")
-	public String test(@PathVariable String keyword)
-	{
-		QueryBuilder matchSpecificFieldQuery= QueryBuilders
-				.multiMatchQuery(
-					    keyword, 
-					    "title", "description"       
-					);
-		SearchResponse Sresponse = _client.prepareSearch()
-				  .setTypes()
-				  .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-				  .setPostFilter(matchSpecificFieldQuery)
-				  .execute()
-				  .actionGet();
-        SearchHits hits = Sresponse.getHits();
-        SearchHit[] searchHits = hits.getHits();
-        ArrayList<Long> result = new ArrayList();
-//        for (SearchHit hit : searchHits) {
-//            System.out.println("entered title search hits");
-//            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-//            long pKey = (long) sourceAsMap.get("id");
-//
-//            result.add(pKey);
-//        }
-        for (int i = 0; i < searchHits.length; i ++)
-        	System.out.println(searchHits[i].toString());
-		return searchHits[0].toString();	
+		if (category.size() != 0) {
+			ArrayList<Long> temp = new ArrayList<Long>();
+			for (int i = 0; i < articles.size(); i++) {
+				temp.add(articles.get(i).id);
+			}
+			articles = _itemRepo.filterSearchByCategoryList(temp, category);
 		}
+		if (sort != "") {
+			String[] splited = sort.split("-");
+			ArrayList<Long> temp = new ArrayList<Long>();
+			for (int i = 0; i < articles.size(); i++) {
+				temp.add(articles.get(i).id);
+			}
+			if (splited[0].equals("price")) {
+				if (splited[1].equals("ASC"))
+					articles = _itemRepo.sortByAscdPrice(temp);
+				else if (splited[1].equals("DESC"))
+					articles = _itemRepo.sortByDescPrice(temp);
+			} else if (splited[1].equals("createDate")) {
+				if (splited[1].equals("ASC"))
+					articles = _itemRepo.sortByAscdDate(temp);
+				else if (splited[1].equals("DESC"))
+					articles = _itemRepo.sortByDescDate(temp);
+			}
+		}
+		return articles;
+	}
 }
