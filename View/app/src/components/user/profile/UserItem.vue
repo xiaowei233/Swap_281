@@ -7,23 +7,24 @@
         v-for="item in items"
         v-bind:key="item.id"
       >
-        <div class="card h-100 customclass" @click="toItemDetail(item.id)">
+        <div class="card h-100 customclass">
           <a href="#">
-            <img
+            <img @click="toItemDetail(item.item.id)"
               class="card-img-top"
-              v-bind:src="'data:image/png;base64,' + item.thumbnail"
+              v-bind:src="'data:image/png;base64,' + item.item.thumbnail"
               alt
             />
           </a>
           <div class="card-body">
             <h4 class="card-title">
-              <a>{{ item.title }}</a>
+              <a @click="toItemDetail(item.item.id)">{{ item.item.title }}</a>
             </h4>
-            <h5>${{ item.price }}</h5>
-            <p class="card-text">{{ item.description }}</p>
+            <h5>${{ item.item.price }}</h5>
+            <p class="card-text">{{ item.item.description }}</p>
+            <p class="user_name" v-if="item.num != 0" @click="toItemDetail(item.item.id)">This item is favorited by {{ item.num }} people!</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">{{ item.createDate.slice(0, 10) }}</small>
+            <small class="text-muted">{{ item.item.createDate.slice(0, 10) }}</small>
           </div>
         </div>
       </div>
@@ -61,7 +62,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.customclass:hover {
+.customclass image:hover, .customclass .card-title:hover {
+    -webkit-text-fill-color: blue;
   cursor: pointer;
 }
 img {
@@ -72,5 +74,13 @@ img {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.user_name {
+  margin-bottom: 0;
+  -webkit-text-fill-color: blue;
+}
+.user_name:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

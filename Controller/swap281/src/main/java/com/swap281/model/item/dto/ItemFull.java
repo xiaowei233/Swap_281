@@ -15,9 +15,18 @@ public class ItemFull {
         
     public String condition;
     
+    public Long num = (long) 0;
+    
     public ItemFull(Item item, String userName, String condition) {
     	this.item = item;
     	this.username = userName;
     	this.condition = condition;
+    }
+    
+    public ItemFull(Item item, String userName, String condition, Long num) {
+    	this.item = item;
+    	this.username = userName;
+    	this.condition = condition;
+    	this.num = num;
     }
 }

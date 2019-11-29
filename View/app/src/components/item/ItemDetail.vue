@@ -6,18 +6,38 @@
           <div class="card-body">
             <img
               class="card-img-top"
-              v-bind:src="'data:image/png;base64,' + itemDetail.thumbnail"
+              v-bind:src="'data:image/png;base64,' + itemDetail.item.thumbnail"
               alt
             />
             <div class="itemInfo">
-              <h3 class="card-title">{{ itemDetail.title }}</h3>
-              <h4>${{ itemDetail.price }}</h4>
-              <p class="card-text">{{ itemDetail.description }}</p>
+              <h3 class="card-title">{{ itemDetail.item.title }}</h3>
+              <h4>${{ itemDetail.item.price }}</h4>
+              <p class="card-text">{{ itemDetail.item.description }}</p>
               <p class="card-text">{{ itemDetail.condition }}</p>
-              <small class="text-muted">{{ itemDetail.createDate.slice(0, 10) }}</small>
+              <p class="card-text">
+                by
+                <span
+                  class="user_name"
+                  v-bind:id="itemDetail.item.user_id"
+                  @click="toUserProfile(itemDetail.username)"
+                >{{itemDetail.username}}</span>
+              </p>
+              <small class="text-muted">{{ itemDetail.item.createDate.slice(0, 10) }}</small>
               <div id="fav-btn" v-if="user.isLoggedIn" @click="favItem">
                 <i class="material-icons" v-if="favorited">favorite</i>
                 <i class="material-icons" v-if="!favorited">favorite_border</i>
+              </div>
+              <p v-if="itemDetail.num != 0 && user.userId == itemDetail.item.user_id">
+                This item is favorited by {{ itemDetail.num }} people!
+                <span
+                  class="user_name"
+                  @click="viewAllUser"
+                >View All</span>
+              </p>
+              <div v-if="userList.length != 0">
+                <div v-for="user in userList" v-bind:key="user.id">
+                  <span class="user_name" @click="toUserProfile(user.username)">{{user.username}}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -56,7 +76,8 @@ export default {
       itemId: 0,
       user: UserAccount,
       favorited: false,
-      similarItem: undefined
+      similarItem: undefined,
+      userList: []
     };
   },
   methods: {
@@ -73,6 +94,15 @@ export default {
           this.favorited = res.data;
         }
       );
+    },
+    viewAllUser() {
+      ItemDataService.getAllUsersFavorited(this.itemId).then(res => {
+        this.userList = res.data;
+      });
+    },
+    toUserProfile(event) {
+      // console.log(event);
+      this.$router.push("/user/profile/" + event);
     }
   },
   created() {
@@ -116,5 +146,12 @@ export default {
 img {
   width: 500px;
   height: 500px;
+}
+.user_name {
+  -webkit-text-fill-color: blue;
+}
+.user_name:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

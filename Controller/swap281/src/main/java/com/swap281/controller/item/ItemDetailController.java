@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.swap281.model.item.Item;
 import com.swap281.model.item.ItemCategory;
 import com.swap281.model.item.ItemCondition;
+import com.swap281.model.item.dto.ItemFull;
+import com.swap281.model.user.User;
 import com.swap281.model.user.UserWishList;
 import com.swap281.repository.item.ItemCategoryRepository;
 import com.swap281.repository.item.ItemConditionRepository;
@@ -81,9 +83,14 @@ public class ItemDetailController {
         return saved_item;
     }
 
+    @GetMapping("/get-all-favorited-user/{id}")
+    public List<User> getAllFavoritedUser(@PathVariable Long id){
+    	return _userWishListRepo.getAllFavUser(id);
+    }
+    
     @GetMapping(value = "/{id}")
-    public Item getItemDetail(@PathVariable Long id) {
-        return _itemRepo.findById(id).get();
+    public ItemFull getItemDetail(@PathVariable Long id) {
+        return _itemRepo.getItemDetailWithNumUserFavorited(id);
     }
 
     @GetMapping(value = "new-favorite")

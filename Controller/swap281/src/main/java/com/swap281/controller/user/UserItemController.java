@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.model.item.Item;
+import com.swap281.model.item.dto.ItemNumUserFavorited;
 import com.swap281.model.user.UserRecentViewItem;
 import com.swap281.repository.item.ItemRepository;
 import com.swap281.repository.user.UserItemRepository;
 import com.swap281.repository.user.UserRecentViewItemRepository;
+import com.swap281.repository.user.UserWishListRepository;
 
 @RestController
 @RequestMapping("/user/item")
@@ -25,18 +27,17 @@ public class UserItemController {
 	private UserItemRepository _userItemRepo;
 	@Autowired
 	private UserRecentViewItemRepository _userRecentViewItemRepo;
-
+	@Autowired
+	private UserWishListRepository _userWishlistRepo;
+	
 	@Autowired
 	public UserItemController(ItemRepository itemRepo) {
 		this._itemRepo = itemRepo;
 	}
 
 	@GetMapping("/{id}")
-	public List<Item> getPostedItems(@PathVariable Long id) {
-		List<Item> articles = _itemRepo.GetUserItems(id);
-
-		return articles;
-
+	public List<ItemNumUserFavorited> getPostedItems(@PathVariable Long id) {
+		return _userWishlistRepo.numberOfPeopleFavorited(id);
 	}
 	
 	@GetMapping("/posted_title/{id}")

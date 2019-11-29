@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.swap281.model.item.Item;
 import com.swap281.model.item.ItemCategory;
 import com.swap281.model.item.dto.ItemFull;
+import com.swap281.model.item.dto.ItemNumUserFavorited;
 import com.swap281.model.user.User;
 import com.swap281.model.user.UserWishList;
 import com.swap281.repository.item.ItemCategoryRepository;
@@ -36,5 +37,6 @@ public class RepositoryConfigurer implements RepositoryRestConfigurer {
     config.exposeIdsFor(UserItemRepository.class);
     config.exposeIdsFor(UserWishListRepository.class);
     config.exposeIdsFor(UserRecentViewItemRepository.class);
+    config.exposeIdsFor(ItemNumUserFavorited.class);
   }
 }

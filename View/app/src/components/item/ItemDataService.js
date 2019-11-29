@@ -77,6 +77,10 @@ class ItemDataService {
         return axios.get(`${URL}/item/list/search?keyword=${keyword}&category=${category}`
         )
     }
+
+    getAllUsersFavorited(id) {
+        return axios.get(`${URL}/item/detail/get-all-favorited-user/${id}`);
+    }
 }
 
 export default new ItemDataService();

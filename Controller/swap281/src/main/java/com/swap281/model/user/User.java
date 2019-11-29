@@ -73,6 +73,10 @@ public class User {
         this.avatar = avatar;
     }
     
+    public User(Long id, String name) {
+    	this.id = id;
+    	this.username = name;
+    }    
     public User() {
     	
     }
