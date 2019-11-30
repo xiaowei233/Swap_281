@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.swap281.model.item.dto.AvatarChange;
 import com.swap281.model.user.User;
 import com.swap281.model.user.UserPostedItem;
 import com.swap281.repository.user.UserAccountRepository;
@@ -19,8 +20,7 @@ import com.swap281.repository.user.UserPostedItemsRepository;
 @RestController
 @RequestMapping("/user/profile")
 @CrossOrigin(origins = { "http://localhost:8081", "http://localhost:23333", "http://localhost:8080" })
-
-public class UserProfile {
+public class UserProfileController {
 	@Autowired
 	private UserAccountRepository _userRepo;
 	
@@ -29,7 +29,14 @@ public class UserProfile {
 	
 	@GetMapping("user-profile-info/{username}")
 	private User getUserProfileInfo(@PathVariable("username") String username) {
-		return _userRepo.findByName(username);
+		User user =  _userRepo.findByName(username);
+		user.password = null;
+		return user;
+	}
+	
+	@PostMapping("update_user_avatar")
+	private void updateUserAvatar(@RequestBody AvatarChange avatar) {
+		_userRepo.updateAvatar(avatar.userId, avatar.avatar);
 	}
 	
 	@GetMapping("user-posted-items/{userId}")
@@ -48,7 +55,9 @@ public class UserProfile {
 		usr.first_name = updatedUser.first_name;
 		usr.last_name = updatedUser.last_name;
 		usr.full_name = updatedUser.first_name + " " + updatedUser.last_name;
-		return _userRepo.save(usr);
+		User user = _userRepo.save(usr);
+		user.password = null;
+		return user;
 			}
 	
 }

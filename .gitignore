@@ -6,3 +6,4 @@ app/node_modules
 */.vscode
 Controller/swap281/.metadata/
 .project
+!app/node_modules/vue-google-oauth2
