@@ -14,7 +14,13 @@
           <div class="row">
             <div class="col-md-4">
               <div class="profile-img">
-                <img v-if="HasImage" :height="280" :width="280" v-bind:src="dataUrl" alt="No Image" />
+                <img
+                  v-if="userProfile.avatar"
+                  :height="280"
+                  :width="280"
+                  v-bind:src="userProfile.avatar"
+                  alt="Image Not Loaded"
+                />
                 <img
                   v-else
                   :height="280"
@@ -37,9 +43,22 @@
                     class="resizable-croppa"
                     :prevent-white-space="true"
                   ></croppa>
+                  <vs-input
+                    class="vsinput"
+                    :danger="avatar == ''"
+                    danger-text="New avatar cannot be empty!"
+                    :success="userProfile.avatarChanged"
+                    success-text="New avatar uploaded!"
+                    hidden
+                    disabled
+                  />
                   <div id="fakeBtnConfirm" @click="confirmAvatar">Confirm</div>
                 </vs-popup>
-                <div id="fakeBtnChange" @click="changeAvatar">Change Avatar</div>
+                <div
+                  v-if="userId == UserAccount.userId"
+                  id="fakeBtnChange"
+                  @click="changeAvatar"
+                >Change Avatar</div>
               </div>
             </div>
             <div class="col-md-6">
@@ -141,13 +160,13 @@ export default {
     return {
       UserAccount: UserAccount,
       popupActivo2: false,
-      HasImage: true,
       isHidden: true,
       myCroppa: {},
       userAvatar: {},
       resizing: false,
       resizableW: 200,
       resizableH: 200,
+      avatar: null,
       userProfile: [],
       userPostedItems: [],
       userId: "",
@@ -175,12 +194,19 @@ export default {
       this.popupActivo2 = true;
     },
     confirmAvatar() {
-      this.HasImage = true;
-      this.dataUrl = this.myCroppa.generateDataUrl("image/*", 1);
-      this.popupActivo2 = false;
-      if (this.dataUrl == "") {
-        this.HasImage = false;
-        this.popupActivo2 = false;
+      this.userProfile.avatarChanged = false;
+      this.avatar = this.myCroppa.generateDataUrl("image/*", 1);
+      // console.log(this.avatar)
+      if (this.avatar != null) {
+        this.avatar = this.avatar.slice(22, this.avatar.length);
+        UserDataService.updateUserAvatar(this.userId, this.avatar).then(res => {
+          console.log(res);
+          this.userProfile.avatarChanged = true;
+          this.userProfile.avatar = "data:image/png;base64," + this.avatar;
+          setTimeout(() => {
+            this.popupActivo2 = false;
+          }, 1000);
+        });
       }
     },
     onResizeTouchStart() {
@@ -205,6 +231,8 @@ export default {
     this.username = this.$route.params.username;
     UserDataService.getUserInfo(this.username).then(res => {
       this.userProfile = res.data;
+      this.userProfile.avatar =
+        "data:image/png;base64," + this.userProfile.avatar;
       this.userId = res.data.id;
       UserDataService.getUserPostedItemTitle(this.userId).then(res => {
         this.userPostedItems = res.data;
@@ -360,5 +388,14 @@ export default {
 .profile-tab p {
   font-weight: 600;
   color: #0062cc;
+}
+.vsinput {
+  width: 300px !important;
+  margin-left: 175px;
+}
+
+.vsinput span {
+  /* margin-left: 200px !important; */
+  font-size: 1rem !important;
 }
 </style>

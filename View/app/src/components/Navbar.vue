@@ -70,7 +70,7 @@ export default {
       this.userSession = UserAccount.userSession;
     },
     Profile() {
-      this.$router.go();
+      // this.$router.go();
       this.$router.push({ path: `/user/profile/${this.username}` });
     },
 
