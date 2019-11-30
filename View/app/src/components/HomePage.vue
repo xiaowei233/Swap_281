@@ -11,7 +11,10 @@
             class="d-block img-fluid carouselImage"
             v-bind:src="'data:image/png;base64,'+ carousel.item.thumbnail"
           />
-          <h1>{{carousel.item.title}}</h1>
+          <h5 id="carouselTitle">{{carousel.item.title}}</h5>
+          <h5 id="carouselDescription">{{carousel.item.description}}</h5>
+   
+
         </div>
       </div>
       <a class="carousel-control-prev controller" @click="onPrev()">

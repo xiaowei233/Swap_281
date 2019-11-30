@@ -84,10 +84,10 @@ public class ItemDetailController {
     }
 
     @GetMapping("/get-all-favorited-user/{id}")
-    public List<User> getAllFavoritedUser(@PathVariable Long id){
-    	return _userWishListRepo.getAllFavUser(id);
+    public List<User> getAllFavoritedUser(@PathVariable Long id) {
+        return _userWishListRepo.getAllFavUser(id);
     }
-    
+
     @GetMapping(value = "/{id}")
     public ItemFull getItemDetail(@PathVariable Long id) {
         return _itemRepo.getItemDetailWithNumUserFavorited(id);

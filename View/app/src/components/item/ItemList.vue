@@ -153,6 +153,7 @@ export default {
   cursor: pointer;
 }
 .select {
+  margin-top: 10px;
   width: 50%;
   margin-bottom: 10px;
 }

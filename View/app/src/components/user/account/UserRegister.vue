@@ -122,16 +122,16 @@ export default {
     },
     post: function() {
       this.errors = [];
-      if (!this.userRegister.username) this.errors.push("Username is requried");
+      if (!this.userRegister.username) this.errors.push("Username is required");
       if (this.checkUsername()) this.errors.push("Username is already taken");
-      if (!this.userRegister.password) this.errors.push("Password is requried");
+      if (!this.userRegister.password) this.errors.push("Password is required");
       if (!this.userRegister.first_name)
-        this.errors.push("First name is requried");
+        this.errors.push("First name is required");
       if (!this.userRegister.last_name)
-        this.errors.push("Last name is requried");
-      if (!this.userRegister.email) this.errors.push("Email is requried");
+        this.errors.push("Last name is required");
+      if (!this.userRegister.email) this.errors.push("Email is required");
       if (this.checkEmailEnding())
-        this.errors.push("Entere a valie Lehigh email");
+        this.errors.push("Enter a valid Lehigh email");
       if (this.errors.length != 0) return;
 
       UserDataService.registerNewUser(this.userRegister).then(() => {

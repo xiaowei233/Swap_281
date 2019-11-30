@@ -14,16 +14,13 @@ import com.swap281.model.item.dto.ItemFull;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition, COUNT(uwl.id)) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id LEFT JOIN UserWishList uwl ON i.id = uwl.item_id WHERE i.id = ?1 GROUP BY i.id, u.username, c.condition")
-	ItemFull getItemDetailWithNumUserFavorited(Long id);
-    
+    ItemFull getItemDetailWithNumUserFavorited(Long id);
+
     @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id WHERE i.id = ?1")
-	ItemFull getItemDetail(Long id);
-    
+    ItemFull getItemDetail(Long id);
+
     @Query("SELECT u FROM Item u WHERE u.categoryId = ?1")
     List<Item> findItemByCategory(Long id);
-    
-//    @Query("SELCT i.id FROM Item i")
-//    ArrayList<Long> getAllItemId();
 
     @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id WHERE i.categoryId IN (?1) ORDER BY i.createDate DESC")
     List<ItemFull> findItemByCategoryList(List<Integer> idList);
@@ -33,7 +30,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id ORDER BY i.createDate DESC")
     public List<ItemFull> getItemFull();
-    
+
     @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id WHERE i.id in (?1) ORDER BY i.createDate DESC")
     public List<ItemFull> getItemFull(List<Long> idList);
 
@@ -51,5 +48,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT u FROM Item u WHERE u.id in (?1) ORDER BY price DESC")
     List<Item> sortByDescDate(List<Long> itemList);
-    
+
 }
