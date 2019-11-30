@@ -28,4 +28,9 @@ public interface UserAccountRepository  extends JpaRepository<User, Long>{
 	  
 	  @Query("SELECT u FROM User u WHERE u.username = ?1")
 	  public User findByName(String username);
+	  
+		@Modifying
+		@Transactional
+	  @Query("UPDATE User u SET avatar = ?2 WHERE u.id = ?1")
+	  public void updateAvatar(Long user_id, byte[] avatar);
 }

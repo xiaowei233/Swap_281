@@ -41,6 +41,14 @@ class UserDataService {
   getUserPostedItemTitle(userId) {
     return axios.get(`${URL}/user/item/posted_title/${userId}`);
   }
+
+  addNewOrUpdate(user) {
+    return axios.post(`${URL}/user/account/add_or_update`, user);
+  }
+
+  updateUserAvatar(userId, avatar) {
+    return axios.post(`${URL}/user/profile/update_user_avatar`, {avatar: avatar, userId: userId});
+  }
 }
 
 export default new UserDataService();

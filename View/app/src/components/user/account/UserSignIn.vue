@@ -1,7 +1,7 @@
 <template>
   <div id="add-blog">
     <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet" />
-
+    <!-- <g-signin-button @done="onUserLoggedIn"/> -->
     <div v-if="!isLoggedIn">
       <h2 class="auth-title">Sign In</h2>
       <form>
@@ -26,11 +26,15 @@
 
         <button class="btn btn-outline-secondary confirm-btn" v-on:click.prevent="post">Confirm</button>
       </form>
+
+      <div @click="googleSignIn" class="div-sign-in">
+        <img width="25px" height="25px" src="../../../assets/google.jpg" />
+        <div class="btn-sign-in">Sign in with Google</div>
+      </div>
     </div>
     <div v-if="isLoggedIn">
       <p>
-        You are now logged in. Return to
-        <a v-bind:href="previous">last page</a>
+        You are now logged in. Returning to home page.
       </p>
     </div>
   </div>
@@ -39,16 +43,22 @@
 <script>
 import UserDataService from "../UserDataService";
 import UserAccount from "./UserAccount";
+import Vue from "vue";
 
-// import Vue from 'vue'
-// import GAuth from 'vue-google-oauth2'
-// const gauthOption = {
-//     clientId: 'CLIENT_ID.apps.googleusercontent.com',
-//     scope: 'profile email',
-//     prompt: 'select_account'
-// }
-
-// Vue.use(GAuth, gauthOption)
+import GAuth from "vue-google-oauth2";
+import Axios from "axios";
+const gauthOption = {
+  clientId:
+    "835929543153-3s9nek7keah0cd56ruk9neqs1rsnlhal.apps.googleusercontent.com",
+  client_id:
+    "835929543153-3s9nek7keah0cd56ruk9neqs1rsnlhal.apps.googleusercontent.com",
+  scope: "profile email",
+  prompt: "select_account",
+  hd: "lehigh.edu",
+  response_type: "token"
+  // redirect_uri: '/',
+};
+Vue.use(GAuth, gauthOption);
 
 export default {
   name: "UserSignIn",
@@ -61,10 +71,55 @@ export default {
         password: ""
       },
       isLoggedIn: UserAccount.isLoggedIn,
-      previous: window.localStorage.getItem("previousRoute")
+      // previous: window.localStorage.getItem("previousRoute"),
+      GoogleAuth: undefined
     };
   },
   methods: {
+    googleSignIn() {
+      console.log(this.$gAuth);
+      this.$gAuth
+        .signIn()
+        .then(GoogleUser => {
+          // On success do something, refer to https://developers.google.com/api-client-library/javascript/reference/referencedocs#googleusergetid
+          console.log("user", GoogleUser);
+
+          Axios.get(GoogleUser.w3.Paa).then(oReq => {
+            GoogleUser.avatar = oReq.response; // not responseText
+
+            var user = {
+              username: GoogleUser.w3.ig,
+              email: GoogleUser.w3.U3,
+              password: GoogleUser.Zi.id_token.slice(0, 256),
+              first_name: GoogleUser.w3.ofa,
+              last_name: GoogleUser.w3.wea,
+              // token: GoogleUser.Zi.id_token,
+              create_date: new Date(),
+              is_verified: true,
+              avatar: btoa(
+                String.fromCharCode.apply(
+                  null,
+                  new Uint8Array(GoogleUser.avatar)
+                )
+              ),
+              full_name: GoogleUser.w3.ig
+            };
+            UserDataService.addNewOrUpdate(user).then(res => {
+              UserAccount.UpdateUserInfo(res.data.username, res.data.id);
+              setTimeout(() => {
+                this.$router.push("/");
+                this.$router.go();
+              }, 2000);
+              this.isLoggedIn = true;
+            });
+          });
+        })
+        .catch(error => {
+          console.log("error: ");
+          console.log(error);
+          //on fail do something
+        });
+    },
     post: function() {
       UserDataService.auth(
         this.userLogin.username,
@@ -74,9 +129,10 @@ export default {
           this.authSuccess = true;
           this.authError = false;
           UserAccount.UpdateUserInfo(res.data.username, res.data.id);
+          this.isLoggedIn = true;
           setTimeout(() => {
-            // this.$router.go(-1);
-            window.location.href = this.previous;
+            this.$router.push("/");
+            this.$router.go();
           }, 2000);
         } else {
           this.authError = true;
@@ -114,5 +170,18 @@ export default {
 }
 .auth-input label {
   font-size: 40px !important;
+}
+.div-sign-in {
+  margin-top: 20px;
+}
+.div-sign-in:hover {
+  cursor: pointer;
+  background-color: lightblue;
+}
+.div-sign-in img {
+  display: inline-block;
+}
+.btn-sign-in {
+  display: inline-block;
 }
 </style>

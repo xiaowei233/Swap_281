@@ -16,6 +16,7 @@ class UserAccount {
   }
 
   SignOut() {
+    this.isLoggedIn = false;
     window.localStorage.clear();
   }
 }

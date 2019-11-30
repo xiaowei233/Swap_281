@@ -46,6 +46,7 @@ public class UserAccountController {
 				e.printStackTrace();
 			}
 		}).start();
+		user.password = null;
 		return user;
 	}
 	
@@ -61,7 +62,21 @@ public class UserAccountController {
 	private User Auth(@PathVariable String username, @PathVariable String password)
 	{
 		User user = _userRepo.Auth(username, password);
+		user.password = null;
 		return user;
+	}
+
+	@PostMapping("add_or_update")
+	private User addOrUpdateUser(@RequestBody User user)
+	{
+		User result = _userRepo.findByName(user.username);
+		if (result == null)
+		{
+			User new_user = _userRepo.save(user);
+			new_user.password = null;
+			return new_user;
+		}
+		return result;
 	}
 	
 	@PutMapping("verify-email/{token}")
