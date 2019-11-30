@@ -1,20 +1,29 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
-        <div class="card h-100 customclass" @click="toItemDetail(item.id)">
+      <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.item.id">
+        <div class="card h-100">
           <a href="#">
-            <img class="card-img-top" v-bind:src="'data:image/png;base64,'+ item.thumbnail" alt />
+            <img class="card-img-top customclass" @click="toItemDetail(item.item.id)" v-bind:src="'data:image/png;base64,'+ item.item.thumbnail" alt />
           </a>
           <div class="card-body">
-            <h4 class="card-title">
-              <a>{{item.title}}</a>
+            <h4 class="card-title itemTitle" @click="toItemDetail(item.item.id)">
+              <a>{{item.item.title}}</a>
             </h4>
-            <h5>${{item.price}}</h5>
-            <p class="card-text">{{item.description}}</p>
+            <h5>${{item.item.price}}</h5>
+            <p class="card-text">{{item.item.description}}</p>
+            <p class="card-text">Condition: {{item.condition}}</p>
+            <p class="card-text">
+              by
+              <span
+                class="user_name"
+                v-bind:id="item.item.user_id"
+                @click="toUserProfile(item.username)"
+              >{{item.username}}</span>
+            </p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">{{item.createDate}}</small>
+            <small class="text-muted">{{item.item.createDate.slice(0,10)}}</small>
           </div>
         </div>
       </div>
@@ -41,6 +50,10 @@ export default {
     },
     toItemDetail(id) {
       window.location.href = "/itemDetail?id=" + id;
+    },
+    toUserProfile(event) {
+      // console.log(event);
+      this.$router.push("/user/profile/" + event);
     }
   },
   created() {
@@ -63,5 +76,16 @@ img {
   background-repeat: no-repeat;
   background-size: cover;
   object-fit: cover;
+}
+.itemTitle:hover {
+  -webkit-text-fill-color: blue;
+  cursor: pointer;
+}
+.user_name {
+  -webkit-text-fill-color: blue;
+}
+.user_name:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

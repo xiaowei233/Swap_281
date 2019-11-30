@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.swap281.model.item.Item;
+import com.swap281.model.item.dto.ItemFull;
 import com.swap281.model.item.dto.ItemNumUserFavorited;
 import com.swap281.model.user.UserRecentViewItem;
 import com.swap281.repository.item.ItemRepository;
@@ -50,12 +51,12 @@ public class UserItemController {
 	}
 
 	@GetMapping("fav/{id}")
-	public List<Item> getFavoritedItemList(@PathVariable Long id) {
+	public List<ItemFull> getFavoritedItemList(@PathVariable Long id) {
 		return _userItemRepo.getFavoritedItemList(id);
 	}
 
 	@GetMapping("recently_viewed/{id}")
-	public List<Item> getRecentlyViewedItem(@PathVariable Long id) {
+	public List<ItemFull> getRecentlyViewedItem(@PathVariable Long id) {
 		return _userRecentViewItemRepo.getRecentViewItem(id);
 	}
 
