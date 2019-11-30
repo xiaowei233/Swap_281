@@ -44,7 +44,7 @@
                     :prevent-white-space="true"
                   ></croppa>
                   <vs-input
-                    class="vsinput"
+                    class="vsinput22"
                     :danger="avatar == ''"
                     danger-text="New avatar cannot be empty!"
                     :success="userProfile.avatarChanged"
@@ -389,12 +389,12 @@ export default {
   font-weight: 600;
   color: #0062cc;
 }
-.vsinput {
+.vsinput22 {
   width: 300px !important;
   margin-left: 175px;
 }
 
-.vsinput span {
+.vsinput22 span {
   /* margin-left: 200px !important; */
   font-size: 1rem !important;
 }

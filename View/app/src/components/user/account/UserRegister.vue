@@ -5,6 +5,16 @@
     <h2>Register</h2>
     <form>
       <vs-input
+        class="vsinput"
+        label-placeholder="Email (xxx000@lehigh.edu)"
+        icon-after="true"
+        icon="email"
+        v-model.lazy="userRegister.email"
+        :danger="checkEmailEnding()"
+        danger-text="Enter a Lehigh email (@lehigh.edu)"
+        required
+      />
+      <vs-input
         class="vsinput username-input"
         label-placeholder="Username"
         v-model.lazy="userRegister.username"
@@ -36,31 +46,20 @@
         danger-text="Passwords do not match"
         required
       />
-      <hr />
-
-      <vs-input
-        class="vsinput2"
-        label-placeholder="First Name"
-        v-model.lazy="userRegister.first_name"
-        required
-      />
-      <vs-input
-        class="vsinput2"
-        label-placeholder="Last Name"
-        v-model.lazy="userRegister.last_name"
-        required
-      />
-
-      <vs-input
-        class="vsinput"
-        label-placeholder="Email (xxx000@lehigh.edu)"
-        icon-after="true"
-        icon="email"
-        v-model.lazy="userRegister.email"
-        :danger="checkEmailEnding()"
-        danger-text="Enter a Lehigh email (@lehigh.edu)"
-        required
-      />
+      <div style="display: flex">
+        <vs-input
+          class="vsinput2"
+          label-placeholder="First Name"
+          v-model.lazy="userRegister.first_name"
+          required
+        />
+        <vs-input
+          class="vsinput2"
+          label-placeholder="Last Name"
+          v-model.lazy="userRegister.last_name"
+          required
+        />
+      </div>
       <button class="btn btn-outline-secondary confirm-btn" v-on:click.prevent="post">Confirm</button>
     </form>
 
@@ -159,8 +158,12 @@ export default {
 }
 
 .vsinput2 {
-  width: 40%;
+  width: 45%;
   margin-top: 20px !important;
+}
+
+.vsinput2:first-of-type {
+  margin-right: 10% !important;
 }
 
 .confirm-btn {

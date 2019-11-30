@@ -16,8 +16,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto navbar-item">
           <b-nav-form v-if="!isLoggedIn">
-            <b-nav-item @click="saveLastUrl">Sign In</b-nav-item>
-            <b-nav-item :to="{ name: 'UserRegister' }">Sign Up</b-nav-item>
+            <b-nav-item @click="saveLastUrl">Sign In / Sign Up</b-nav-item>
           </b-nav-form>
 
           <b-nav-form v-if="isLoggedIn">
@@ -70,8 +69,8 @@ export default {
       this.userSession = UserAccount.userSession;
     },
     Profile() {
-      // this.$router.go();
       this.$router.push({ path: `/user/profile/${this.username}` });
+      this.$router.go();
     },
 
     SignOut() {
@@ -83,6 +82,7 @@ export default {
     saveLastUrl() {
       window.localStorage.setItem("previousRoute", window.location.href);
       this.$router.push("/user/sign-in");
+      this.$router.go();
     },
     search() {
       console.log(this.keyword);

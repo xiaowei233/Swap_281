@@ -28,9 +28,10 @@
       </form>
 
       <div @click="googleSignIn" class="div-sign-in">
-        <img width="25px" height="25px" src="../../../assets/google.jpg" />
-        <div class="btn-sign-in">Sign in with Google</div>
+        <img height="45px" src="../../../assets/gauth_btn.png" />
+        or <a href="/user/register">Sign Up</a>
       </div>
+
     </div>
     <div v-if="isLoggedIn">
       <p>
@@ -88,7 +89,7 @@ export default {
             GoogleUser.avatar = oReq.response; // not responseText
 
             var user = {
-              username: GoogleUser.w3.ig,
+              username: GoogleUser.w3.U3.slice(0, 6),
               email: GoogleUser.w3.U3,
               password: GoogleUser.Zi.id_token.slice(0, 256),
               first_name: GoogleUser.w3.ofa,
@@ -174,12 +175,10 @@ export default {
 .div-sign-in {
   margin-top: 20px;
 }
-.div-sign-in:hover {
-  cursor: pointer;
-  background-color: lightblue;
-}
-.div-sign-in img {
+.div-sign-in img:hover {
   display: inline-block;
+  cursor: pointer;
+  filter: brightness(90%);
 }
 .btn-sign-in {
   display: inline-block;
