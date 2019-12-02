@@ -2,14 +2,11 @@
   <div class="container">
     <h1>My Posted Items</h1>
     <div class="row">
-      <div
-        class="col-lg-4 col-md-6 mb-4"
-        v-for="item in items"
-        v-bind:key="item.id"
-      >
+      <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.id">
         <div class="card h-100 customclass">
           <a href="#">
-            <img @click="toItemDetail(item.item.id)"
+            <img
+              @click="toItemDetail(item.item.id)"
               class="card-img-top"
               v-bind:src="'data:image/png;base64,' + item.item.thumbnail"
               alt
@@ -21,7 +18,12 @@
             </h4>
             <h5>${{ item.item.price }}</h5>
             <p class="card-text">{{ item.item.description }}</p>
-            <p class="user_name" v-if="item.num != 0" @click="toItemDetail(item.item.id)">This item is favorited by {{ item.num }} people!</p>
+            <!-- <p class="card-text">Condition: {{ item.condition }}</p> -->
+            <p
+              class="user_name"
+              v-if="item.num != 0"
+              @click="toItemDetail(item.item.id)"
+            >This item is favorited by {{ item.num }} people!</p>
           </div>
           <div class="card-footer">
             <small class="text-muted">{{ item.item.createDate.slice(0, 10) }}</small>
@@ -62,8 +64,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.customclass image:hover, .customclass .card-title:hover {
-    -webkit-text-fill-color: blue;
+.customclass image:hover,
+.customclass .card-title:hover {
+  -webkit-text-fill-color: blue;
   cursor: pointer;
 }
 img {

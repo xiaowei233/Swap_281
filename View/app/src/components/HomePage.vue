@@ -7,11 +7,20 @@
     <div v-if="carousel" class="carousel slide my-4">
       <div class="carousel-inner">
         <div class="carousel-item active" v-bind="carousel" @click="toItemDetail(carousel.item.id)">
-          <img
-            class="d-block img-fluid carouselImage"
-            v-bind:src="'data:image/png;base64,'+ carousel.item.thumbnail"
-          />
-          <h1>{{carousel.item.title}}</h1>
+          <div class="row">
+            <div class="col">
+              <img
+                class="d-block img-fluid carouselImage"
+                v-bind:src="'data:image/png;base64,'+ carousel.item.thumbnail"
+              />
+            </div>
+            <div class="col">
+              <h5 class="carouselBody">{{carousel.item.title}}</h5>
+              <p class="carouselBody">${{carousel.item.price}}</p>
+              <p class="carouselBody">{{carousel.item.description}}</p>
+              <p class="carouselBody">Condition: {{carousel.condition}}</p>
+            </div>
+          </div>
         </div>
       </div>
       <a class="carousel-control-prev controller" @click="onPrev()">
@@ -32,7 +41,7 @@
         <div class="row">
           <div
             class="col-lg-3 col-md-6 mb-4"
-            v-for="item in items.slice(0, 12)"
+            v-for="item in items.slice(3, 11)"
             v-bind:key="item.item.id"
           >
             <div class="card h-100">
@@ -143,6 +152,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+a:hover {
+  cursor: pointer;
+}
+.carouselBody {
+  width: 350px;
+  margin-right: 10px;
+  margin-top: 10px;
+  text-align: center;
+  text-overflow: ellipsis;
+}
 .cardImages {
   position: relative;
   margin-top: 10px;

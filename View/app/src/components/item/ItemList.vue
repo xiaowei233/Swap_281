@@ -197,6 +197,12 @@ export default {
 .select {
   width: 50%;
   margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.sort {
+  margin-top: 10px;
+  margin-left: 10px;
 }
 .vs-select--item {
   padding-left: 2em;

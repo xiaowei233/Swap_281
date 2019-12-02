@@ -1,10 +1,16 @@
 <template>
   <div class="container">
+    <h1>My Recently Viewed Items</h1>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4" v-for="item in items" v-bind:key="item.item.id">
-        <div class="card h-100" >
+        <div class="card h-100">
           <a href="#">
-            <img class="card-img-top customclass" @click="toItemDetail(item.item.id)" v-bind:src="'data:image/png;base64,'+ item.item.thumbnail" alt />
+            <img
+              class="card-img-top customclass"
+              @click="toItemDetail(item.item.id)"
+              v-bind:src="'data:image/png;base64,'+ item.item.thumbnail"
+              alt
+            />
           </a>
           <div class="card-body">
             <h4 class="card-title itemTitle" @click="toItemDetail(item.item.id)">
