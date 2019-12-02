@@ -16,6 +16,21 @@
         />
       </vs-select>
 
+      <vs-select
+        class="sort"
+        placeholder="Sort By ..."
+        single
+        v-model="option"
+        @input="toSort($event)"
+      >
+        <vs-select-item
+          :value="obj.value"
+          :text="obj.text"
+          v-for="obj in options"
+          v-bind:key="obj.id"
+        />
+      </vs-select>
+
       <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-3 col-md-6 mb-4" v-for="item in items" v-bind:key="item.item.id">
@@ -70,7 +85,15 @@ export default {
       dropdown: [],
       items: [],
       selectedItems: [],
-      keyword: ""
+      option: Number,
+      keyword: "",
+      sort: "",
+      options: [
+        { text: "Price: Low to High", value: 0 },
+        { text: "Price: High to Low", value: 1 },
+        { text: "Create Date: Most Recent to Least Recent", value: 2 },
+        { text: "Create Date: Least Recent to Most Recent", value: 3 }
+      ]
     };
   },
   methods: {
@@ -111,9 +134,26 @@ export default {
     },
     executeLoader(selectedItems) {
       this.selectedItems = selectedItems;
-      ItemDataService.search(this.keyword, selectedItems).then(res => {
-        this.items = res.data;
-      });
+      ItemDataService.search(this.keyword, selectedItems, this.sort).then(
+        res => {
+          this.items = res.data;
+        }
+      );
+    },
+    toSort(option) {
+      console.log("from option");
+      this.option = option;
+      if (option === 0) this.sort = "price-ASC";
+      else if (option === 1) this.sort = "price-DESC";
+      else if (option === 2) this.sort = "createDate-DESC";
+      else if (option === 3) this.sort = "createDate-ASC";
+      ItemDataService.search(this.keyword, this.selectedItems, this.sort).then(
+        res => {
+          console.log("from sort");
+          console.log(res.data);
+          this.items = res.data;
+        }
+      );
     }
   },
   created() {
@@ -122,10 +162,12 @@ export default {
     ItemDataService.getCategoryList().then(res => {
       this.dropdown = res.data;
     });
-    ItemDataService.search(this.keyword, this.selectedItems).then(res => {
-      console.log(res.data);
-      this.items = res.data;
-    });
+    ItemDataService.search(this.keyword, this.selectedItems, this.sort).then(
+      res => {
+        console.log(res.data);
+        this.items = res.data;
+      }
+    );
   },
   destroyed() {
     window.localStorage.setItem("search", " ");
