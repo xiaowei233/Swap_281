@@ -73,8 +73,8 @@ class ItemDataService {
         );
     }
 
-    search(keyword, category) {
-        return axios.get(`${URL}/item/list/search?keyword=${keyword}&category=${category}`
+    search(keyword, category, sort) {
+        return axios.get(`${URL}/item/list/search?keyword=${keyword}&category=${category}&sort=${sort}`
         )
     }
 

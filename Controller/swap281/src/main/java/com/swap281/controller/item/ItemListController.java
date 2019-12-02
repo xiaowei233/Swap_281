@@ -80,12 +80,13 @@ public class ItemListController {
 	// order by price asc
 	// search?keyword=ddd&category=7,7,7&
 	@GetMapping("/search")
-	public List<ItemFull> searchByKeyword(@RequestParam String keyword, @RequestParam List<Integer> category) {
-//		System.out.println("sort:\t" + sort);
+	public List<ItemFull> searchByKeyword(@RequestParam String keyword, @RequestParam List<Integer> category,
+			@RequestParam String sort) {
+		// System.out.println("sort:\t" + sort);
 		System.out.println("--------------------------------------");
 		List<ItemFull> articles;
 		ArrayList<Long> result = new ArrayList<Long>();
-		if (keyword != "" && keyword != "undefined") {
+		if (!keyword.equals("") && !keyword.equals("undefined")) {
 			QueryBuilder matchSpecificFieldQuery = QueryBuilders.multiMatchQuery(keyword, "title", "description");
 			SearchResponse Sresponse = _client.prepareSearch().setTypes().setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 					.setPostFilter(matchSpecificFieldQuery).execute().actionGet();
@@ -113,24 +114,24 @@ public class ItemListController {
 			articles = _itemRepo.filterSearchByCategoryList(temp, category);
 			System.out.println("Category Input:\t");
 		}
-//		if (sort != "") {
-//			String[] splited = sort.split("-");
-//			ArrayList<Long> temp = new ArrayList<Long>();
-//			for (int i = 0; i < articles.size(); i++) {
-//				temp.add(articles.get(i).id);
-//			}
-//			if (splited[0].equals("price")) {
-//				if (splited[1].equals("ASC"))
-//					articles = _itemRepo.sortByAscdPrice(temp);
-//				else if (splited[1].equals("DESC"))
-//					articles = _itemRepo.sortByDescPrice(temp);
-//			} else if (splited[1].equals("createDate")) {
-//				if (splited[1].equals("ASC"))
-//					articles = _itemRepo.sortByAscdDate(temp);
-//				else if (splited[1].equals("DESC"))
-//					articles = _itemRepo.sortByDescDate(temp);
-//			}
-//		}
+		if (!sort.equals("")) {
+			String[] splited = sort.split("-");
+			ArrayList<Long> temp = new ArrayList<Long>();
+			for (int i = 0; i < articles.size(); i++) {
+				temp.add(articles.get(i).item.id);
+			}
+			if (splited[0].equals("price")) {
+				if (splited[1].equals("ASC"))
+					articles = _itemRepo.sortByAscdPrice(temp);
+				else if (splited[1].equals("DESC"))
+					articles = _itemRepo.sortByDescPrice(temp);
+			} else if (splited[0].equals("createDate")) {
+				if (splited[1].equals("ASC"))
+					articles = _itemRepo.sortByAscdDate(temp);
+				else if (splited[1].equals("DESC"))
+					articles = _itemRepo.sortByDescDate(temp);
+			}
+		}
 		return articles;
 	}
 }
