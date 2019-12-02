@@ -27,6 +27,8 @@
                 <i class="material-icons" v-if="favorited">favorite</i>
                 <i class="material-icons" v-if="!favorited">favorite_border</i>
               </div>
+              
+              <div id="edit-btn" @click="toItemEdit1">Edit</div>
               <p v-if="itemDetail.num != 0 && user.userId == itemDetail.item.user_id">
                 This item is favorited by {{ itemDetail.num }} people!
                 <span
@@ -83,6 +85,7 @@ export default {
   methods: {
     refresh() {
       this.itemId = this.$route.query.id;
+      console.log(this.$route.query.id)
       ItemDataService.getItemById(this.itemId).then(res => {
         this.itemDetail = res.data;
         console.log("This is the itemDetail:" + this.itemDetail);
@@ -103,6 +106,16 @@ export default {
     toUserProfile(event) {
       // console.log(event);
       this.$router.push("/user/profile/" + event);
+    },
+    toItemEdit() {
+      // console.log(event);
+      window.location.href = "/item/edit?id=" + this.itemId;
+      //this.$router.push("/item/edit/" + this.itemId);
+    },
+    toItemEdit1() {
+      // console.log(event);
+      window.location.href = "/item/edit1?id=" + this.itemId;
+      //this.$router.push("/item/edit/" + this.itemId);
     }
   },
   created() {
