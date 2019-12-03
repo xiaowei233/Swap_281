@@ -71,15 +71,15 @@ public class ItemDetailController {
     @PostMapping(value = "/post")
     public Item postNewItem(@RequestBody Item newItem) {
         Item saved_item = _itemRepo.save(newItem);
-        try {
-            XContentBuilder builder = XContentFactory.jsonBuilder().startObject().field("id", saved_item.id)
-                    .field("title", saved_item.title).field("description", saved_item.description).endObject();
-            IndexResponse response = _client.prepareIndex("item", "list").setSource(builder).get();
-
-        } catch (IOException e) {
-            System.out.println("Error from Inserting new item to Elasticsearch: " + e.getMessage());
-            e.printStackTrace();
-        }
+//        try {
+//            XContentBuilder builder = XContentFactory.jsonBuilder().startObject().field("id", saved_item.id)
+//                    .field("title", saved_item.title).field("description", saved_item.description).endObject();
+//            IndexResponse response = _client.prepareIndex("item", "list").setSource(builder).get();
+//
+//        } catch (IOException e) {
+//            System.out.println("Error from Inserting new item to Elasticsearch: " + e.getMessage());
+//            e.printStackTrace();
+//        }
         return saved_item;
     }
 

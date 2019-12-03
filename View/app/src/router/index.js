@@ -7,7 +7,7 @@ import ItemList from "@/components/item/ItemList";
 import ItemDetail from "@/components/item/ItemDetail";
 import ItemPost from "@/components/item/ItemPost";
 import ItemPostConfirmation from "@/components/item/ItemPostConfirmation";
-
+import ItemEdit from "@/components/item/ItemEdit";
 //User Account Components
 import UserRegister from "@/components/user/account/UserRegister";
 import UserRegisterConfirmation from "@/components/user/account/UserRegisterConfirmation";
@@ -107,6 +107,11 @@ export default new Router({
       path: "/user/favorited",
       name: "UserFavoritedItem",
       component: UserFavoritedItem
+    },
+    {
+      path: "/item/edit",
+      name: "ItemEdit",
+      component: ItemEdit
     }
   ]
 });

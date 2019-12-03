@@ -81,6 +81,12 @@ class ItemDataService {
     getAllUsersFavorited(id) {
         return axios.get(`${URL}/item/detail/get-all-favorited-user/${id}`);
     }
+    updateItem(id,item){
+        return axios.post(`${URL}/item/edit/save/${id}`,item);
+    }
+    deleteItem(id) {
+        return axios.delete(`${URL}/item/edit/delete/${id}`)
+    }
 }
 
 export default new ItemDataService();
