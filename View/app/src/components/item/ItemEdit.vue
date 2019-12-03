@@ -1,26 +1,14 @@
 <template>
   <div id="add-blog">
-    <link
-      href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet" />
 
     <h2>Update your item</h2>
-    <form>
+    <form v-if="itemDetail">
       <label>Item Title:</label>
-      <input
-        class="form-control"
-        type="text"
-        v-model.lazy="itemDetail.item.title"
-        required
-      />
+      <input class="form-control" type="text" v-model.lazy="itemDetail.item.title" required />
 
       <label>Item Description:</label>
-      <textarea
-        class="form-control"
-        v-model.lazy.trim="itemDetail.item.description"
-        required
-      ></textarea>
+      <textarea class="form-control" v-model.lazy.trim="itemDetail.item.description" required></textarea>
 
       <label>Item Price:</label>
       <!-- <input type="number" v-model.lazy="itemPost.price" required /> -->
@@ -33,23 +21,14 @@
       ></vue-numeric>
 
       <label>Item Category</label>
-      <b-form-select
-        v-model="itemDetail.item.categoryId"
-        :options="categories"
-        required
-      ></b-form-select>
+      <b-form-select v-model="itemDetail.item.categoryId" :options="categories" required></b-form-select>
 
       <label>Item Condition</label>
-      <b-form-select
-        v-model="itemDetail.item.condition_id"
-        :options="conditions"
-        required
-      ></b-form-select>
+      <b-form-select v-model="itemDetail.item.condition_id" :options="conditions" required></b-form-select>
 
       <label>Item Photo</label>
 
       <!-- <vs-upload text="Upload an image" @change="onFileSelect" limit=1 accept="image/*" v-bind:show-upload-button="false" /> -->
-      
 
       <croppa
         id="popup-croppa"
@@ -57,45 +36,46 @@
         :initial-image="initialImage"
         :height="280"
         :width="280"
-        
         :quality="1"
         accept="image/*"
         class="resizable-croppa"
         :prevent-white-space="true"
       >
-      <img
-      v-bind:src="'data:image/png;base64,' + itemDetail.item.thumbnail"
-      slot="initial"
-      />
+        <img v-bind:src="'data:image/png;base64,' + itemDetail.item.thumbnail" slot="initial" />
       </croppa>
       <hr />
-      <button class="btn btn-outline-secondary" v-on:click.prevent="save">
-        Update
-      </button>
-      <button class="btn btn-outline-secondary" v-on:click.prevent="deleteItem">
-        Delete
-      </button>
-    </form>
 
-    <vs-popup class="holamundo" title="Notification" :active.sync="popup">
-      <p>
-        Yolo
-      </p>
-    </vs-popup>
+      <div id="del-upd-div">
+        <button id="dltBtn" class="btn btn-outline-secondary" v-on:click.prevent="dltBtn">Delete</button>
+        <button class="btn btn-outline-secondary" v-on:click.prevent="save">Update</button>
+      </div>
+
+      <vs-popup class="holamundo" title="Delete Item" :active.sync="popupActivo">
+        <p>Are you sure you want to delete your item?</p>
+        <div id="delete-popup-btn-div">
+          <button class="btn btn-outline-secondary" v-on:click.prevent="deleteItem">Confirm</button>
+          <button
+            id="dltBtn"
+            class="btn btn-outline-secondary"
+            v-on:click.prevent="cancelDelete"
+          >Cancel</button>
+        </div>
+      </vs-popup>
+    </form>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 import ItemDataService from "./ItemDataService";
 import UserAccount from "../user/account/UserAccount";
-import vsPopup from 'vuesax'
+import vsPopup from "vuesax";
 Vue.use(vsPopup);
 export default {
-  name: "ItemEdit1",
+  name: "ItemEdit",
   data() {
     return {
-      popupActivo:false,
+      popupActivo: false,
       popupActivo2: false,
       isHidden: true,
       myCroppa: {},
@@ -115,35 +95,18 @@ export default {
       favorited: false,
       similarItem: undefined,
       userList: [],
-      categories:[],
-      conditions:[],
-      initialImage: null,
+      categories: [],
+      conditions: [],
+      initialImage: null
     };
   },
   methods: {
-    
     refresh() {
       this.itemId = this.$route.query.id;
       ItemDataService.getItemById(this.itemId).then(res => {
         this.itemDetail = res.data;
         console.log("This is the itemDetail:" + this.itemDetail);
       });
-    },
-    favItem() {
-      ItemDataService.favoriteOneItem(this.user.userId, this.itemId).then(
-        res => {
-          this.favorited = res.data;
-        }
-      );
-    },
-    viewAllUser() {
-      ItemDataService.getAllUsersFavorited(this.itemId).then(res => {
-        this.userList = res.data;
-      });
-    },
-    toUserProfile(event) {
-      // console.log(event);
-      this.$router.push("/user/profile/" + event);
     },
     change() {
       this.isEditing = !this.isEditing;
@@ -164,8 +127,8 @@ export default {
       this.resizing = false;
       document.documentElement.style.cursor = "default";
     },
-    save(){
-        if (this.isEditing == true) {
+    save() {
+      if (this.isEditing == true) {
         this.itemPost.title = this.itemDetail.item.title;
         this.itemPost.description = this.itemDetail.item.description;
         this.itemPost.price = this.itemDetail.item.price;
@@ -178,26 +141,24 @@ export default {
           this.itemPost.thumbnail.length
         );
 
-        ItemDataService.updateItem(this.itemId,this.itemPost).then(res => {
-            this.$router.push("/user/items");
-            window.location.reload();
-          //this.refresh();
+        ItemDataService.updateItem(this.itemId, this.itemPost).then(res => {
+          this.$router.push("/itemDetail?id=" + res.data.id);
+          window.location.reload();
           console.log(res);
-          //this.$router.push("/item/post-confirm?id=" + res.data.id);
-          //this.popup = true;
         });
       }
     },
-    deleteItem(){
-        ItemDataService.deleteItem(this.itemId).then(()=>{
-            this.$router.push("/user/items");
-            window.location.reload();
-        });
-        
+    deleteItem() {
+      ItemDataService.deleteItem(this.itemId).then(() => {
+        this.$router.push("/user/items");
+        window.location.reload();
+      });
     },
-    dltBtn(){
-        this.popupActivo=true;
-        console.log(this.popupActivo)
+    dltBtn() {
+      this.popupActivo = true;
+    },
+    cancelDelete() {
+      this.popupActivo = false;
     }
   },
   created() {
@@ -217,21 +178,6 @@ export default {
         e.value = e.id;
       });
     });
-  
-    ItemDataService.checkItemFavorited(this.user.userId, this.itemId).then(
-      res => {
-        this.favorited = res.data;
-      }
-    );
-    ItemDataService.getSimilarItems().then(res => {
-      this.similarItem = res.data;
-    });
-    ItemDataService.addToRecentlyViewed(UserAccount.userId, this.itemId)
-      .then
-      // res => {
-      //   console.log("Added");
-      // }
-      ();
   },
   mounted() {
     document.documentElement.addEventListener("mousemove", evt => {
@@ -242,17 +188,14 @@ export default {
       evt.preventDefault();
       this.onResizeTouchEnd(evt);
     });
-    var image = new Image()
-    // Notice: it's necessary to set "crossorigin" attribute before "src" attribute.
-    image.setAttribute('crossorigin', 'anonymous')
-    image.src = 'data:image/png;base64,' +itemDetail.item.thumbnail;
-    this.initialImage = image
-    this.croppa.refresh()
-  },
+  }
 };
 </script>
 
 <style scoped>
+#delete-popup-btn-div {
+  margin-left: calc(50% - 80px);
+}
 #add-blog * {
   box-sizing: border-box;
 }
@@ -295,5 +238,18 @@ h3 {
 }
 #popup-croppa:hover {
   cursor: pointer;
+}
+
+#dltBtn {
+  -webkit-text-fill-color: red;
+  border: none;
+  background-color: none;
+  font-size: 0.9em;
+  margin-right: 20px;
+}
+
+#del-upd-div {
+  margin-right: 0px;
+  position: relative;
 }
 </style>

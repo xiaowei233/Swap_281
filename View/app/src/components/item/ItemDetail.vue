@@ -1,5 +1,10 @@
 <template>
+
   <div>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
+      rel="stylesheet"
+    />
     <div class="row" v-if="itemDetail != undefined">
       <div class="col-sm">
         <div class="card mt-4">
@@ -27,8 +32,10 @@
                 <i class="material-icons" v-if="favorited">favorite</i>
                 <i class="material-icons" v-if="!favorited">favorite_border</i>
               </div>
-              
-              <div id="edit-btn" @click="toItemEdit1">Edit</div>
+              <br/>
+              <br/>
+              <br/>
+              <button class="btn btn-outline-secondary" v-if="isOwner" id="edit-btn" @click="toItemEdit"> Edit </button>
               <p v-if="itemDetail.num != 0 && user.userId == itemDetail.item.user_id">
                 This item is favorited by {{ itemDetail.num }} people!
                 <span
@@ -74,6 +81,7 @@ export default {
   name: "ItemDetail",
   data() {
     return {
+      isOwner: false,
       itemDetail: undefined,
       itemId: 0,
       user: UserAccount,
@@ -83,14 +91,7 @@ export default {
     };
   },
   methods: {
-    refresh() {
-      this.itemId = this.$route.query.id;
-      console.log(this.$route.query.id)
-      ItemDataService.getItemById(this.itemId).then(res => {
-        this.itemDetail = res.data;
-        console.log("This is the itemDetail:" + this.itemDetail);
-      });
-    },
+    refresh() {},
     favItem() {
       ItemDataService.favoriteOneItem(this.user.userId, this.itemId).then(
         res => {
@@ -111,15 +112,22 @@ export default {
       // console.log(event);
       window.location.href = "/item/edit?id=" + this.itemId;
       //this.$router.push("/item/edit/" + this.itemId);
-    },
-    toItemEdit1() {
-      // console.log(event);
-      window.location.href = "/item/edit1?id=" + this.itemId;
-      //this.$router.push("/item/edit/" + this.itemId);
     }
   },
   created() {
     this.refresh();
+    console.log(this.user);
+    this.itemId = this.$route.query.id;
+    console.log(this.$route.query.id);
+    ItemDataService.getItemById(this.itemId).then(res => {
+      this.itemDetail = res.data;
+      console.log("This is the itemDetail:" + this.itemDetail.item.user_id);
+      console.log(this.itemDetail.item.user_id == UserAccount.userId)
+      if (this.itemDetail.item.user_id == this.user.userId) {
+        this.isOwner = true;
+      }
+    });
+
     ItemDataService.checkItemFavorited(this.user.userId, this.itemId).then(
       res => {
         this.favorited = res.data;
