@@ -109,6 +109,7 @@ export default {
           let lastThree = [this.items[0], this.items[1], this.items[2]];
           this.carousel = lastThree[0];
           this.carousalpics = lastThree;
+          this.loader.hide();
         }
       });
 
@@ -146,6 +147,12 @@ export default {
   },
   created() {
     this.refresh();
+    this.loader = this.$loading.show({
+                  // Optional parameters
+                  container: this.fullPage ? null : this.$refs.formContainer,
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                });
   }
 };
 </script>

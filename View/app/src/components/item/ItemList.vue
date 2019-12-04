@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <div class="row">
       <vs-select
         class="select"
@@ -76,7 +77,8 @@
 
 <script>
 import ItemDataService from "./ItemDataService";
-
+  // import CubeSpin from 'vue-loading-spinner/components/Cube'
+    
 import "vuesax/dist/vuesax.css";
 export default {
   name: "ItemList",
@@ -93,7 +95,8 @@ export default {
         { text: "Price: High to Low", value: 1 },
         { text: "Create Date: Most Recent to Least Recent", value: 2 },
         { text: "Create Date: Least Recent to Most Recent", value: 3 }
-      ]
+      ],
+      loader: null, 
     };
   },
   methods: {
@@ -105,29 +108,6 @@ export default {
     toUserProfile(event) {
       // console.log(event);
       this.$router.push("/user/profile/" + event);
-    },
-    lowToHigh() {
-      ItemDataService.lowToHigh().then(res => {
-        this.items = res.data;
-      });
-    },
-    highToLow() {
-      ItemDataService.highToLow().then(res => {
-        this.items = res.data;
-      });
-    },
-    earlyToLate() {
-      ItemDataService.earlyToLate().then(res => {
-        this.items = res.data;
-      });
-    },
-    lateToEarly() {
-      ItemDataService.lateToEarly().then(res => {
-        this.items = res.data;
-      });
-      ItemDataService.getCategoryList().then(res => {
-        this.dropdown = res.data;
-      });
     },
     toItemDetail(id) {
       window.location.href = "/itemDetail?id=" + id;
@@ -147,27 +127,38 @@ export default {
       else if (option === 1) this.sort = "price-DESC";
       else if (option === 2) this.sort = "createDate-DESC";
       else if (option === 3) this.sort = "createDate-ASC";
-      ItemDataService.search(this.keyword, this.selectedItems, this.sort).then(
-        res => {
-          console.log("from sort");
-          console.log(res.data);
-          this.items = res.data;
-        }
-      );
+
+      this.loader = this.$loading.show({
+                  // Optional parameters
+                  container: this.fullPage ? null : this.$refs.formContainer,
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                });
+
+      ItemDataService.search(this.keyword, this.selectedItems, this.sort).then(res => {
+        this.items = res.data;
+        this.loader.hide();
+      });
     }
   },
   created() {
+    this.loader = this.$loading.show({
+                  // Optional parameters
+                  container: this.fullPage ? null : this.$refs.formContainer,
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                });
+
     this.keyword =
       this.$route.query.search == undefined ? "" : this.$route.query.search;
     ItemDataService.getCategoryList().then(res => {
       this.dropdown = res.data;
     });
-    ItemDataService.search(this.keyword, this.selectedItems, this.sort).then(
-      res => {
-        console.log(res.data);
-        this.items = res.data;
-      }
-    );
+    ItemDataService.search(this.keyword, this.selectedItems).then(res => {
+      // console.log(res.data);
+      this.loader.hide()
+      this.items = res.data;
+    });
   },
   destroyed() {
     window.localStorage.setItem("search", " ");
