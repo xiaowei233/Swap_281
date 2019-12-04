@@ -89,7 +89,7 @@ export default {
       selectedItems: [],
       option: 2,
       keyword: "",
-      sort: "",
+      sort: "createDate-DESC",
       options: [
         { text: "Price: Low to High", value: 0 },
         { text: "Price: High to Low", value: 1 },
@@ -154,7 +154,7 @@ export default {
     ItemDataService.getCategoryList().then(res => {
       this.dropdown = res.data;
     });
-    ItemDataService.search(this.keyword, this.selectedItems).then(res => {
+    ItemDataService.search(this.keyword, this.selectedItems, this.sort).then(res => {
       // console.log(res.data);
       this.loader.hide()
       this.items = res.data;

@@ -111,18 +111,18 @@ public class ItemListController {
 			System.out.println("Category Input:\t");
 		}
 		List<ItemFull> resultList = null;
-			String[] splited = sort.split("-");
-			if (splited[0].equals("price")) {
-				if (splited[1].equals("ASC"))
-					resultList = _itemRepo.sortByAscdPrice(articles);
-				else if (splited[1].equals("DESC"))
-					resultList = _itemRepo.sortByDescPrice(articles);
-			} else if (splited[0].equals("createDate")) {
-				if (splited[1].equals("ASC"))
-					resultList = _itemRepo.sortByAscdDate(articles);
-				else if (splited[1].equals("DESC"))
-					resultList = _itemRepo.sortByDescDate(articles);
-			}
+		String[] splited = sort.split("-");
+		if (splited[0].equals("price")) {
+			if (splited[1].equals("ASC"))
+				resultList = _itemRepo.sortByAscdPrice(articles);
+			else if (splited[1].equals("DESC"))
+				resultList = _itemRepo.sortByDescPrice(articles);
+		} else if (splited[0].equals("createDate")) {
+			if (splited[1].equals("ASC"))
+				resultList = _itemRepo.sortByAscdDate(articles);
+			else if (splited[1].equals("DESC"))
+				resultList = _itemRepo.sortByDescDate(articles);
+		}
 		return resultList;
 	}
 }
