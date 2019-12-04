@@ -87,14 +87,14 @@ export default {
       dropdown: [],
       items: [],
       selectedItems: [],
-      option: Number,
+      option: 2,
       keyword: "",
       sort: "",
       options: [
         { text: "Price: Low to High", value: 0 },
         { text: "Price: High to Low", value: 1 },
-        { text: "Create Date: Most Recent to Least Recent", value: 2 },
-        { text: "Create Date: Least Recent to Most Recent", value: 3 }
+        { text: "Most Recent to Least Recent", value: 2 },
+        { text: "Least Recent to Most Recent", value: 3 }
       ],
       loader: null, 
     };

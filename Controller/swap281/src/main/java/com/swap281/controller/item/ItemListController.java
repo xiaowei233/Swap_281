@@ -84,7 +84,7 @@ public class ItemListController {
 			@RequestParam String sort) {
 		// System.out.println("sort:\t" + sort);
 		System.out.println("--------------------------------------");
-		List<ItemFull> articles;
+		List<Long> articles;
 		ArrayList<Long> result = new ArrayList<Long>();
 		if (!keyword.equals("") && !keyword.equals("undefined")) {
 			QueryBuilder matchSpecificFieldQuery = QueryBuilders.multiMatchQuery(keyword, "title", "description");
@@ -103,35 +103,26 @@ public class ItemListController {
 			}
 			articles = _itemRepo.getItemFull(result);
 		} else {
-			articles = _itemRepo.getItemFull();
+			articles = _itemRepo.getItemFullIds();
 			System.out.println("No Keyword Input:\t");
 		}
 		if (category.size() != 0) {
-			ArrayList<Long> temp = new ArrayList<Long>();
-			for (int i = 0; i < articles.size(); i++) {
-				temp.add(articles.get(i).item.id);
-			}
-			articles = _itemRepo.filterSearchByCategoryList(temp, category);
+			articles = _itemRepo.getItemIdsByCategoryList(articles, category);
 			System.out.println("Category Input:\t");
 		}
-		if (!sort.equals("")) {
+		List<ItemFull> resultList = null;
 			String[] splited = sort.split("-");
-			ArrayList<Long> temp = new ArrayList<Long>();
-			for (int i = 0; i < articles.size(); i++) {
-				temp.add(articles.get(i).item.id);
-			}
 			if (splited[0].equals("price")) {
 				if (splited[1].equals("ASC"))
-					articles = _itemRepo.sortByAscdPrice(temp);
+					resultList = _itemRepo.sortByAscdPrice(articles);
 				else if (splited[1].equals("DESC"))
-					articles = _itemRepo.sortByDescPrice(temp);
+					resultList = _itemRepo.sortByDescPrice(articles);
 			} else if (splited[0].equals("createDate")) {
 				if (splited[1].equals("ASC"))
-					articles = _itemRepo.sortByAscdDate(temp);
+					resultList = _itemRepo.sortByAscdDate(articles);
 				else if (splited[1].equals("DESC"))
-					articles = _itemRepo.sortByDescDate(temp);
+					resultList = _itemRepo.sortByDescDate(articles);
 			}
-		}
-		return articles;
+		return resultList;
 	}
 }

@@ -34,8 +34,14 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id ORDER BY i.createDate DESC")
     public List<ItemFull> getItemFull();
 
-    @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id WHERE i.id in (?1) ORDER BY i.createDate DESC")
-    public List<ItemFull> getItemFull(List<Long> idList);
+    @Query("SELECT i.id from Item i")
+    public List<Long> getItemFullIds();
+    
+    @Query("SELECT i.id from Item i WHERE i.id in (?1)")
+    public List<Long> getItemFull(List<Long> idList);
+    
+    @Query("SELECT i.id from Item i WHERE i.id IN (?1)AND i.categoryId IN (?2)")
+    public List<Long> getItemIdsByCategoryList(List<Long> itemList, List<Integer> idList);
 
     @Query("SELECT new com.swap281.model.item.dto.ItemFull(i, u.username, c.condition) from Item i JOIN User u ON i.user_id = u.id JOIN ItemCondition c ON i.condition_id = c.id WHERE i.id IN (?1)AND i.categoryId IN (?2) ORDER BY i.createDate DESC")
     List<ItemFull> filterSearchByCategoryList(List<Long> itemList, List<Integer> idList);
