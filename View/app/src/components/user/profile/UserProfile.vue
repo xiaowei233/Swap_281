@@ -90,7 +90,7 @@
                 value="Edit Profile"
                 @click="edit"
               />
-            </div> -->
+            </div>-->
           </div>
           <div class="row">
             <div class="col-md-4">
@@ -231,8 +231,9 @@ export default {
     this.username = this.$route.params.username;
     UserDataService.getUserInfo(this.username).then(res => {
       this.userProfile = res.data;
-      this.userProfile.avatar =
-        "data:image/png;base64," + this.userProfile.avatar;
+      if (this.userProfile.avatar)
+        this.userProfile.avatar =
+          "data:image/png;base64," + this.userProfile.avatar;
       this.userId = res.data.id;
       UserDataService.getUserPostedItemTitle(this.userId).then(res => {
         this.userPostedItems = res.data;
